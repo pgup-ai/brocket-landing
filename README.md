@@ -16,8 +16,7 @@ source/support.js                        # source runtime
 archive/codex-edited-index.html          # previous Codex edit; not deployed
 vercel.json                              # static deployment configuration
 robots.txt / sitemap.xml / llms.txt      # crawler + AI-engine (GEO) files
-og-image.png                             # 1200x630 social preview (og:image)
-social/og-image.html                     # OG image source; screenshot #og, downscale to 1200x630
+og-image.png                             # 1200x630 social preview (og:image), design export
 favicon.svg / favicon-16/32/48.png / apple-touch-icon.png  # favicons (brand mark)
 icon-192.png / icon-512.png / site.webmanifest  # PWA manifest icons
 brand/                                   # brand asset sources (mark + icon SVGs, org avatar,
@@ -26,7 +25,8 @@ brand/                                   # brand asset sources (mark + icon SVGs
 
 Brand: gold `#F2BB55` (gradient `#F9D274 → #F1BC57 → #E3A231`), canvas `#0A0908`,
 ink-on-gold `#141009`, lowercase `brocket` wordmark next to the 45°-grid mark.
-Regenerate icons/OG from `brand/` SVGs and `social/og-image.html`.
+Regenerate icons from `brand/` SVGs. `og-image.png` is a design export;
+`brand/github-social-preview.png` derives from it (edge-extended to 1280x640).
 
 `index.html` embeds the page as an escaped JS string inside
 `<script type="__bundler/template">`; copy changes must be applied both there
