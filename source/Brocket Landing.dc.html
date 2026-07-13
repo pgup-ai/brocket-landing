@@ -10,7 +10,10 @@
 <meta name="theme-color" content="#0A0908">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Brocket">
 <meta property="og:title" content="Brocket — Product demos, cut by AI">
@@ -29,7 +32,7 @@
 {
 "@context": "https://schema.org",
 "@graph": [
-{"@type": "Organization", "@id": "https://brocket.video/#org", "name": "Brocket", "url": "https://brocket.video/", "logo": "https://brocket.video/apple-touch-icon.png", "sameAs": ["https://github.com/pgup-ai"]},
+{"@type": "Organization", "@id": "https://brocket.video/#org", "name": "Brocket", "url": "https://brocket.video/", "logo": "https://brocket.video/icon-512.png", "sameAs": ["https://github.com/pgup-ai"]},
 {"@type": "WebSite", "@id": "https://brocket.video/#website", "url": "https://brocket.video/", "name": "Brocket", "publisher": {"@id": "https://brocket.video/#org"}},
 {"@type": "WebPage", "@id": "https://brocket.video/#webpage", "url": "https://brocket.video/", "name": "Brocket — Product demos, cut by AI", "description": "Brocket turns product screen recordings into launch-ready demo videos — AI-cut, grounded in your footage, reversible by design.", "isPartOf": {"@id": "https://brocket.video/#website"}, "about": {"@id": "https://brocket.video/#app"}},
 {"@type": "SoftwareApplication", "@id": "https://brocket.video/#app", "name": "Brocket", "url": "https://brocket.video/", "applicationCategory": "MultimediaApplication", "applicationSubCategory": "AI video editing", "operatingSystem": "Web browser",
@@ -67,8 +70,8 @@
 <!-- ======================= Fixed header ======================= -->
 <header data-screen-label="Landing header" style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,9,8,0.72);backdrop-filter:blur(8px)">
   <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:15px 28px">
-    <span style="width:20px;height:20px;border-radius:6px;background:var(--acc,#F2BB55);display:inline-flex;align-items:center;justify-content:center;color:#14100A;font-size:11px;font-weight:800">B</span>
-    <span style="font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-stretch:var(--hero-stretch,100%);font-size:15px;font-weight:600;letter-spacing:-0.02em;color:#F7F5F2">Brocket</span>
+    <svg viewBox="0 0 111 111" width="20" height="20" style="display:block" role="img" aria-label="Brocket mark"><defs><linearGradient id="bkHdrMark" x1="10" y1="6" x2="101" y2="105" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F9D274"></stop><stop offset="0.5" stop-color="#F1BC57"></stop><stop offset="1" stop-color="#E3A231"></stop></linearGradient></defs><path d="M29 0 L111 0 L111 34 L83 63 L111 63 L111 84 L84 111 L0 111 L26 85 L82 85 L82 63 L49 63 L85 24 L24 24 L24 75 L0 75 L0 29 Z" fill="url(#bkHdrMark)"></path></svg>
+    <span style="font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-stretch:var(--hero-stretch,100%);font-size:15px;font-weight:600;letter-spacing:-0.02em;color:#F7F5F2">brocket</span>
     <span style="flex:1"></span>
     <a href="#how" style="font-size:13px;color:#A8A29E;padding:7px 12px" style-hover="color:#F7F5F2">How it works</a>
     <a href="#start" style="font-size:13px;font-weight:500;color:#F7F5F2;border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:7px 14px" style-hover="background:rgba(255,255,255,0.06)">Open Brocket</a>
@@ -522,8 +525,8 @@
 
 <footer data-screen-label="Footer" style="border-top:1px solid rgba(255,255,255,0.08)">
   <div style="max-width:1040px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:26px 32px;font-size:12.5px;color:#6B6560">
-    <span style="width:16px;height:16px;border-radius:5px;background:var(--acc,#F2BB55);display:inline-flex;align-items:center;justify-content:center;color:#14100A;font-size:9px;font-weight:800">B</span>
-    <span style="font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-stretch:var(--hero-stretch,100%);color:#A8A29E;font-weight:600">Brocket</span>
+    <svg viewBox="0 0 111 111" width="16" height="16" style="display:block" role="img" aria-label="Brocket mark"><defs><linearGradient id="bkFtrMark" x1="10" y1="6" x2="101" y2="105" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F9D274"></stop><stop offset="0.5" stop-color="#F1BC57"></stop><stop offset="1" stop-color="#E3A231"></stop></linearGradient></defs><path d="M29 0 L111 0 L111 34 L83 63 L111 63 L111 84 L84 111 L0 111 L26 85 L82 85 L82 63 L49 63 L85 24 L24 24 L24 75 L0 75 L0 29 Z" fill="url(#bkFtrMark)"></path></svg>
+    <span style="font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-stretch:var(--hero-stretch,100%);color:#A8A29E;font-weight:600">brocket</span>
     <span>AI-native video for product teams</span>
     <span style="flex:1"></span>
     <span>© 2026</span>
@@ -531,8 +534,8 @@
 </footer>
 
 
-<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0A0908"></rect><rect x="30" y="30" width="40" height="40" rx="10" fill="#F7C868"></rect><text x="50" y="58" font-family="system-ui,sans-serif" font-size="24" font-weight="800" fill="#14100A" text-anchor="middle">B</text></svg></template></x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;options&quot;: [&quot;#F7C868&quot;, &quot;#F2BB55&quot;, &quot;#E8AC4E&quot;, &quot;#F59E0B&quot;], &quot;default&quot;: &quot;#F7C868&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Brand&quot;}, &quot;heroTypeface&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Geist (current)&quot;, &quot;Wide (mockup-style)&quot;], &quot;default&quot;: &quot;Wide (mockup-style)&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Brand&quot;}, &quot;ctaText&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Start your first project&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Content&quot;}, &quot;showProgressRail&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Experience&quot;}, &quot;calmMotion&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Experience&quot;}}">
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="bkThumbMark" x1="10" y1="6" x2="101" y2="105" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#F9D274"></stop><stop offset="0.5" stop-color="#F1BC57"></stop><stop offset="1" stop-color="#E3A231"></stop></linearGradient></defs><rect width="512" height="512" fill="#0A0908"></rect><g transform="translate(146 146) scale(1.982)"><path d="M29 0 L111 0 L111 34 L83 63 L111 63 L111 84 L84 111 L0 111 L26 85 L82 85 L82 63 L49 63 L85 24 L24 24 L24 75 L0 75 L0 29 Z" fill="url(#bkThumbMark)"></path></g></svg></template></x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;options&quot;: [&quot;#F7C868&quot;, &quot;#F2BB55&quot;, &quot;#E8AC4E&quot;, &quot;#F59E0B&quot;], &quot;default&quot;: &quot;#F2BB55&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Brand&quot;}, &quot;heroTypeface&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Geist (current)&quot;, &quot;Wide (mockup-style)&quot;], &quot;default&quot;: &quot;Wide (mockup-style)&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Brand&quot;}, &quot;ctaText&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Start your first project&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Content&quot;}, &quot;showProgressRail&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Experience&quot;}, &quot;calmMotion&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Experience&quot;}}">
 class Component extends DCLogic {
   bkEnsure() {
     // All driver state lives on a window singleton so it survives instance
