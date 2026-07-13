@@ -20,7 +20,8 @@ og-image.png                             # 1200x630 social preview (og:image)
 social/og-image.html                     # OG image source; screenshot #og, downscale to 1200x630
 favicon.svg / favicon-16/32/48.png / apple-touch-icon.png  # favicons (brand mark)
 icon-192.png / icon-512.png / site.webmanifest  # PWA manifest icons
-brand/                                   # brand asset sources (mark + icon SVGs, org avatar)
+brand/                                   # brand asset sources (mark + icon SVGs, org avatar,
+                                         #   github-social-preview.png for repo Settings)
 ```
 
 Brand: gold `#F2BB55` (gradient `#F9D274 → #F1BC57 → #E3A231`), canvas `#0A0908`,
