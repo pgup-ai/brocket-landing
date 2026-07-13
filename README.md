@@ -3,6 +3,8 @@
 Landing page for **Brocket**, the guided product-video workspace from
 [PGUP AI](https://github.com/pgup-ai).
 
+[![Brocket — product demos, cut by AI. The Brocket editor turns a 5:12 screen recording into a 0:28 launch video.](og-image.png)](https://brocket.video)
+
 ## What's here
 
 The original self-contained animated landing page is deployed without design
