@@ -29,5 +29,7 @@ Then open <http://localhost:8000>.
 
 ## Deploy
 
-The site has no dependencies or build command. It can be deployed directly to
-Vercel or any static host.
+The site has no dependencies or build command. Vercel deploys every push to
+`main` from [pgup-ai/brocket-landing](https://github.com/pgup-ai/brocket-landing)
+to [brocket.video](https://brocket.video). Other branches receive preview
+deployments.
