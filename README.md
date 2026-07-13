@@ -30,7 +30,7 @@ Regenerate icons/OG from `brand/` SVGs and `social/og-image.html`.
 
 `index.html` embeds the page as an escaped JS string inside
 `<script type="__bundler/template">`; copy changes must be applied both there
-(escaped: `"`→`\"`, `</`→`<\\u002F` with one backslash, newline→`\n`) and in the editable source.
+(escaped: `"`→`\"`, `</`→`<\u002F`, newline→`\n`) and in the editable source.
 The shell of `index.html` also carries SEO/OG meta and static crawler content —
 the bundle swaps the whole `<html>` element on boot, so the template head
 duplicates the meta for JS-rendering crawlers.

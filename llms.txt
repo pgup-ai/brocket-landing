@@ -19,4 +19,4 @@ Key facts:
 
 ## Company
 
-- Built by PGUP AI (https://github.com/pgup-ai)
+- Built by [PGUP AI](https://github.com/pgup-ai)
