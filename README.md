@@ -9,13 +9,24 @@ The original self-contained animated landing page is deployed without design
 changes:
 
 ```text
-index.html                              # original bundled animated landing page
-source/Brocket Landing.dc.html          # original editable landing source
+index.html                              # bundled animated landing page (deployed)
+source/Brocket Landing.dc.html          # editable landing source (keep in sync with index.html)
 source/Brocket UX Audit Review.dc.html  # original UX audit source
 source/support.js                        # source runtime
 archive/codex-edited-index.html          # previous Codex edit; not deployed
 vercel.json                              # static deployment configuration
+robots.txt / sitemap.xml / llms.txt      # crawler + AI-engine (GEO) files
+og-image.png                             # 1200x630 social preview (og:image)
+social/og-image.html                     # OG image source; screenshot #og, downscale to 1200x630
+favicon.svg / favicon-32.png / apple-touch-icon.png  # favicons
 ```
+
+`index.html` embeds the page as an escaped JS string inside
+`<script type="__bundler/template">`; copy changes must be applied both there
+(escaped: `"`→`\"`, `</`→`<\\u002F` with one backslash, newline→`\n`) and in the editable source.
+The shell of `index.html` also carries SEO/OG meta and static crawler content —
+the bundle swaps the whole `<html>` element on boot, so the template head
+duplicates the meta for JS-rendering crawlers.
 
 ## Develop
 
