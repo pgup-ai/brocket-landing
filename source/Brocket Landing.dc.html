@@ -65,7 +65,7 @@
 
       <!-- HERO copy -->
       <div style="position:absolute;top:96px;left:0;right:0;text-align:center;opacity:var(--hero-o,1);transform:translateY(var(--hero-y,0px));pointer-events:none">
-        <div style="font-family:'Geist Mono',ui-monospace,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.18em;color:var(--acc,#F2BB55)">SCREEN RECORDING → LAUNCH VIDEO</div>
+        <div><span style="display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:8px 16px;font-family:'Geist Mono',ui-monospace,monospace;font-size:10.5px;font-weight:500;letter-spacing:0.18em;color:#A8A29E"><span class="bk-anim" style="width:6px;height:6px;border-radius:999px;background:#3ECF8E;box-shadow:0 0 8px rgba(62,207,142,0.55);animation:bkBreathe 2.6s ease-in-out infinite"></span>PRIVATE ALPHA · BUILT FOR PRODUCT TEAMS</span></div>
         <h1 style="margin:20px 0 0;font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-size:calc(74px * var(--ms,1));line-height:1.05;font-weight:var(--hero-weight,600);font-stretch:var(--hero-stretch,100%);letter-spacing:var(--hero-track,-0.045em);color:#F7F5F2;text-wrap:balance">Product demos,<br>cut by AI.</h1>
         <p style="margin:20px 0 0;font-size:calc(16.5px * var(--ms,1));line-height:1.6;color:#A8A29E">A screen recording in. A launch-ready video out.</p>
       </div>
@@ -289,7 +289,7 @@
 
       <!-- hero copy -->
       <div style="position:absolute;top:64px;left:0;right:0;text-align:center;opacity:var(--hero-o,1);transform:translateY(var(--hero-y,0px));pointer-events:none">
-        <div style="font-family:'Geist Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:0.16em;color:var(--acc,#F2BB55)">RECORDING → LAUNCH VIDEO</div>
+        <div><span style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.10);border-radius:999px;padding:6px 12px;font-family:'Geist Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.14em;color:#A8A29E"><span class="bk-anim" style="width:5px;height:5px;border-radius:999px;background:#3ECF8E;box-shadow:0 0 7px rgba(62,207,142,0.55);animation:bkBreathe 2.6s ease-in-out infinite"></span>PRIVATE ALPHA · BUILT FOR PRODUCT TEAMS</span></div>
         <h1 style="margin:14px 0 0;font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-size:39px;line-height:1.08;font-weight:var(--hero-weight,600);font-stretch:var(--hero-stretch,100%);letter-spacing:var(--hero-track,-0.045em);color:#F7F5F2">Product demos,<br>cut by AI.</h1>
         <p style="margin:13px 0 0;font-size:14px;line-height:1.55;color:#A8A29E">A screen recording in.<br>A launch-ready video out.</p>
       </div>
@@ -454,25 +454,33 @@
 
 <!-- ======================= Proof + CTA ======================= -->
 <section data-screen-label="Proof strip" style="max-width:1040px;margin:0 auto;padding:110px 32px 24px">
+  <div style="text-align:center;margin-bottom:46px">
+    <h2 style="margin:0;font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-size:calc(38px * var(--ms,1));font-weight:var(--hero-weight,600);font-stretch:var(--hero-stretch,100%);letter-spacing:-0.025em;line-height:1.15;color:#F7F5F2;text-wrap:balance">Inspectable by default.<br>Reversible by design.</h2>
+    <p style="margin:16px auto 0;max-width:560px;font-size:15px;line-height:1.65;color:#A8A29E">Brocket doesn't ask your team to trust a magic render. It keeps the footage, reasoning, and timeline close enough to review.</p>
+  </div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
     <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px 26px">
-      <div style="font-family:'Geist Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.22em;color:var(--acc,#F2BB55)">GROUNDED</div>
-      <p style="margin:12px 0 0;font-size:14px;line-height:1.65;color:#C9C5BF">Every edit maps to a timestamp in your recording. Click any scene to see exactly why it's there.</p>
+      <div style="font-family:'Geist Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.22em;color:var(--acc,#F2BB55)">01 / GROUNDED</div>
+      <div style="margin:14px 0 0;font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-size:17.5px;font-weight:var(--hero-weight,600);font-stretch:var(--hero-stretch,100%);letter-spacing:-0.015em;color:#F7F5F2">See why it's there.</div>
+      <p style="margin:9px 0 0;font-size:14px;line-height:1.65;color:#C9C5BF">Every edit maps to a timestamp in your recording. Click any scene to trace it back to its source.</p>
     </div>
     <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px 26px">
-      <div style="font-family:'Geist Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.22em;color:var(--acc,#F2BB55)">PRIVATE</div>
-      <p style="margin:12px 0 0;font-size:14px;line-height:1.65;color:#C9C5BF">Secrets get opaque masks — enforced in the preview and in the exported MP4, not painted over.</p>
+      <div style="font-family:'Geist Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.22em;color:var(--acc,#F2BB55)">02 / PRIVATE</div>
+      <div style="margin:14px 0 0;font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-size:17.5px;font-weight:var(--hero-weight,600);font-stretch:var(--hero-stretch,100%);letter-spacing:-0.015em;color:#F7F5F2">Mask it for real.</div>
+      <p style="margin:9px 0 0;font-size:14px;line-height:1.65;color:#C9C5BF">Secrets get opaque masks — enforced in the preview and in the exported MP4, not painted over.</p>
     </div>
     <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px 26px">
-      <div style="font-family:'Geist Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.22em;color:var(--acc,#F2BB55)">VERSIONED</div>
-      <p style="margin:12px 0 0;font-size:14px;line-height:1.65;color:#C9C5BF">Every change is a new version. Nothing is overwritten, and every AI edit is reversible.</p>
+      <div style="font-family:'Geist Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.22em;color:var(--acc,#F2BB55)">03 / VERSIONED</div>
+      <div style="margin:14px 0 0;font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-size:17.5px;font-weight:var(--hero-weight,600);font-stretch:var(--hero-stretch,100%);letter-spacing:-0.015em;color:#F7F5F2">Never lose the cut.</div>
+      <p style="margin:9px 0 0;font-size:14px;line-height:1.65;color:#C9C5BF">Every change is a new version. Nothing is overwritten, and every AI edit is reversible.</p>
     </div>
   </div>
 </section>
 
 <section data-screen-label="Final CTA" style="text-align:center;padding:88px 32px 110px">
   <h2 style="margin:0;font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-size:calc(38px * var(--ms,1));font-weight:var(--hero-weight,600);font-stretch:var(--hero-stretch,100%);letter-spacing:-0.025em;line-height:1.15;color:#F7F5F2;text-wrap:balance">Your next launch video is<br>one recording away.</h2>
-  <div style="margin-top:30px"><a href="#" style="display:inline-block;font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-stretch:var(--hero-stretch,100%);background:var(--acc,#F2BB55);color:#14100A;font-size:15px;font-weight:600;letter-spacing:-0.01em;padding:14px 32px;border-radius:8px" style-hover="background:var(--acc-h,#F7CB74)">{{ ctaLabel }}</a></div>
+  <p style="margin:16px auto 0;max-width:620px;font-size:15px;line-height:1.65;color:#A8A29E">For founders, PMMs, and product teams who need product evidence turned into a clear story — not another editing program to operate.</p>
+  <div style="margin-top:26px"><a href="#" style="display:inline-block;font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-stretch:var(--hero-stretch,100%);background:var(--acc,#F2BB55);color:#14100A;font-size:15px;font-weight:600;letter-spacing:-0.01em;padding:14px 32px;border-radius:8px" style-hover="background:var(--acc-h,#F7CB74)">{{ ctaLabel }}</a></div>
   <p style="margin:18px 0 0;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#6B6560">MP4 IN MINUTES · BRAND-SAFE · NO TIMELINE REQUIRED</p>
 </section>
 
