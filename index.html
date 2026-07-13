@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brocket — Product demos, cut by AI</title>
+  <meta name="description" content="Brocket turns product recordings, launch notes, and brand context into grounded first cuts your team can inspect, correct, and ship.">
+  <meta name="theme-color" content="#0a0908">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Brocket — Product demos, cut by AI">
+  <meta property="og:description" content="A screen recording in. A reviewable first cut out.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Brocket — Product demos, cut by AI">
+  <meta name="twitter:description" content="A screen recording in. A reviewable first cut out.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23f2bb55'/%3E%3Cpath d='M21 16h16c7 0 11 4 11 10 0 4-2 7-6 9 5 1 8 5 8 10 0 7-5 11-13 11H21V16Zm10 8v8h5c3 0 4-1 4-4s-1-4-4-4h-5Zm0 16v8h6c3 0 5-1 5-4s-2-4-5-4h-6Z' fill='%2314100a'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --ink: #0a0908;
+      --ink-soft: #11100e;
+      --panel: #151411;
+      --panel-up: #1b1916;
+      --line: rgba(255, 255, 255, 0.1);
+      --line-strong: rgba(255, 255, 255, 0.17);
+      --paper: #f7f5f2;
+      --muted: #aaa49d;
+      --quiet: #8b847d;
+      --amber: #f2bb55;
+      --amber-pale: #f9d994;
+      --cobalt: #2563eb;
+      --green: #55d69e;
+      --red: #ff796f;
+      --display: "Archivo", "Arial Narrow", sans-serif;
+      --mono: "DM Mono", ui-monospace, monospace;
+      --wrap: min(1180px, calc(100vw - 48px));
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--display);
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      content: "";
+      background:
+        radial-gradient(circle at 50% -14%, rgba(242, 187, 85, 0.09), transparent 36%),
+        var(--ink);
+      pointer-events: none;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    img, svg { display: block; }
+    ::selection { background: rgba(242, 187, 85, 0.3); color: #fff; }
+    :focus-visible { outline: 2px solid var(--amber); outline-offset: 4px; }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--paper);
+      color: var(--ink);
+      transform: translateY(-160%);
+      transition: transform 160ms ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .wrap { width: var(--wrap); margin-inline: auto; }
+    .mono { font-family: var(--mono); }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin: 0;
+      color: var(--amber);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      width: 28px;
+      height: 1px;
+      content: "";
+      background: currentColor;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(10, 9, 8, 0.76);
+      backdrop-filter: blur(16px);
+    }
+    .nav {
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex: none;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+    .brand-mark {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 7px;
+      background: var(--amber);
+      color: #17120a;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .nav-links a { transition: color 160ms ease; }
+    .nav-links a:hover { color: var(--paper); }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border: 1px solid var(--line-strong);
+      border-radius: 8px;
+      color: var(--paper);
+      font-size: 13px;
+      font-weight: 600;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+    .nav-cta:hover { border-color: rgba(242, 187, 85, 0.42); background: rgba(242, 187, 85, 0.06); }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      padding: 138px 0 86px;
+      isolation: isolate;
+    }
+    .hero::before {
+      position: absolute;
+      inset: 66px 0 0;
+      z-index: -1;
+      content: "";
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.027) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.027) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, black 0, transparent 68%);
+    }
+    .hero-copy { max-width: 1000px; margin-inline: auto; text-align: center; }
+    .hero-copy .eyebrow { justify-content: center; }
+    .hero-copy h1 {
+      margin: 24px 0 0;
+      font-size: clamp(58px, 9.4vw, 126px);
+      font-stretch: 118%;
+      font-weight: 740;
+      letter-spacing: -0.055em;
+      line-height: 0.87;
+      text-wrap: balance;
+    }
+    .hero-copy h1 span { color: var(--amber); }
+    .hero-lede {
+      max-width: 640px;
+      margin: 30px auto 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2.1vw, 20px);
+      line-height: 1.65;
+      text-wrap: balance;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 19px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 650;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--amber); color: #17120a; }
+    .button-primary:hover { background: var(--amber-pale); }
+    .button-secondary { border-color: var(--line-strong); color: var(--paper); }
+    .button-secondary:hover { border-color: rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.04); }
+    .hero-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      color: var(--quiet);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+    .hero-note i { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+
+    .hero-product {
+      position: relative;
+      width: min(1040px, 100%);
+      margin: 72px auto 0;
+      perspective: 1400px;
+    }
+    .hero-product::before {
+      position: absolute;
+      inset: 14% 10% -8%;
+      z-index: -1;
+      content: "";
+      border-radius: 50%;
+      background: rgba(242, 187, 85, 0.12);
+      filter: blur(80px);
+    }
+    .app-shell {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9.55;
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      background: #0b0f1d;
+      box-shadow: 0 42px 90px rgba(0, 0, 0, 0.46), 0 0 0 1px rgba(0, 0, 0, 0.6);
+      transform: rotateX(2deg);
+      transform-origin: center bottom;
+    }
+    .app-shell::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.04);
+      pointer-events: none;
+    }
+    .mock-sidebar {
+      padding: 17px 12px;
+      border-right: 1px solid #1e293b;
+      background: #080d1a;
+    }
+    .mock-side-brand { display: flex; align-items: center; gap: 7px; color: #e2e8f0; font-size: 8px; font-weight: 700; }
+    .mini-mark { width: 17px; height: 17px; display: grid; place-items: center; border-radius: 5px; background: var(--amber); color: #14100a; font-size: 8px; }
+    .mock-nav { display: grid; gap: 9px; margin-top: 28px; }
+    .mock-nav span { height: 5px; border-radius: 4px; background: #1c2639; }
+    .mock-nav span:first-child { width: 100%; background: #25334b; }
+    .mock-nav span:nth-child(2) { width: 74%; }
+    .mock-nav span:nth-child(3) { width: 86%; }
+    .mock-nav span:nth-child(4) { width: 60%; margin-top: 14px; }
+    .mock-main { min-width: 0; padding: 17px 18px 18px; }
+    .mock-toolbar { height: 27px; display: flex; align-items: center; gap: 8px; }
+    .mock-breadcrumb { color: #64748b; font-family: var(--mono); font-size: 6px; letter-spacing: 0.06em; }
+    .mock-title { color: #f1f5f9; font-size: 10px; font-weight: 650; }
+    .mock-status { margin-left: auto; color: #94a3b8; font-family: var(--mono); font-size: 6px; }
+    .mock-export {
+      margin-left: 7px;
+      padding: 7px 13px;
+      border: 0;
+      border-radius: 5px;
+      background: var(--cobalt);
+      color: #fff;
+      font-size: 7px;
+      font-weight: 700;
+    }
+    .mock-workspace {
+      height: calc(100% - 38px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(170px, 27%);
+      gap: 12px;
+      margin-top: 11px;
+    }
+    .mock-canvas, .mock-rail { border: 1px solid #1e293b; border-radius: 9px; background: #0f172a; }
+    .mock-canvas { min-width: 0; padding: 12px; display: flex; flex-direction: column; }
+    .preview-window {
+      position: relative;
+      min-height: 0;
+      flex: 1;
+      overflow: hidden;
+      border: 1px solid #2a354a;
+      border-radius: 6px;
+      background: #050914;
+    }
+    .preview-chrome { height: 9%; display: flex; align-items: center; gap: 3px; padding-inline: 8px; background: #111827; }
+    .preview-chrome i { width: 3px; height: 3px; border-radius: 50%; background: #475569; }
+    .preview-url { width: 27%; height: 3px; margin-left: 5px; border-radius: 2px; background: #273449; }
+    .preview-body { height: 91%; display: grid; grid-template-columns: 24% 1fr; }
+    .preview-menu { padding: 8%; border-right: 1px solid #1a2436; }
+    .preview-menu span { display: block; height: 4px; margin-bottom: 7px; border-radius: 3px; background: #253047; }
+    .preview-menu span:nth-child(2) { width: 76%; }
+    .preview-menu span:nth-child(3) { width: 88%; }
+    .preview-content { position: relative; padding: 8%; background: #0a1020; }
+    .preview-kicker { width: 24%; height: 4px; border-radius: 2px; background: var(--amber); opacity: 0.8; }
+    .preview-heading { width: 54%; height: 10px; margin-top: 8px; border-radius: 3px; background: #e9edf4; }
+    .preview-copy { width: 72%; height: 4px; margin-top: 7px; border-radius: 2px; background: #4b5b73; }
+    .preview-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 11%; }
+    .preview-cards span { aspect-ratio: 1.45; border: 1px solid #27354b; border-radius: 4px; background: #121b2e; }
+    .focus-box {
+      position: absolute;
+      left: 42%;
+      top: 51%;
+      width: 24%;
+      height: 25%;
+      border: 1px solid var(--amber);
+      border-radius: 4px;
+      box-shadow: 0 0 0 999px rgba(2, 6, 23, 0.28);
+      animation: focusPulse 2.4s ease-in-out infinite;
+    }
+    .caption {
+      position: absolute;
+      left: 50%;
+      bottom: 8%;
+      padding: 4px 8px;
+      border-radius: 3px;
+      background: rgba(2, 6, 23, 0.9);
+      color: #f8fafc;
+      font-size: 7px;
+      font-weight: 650;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+    .mock-transport { height: 31px; display: flex; align-items: center; gap: 8px; padding-top: 8px; }
+    .play { width: 18px; height: 18px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--cobalt); color: white; font-size: 6px; }
+    .time { width: 30px; color: #94a3b8; font-family: var(--mono); font-size: 6px; }
+    .track { position: relative; height: 4px; flex: 1; overflow: hidden; border-radius: 4px; background: #263247; }
+    .track::before { width: 62%; position: absolute; inset: 0 auto 0 0; content: ""; border-radius: inherit; background: var(--cobalt); }
+    .track::after { position: absolute; left: 61%; top: -2px; width: 2px; height: 8px; content: ""; border-radius: 2px; background: #fff; animation: scrub 5s ease-in-out infinite; }
+    .mock-rail { min-width: 0; padding: 11px; }
+    .mock-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding-bottom: 8px; border-bottom: 1px solid #1e293b; }
+    .mock-tabs button { padding: 5px 2px; border: 0; border-radius: 3px; background: transparent; color: #94a3b8; font-size: 7px; }
+    .mock-tabs button[aria-selected="true"] { background: #1e293b; color: #e2e8f0; }
+    .rail-panel { padding-top: 8px; }
+    .scene-row { padding: 7px; border: 1px solid #202c40; border-radius: 5px; background: #111a2c; }
+    .scene-row + .scene-row { margin-top: 6px; }
+    .scene-row.active { border-color: rgba(37, 99, 235, 0.8); background: rgba(37, 99, 235, 0.08); }
+    .scene-meta { display: flex; justify-content: space-between; color: #64748b; font-family: var(--mono); font-size: 5px; }
+    .scene-title { margin-top: 4px; color: #cbd5e1; font-size: 7px; font-weight: 600; }
+    .scene-source { margin-top: 5px; color: #8aa2c3; font-family: var(--mono); font-size: 5px; }
+    .privacy-count { display: inline-flex; align-items: center; gap: 5px; margin-bottom: 8px; color: #f8c766; font-family: var(--mono); font-size: 6px; }
+    .privacy-count::before { width: 5px; height: 5px; content: ""; border-radius: 50%; background: #f8c766; }
+    .privacy-item { padding: 7px; border: 1px solid #263247; border-radius: 5px; color: #cbd5e1; font-size: 6px; }
+    .privacy-item + .privacy-item { margin-top: 6px; }
+    .privacy-item strong { display: block; margin-bottom: 4px; color: #f8fafc; }
+    .version { display: flex; align-items: center; gap: 7px; padding-block: 7px; color: #94a3b8; font-size: 6px; }
+    .version + .version { border-top: 1px solid #1e293b; }
+    .version i { width: 6px; height: 6px; flex: none; border-radius: 50%; background: #334155; }
+    .version.current { color: #e2e8f0; }
+    .version.current i { background: var(--green); }
+
+    .manifesto { padding: 134px 0; border-top: 1px solid var(--line); }
+    .manifesto-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 8vw; align-items: start; }
+    .manifesto h2 {
+      margin: 0;
+      font-size: clamp(46px, 6.4vw, 84px);
+      font-stretch: 112%;
+      font-weight: 690;
+      letter-spacing: -0.047em;
+      line-height: 0.98;
+    }
+    .manifesto h2 span { color: var(--amber); }
+    .manifesto-copy { max-width: 570px; padding-top: 9px; }
+    .manifesto-copy > p { margin: 0; color: var(--muted); font-size: clamp(18px, 2.1vw, 22px); line-height: 1.55; }
+    .contract-list { display: grid; gap: 0; margin-top: 38px; border-top: 1px solid var(--line); }
+    .contract {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .contract b { color: var(--amber); font-family: var(--mono); font-size: 11px; font-weight: 500; }
+    .contract span { color: #d1cdc7; font-size: 15px; line-height: 1.45; }
+
+    .section { padding: 120px 0; border-top: 1px solid var(--line); }
+    .section-head { max-width: 760px; }
+    .section-head h2 {
+      margin: 20px 0 0;
+      font-size: clamp(42px, 6vw, 74px);
+      font-stretch: 112%;
+      font-weight: 690;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+      text-wrap: balance;
+    }
+    .section-head > p:last-child { max-width: 620px; margin: 23px 0 0; color: var(--muted); font-size: 18px; line-height: 1.65; }
+
+    .decision-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 18px; margin-top: 60px; }
+    .decision-card { position: relative; overflow: hidden; min-height: 370px; padding: 28px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
+    .decision-card.old { color: var(--quiet); }
+    .decision-card.new { border-color: rgba(242, 187, 85, 0.34); background: #18150f; }
+    .decision-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; }
+    .decision-card.old .decision-label { color: var(--red); }
+    .decision-card.new .decision-label { color: var(--amber); }
+    .decision-card h3 { margin: 14px 0 0; color: var(--paper); font-size: 26px; letter-spacing: -0.03em; }
+    .form-ghost { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 28px; opacity: 0.72; }
+    .ghost-field { height: 45px; padding: 9px; border: 1px solid var(--line); border-radius: 7px; background: #100f0d; }
+    .ghost-field::before, .ghost-field::after { display: block; content: ""; border-radius: 4px; background: #35312c; }
+    .ghost-field::before { width: 35%; height: 4px; }
+    .ghost-field::after { width: 72%; height: 6px; margin-top: 10px; }
+    .ghost-field.wide { grid-column: 1 / -1; }
+    .form-strike { position: absolute; left: 19%; right: 19%; top: 56%; height: 2px; background: var(--red); transform: rotate(-8deg); opacity: 0.7; }
+    .decision-note { position: absolute; left: 28px; right: 28px; bottom: 24px; color: var(--quiet); font-family: var(--mono); font-size: 10px; line-height: 1.6; }
+    .input-list { display: grid; gap: 11px; margin-top: 28px; }
+    .input-item {
+      min-height: 62px;
+      display: grid;
+      grid-template-columns: 35px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+    .input-number { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 7px; background: rgba(242, 187, 85, 0.12); color: var(--amber); font-family: var(--mono); font-size: 10px; }
+    .input-copy strong { display: block; font-size: 14px; }
+    .input-copy span { display: block; margin-top: 3px; color: var(--quiet); font-size: 12px; }
+    .input-state { color: var(--green); font-family: var(--mono); font-size: 9px; }
+
+    .workflow-grid { display: grid; grid-template-columns: 0.7fr 1.3fr; gap: 7vw; align-items: start; margin-top: 66px; }
+    .workflow-steps { display: grid; gap: 6px; }
+    .workflow-step {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 13px;
+      padding: 18px 16px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+    .workflow-step:hover { background: rgba(255, 255, 255, 0.025); }
+    .workflow-step[aria-pressed="true"] { border-color: rgba(242, 187, 85, 0.32); background: rgba(242, 187, 85, 0.055); }
+    .step-no { padding-top: 2px; color: var(--quiet); font-family: var(--mono); font-size: 10px; }
+    .workflow-step[aria-pressed="true"] .step-no { color: var(--amber); }
+    .step-copy strong { display: block; color: var(--paper); font-size: 17px; }
+    .step-copy span { display: block; margin-top: 6px; color: var(--quiet); font-size: 13px; line-height: 1.5; }
+    .workflow-visual { position: sticky; top: 104px; }
+    .machine {
+      min-height: 530px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: 18px;
+      background: #0d0c0a;
+      box-shadow: 0 26px 70px rgba(0, 0, 0, 0.35);
+    }
+    .machine-head { height: 56px; display: flex; align-items: center; gap: 12px; padding: 0 18px; border-bottom: 1px solid var(--line); }
+    .machine-dots { display: flex; gap: 5px; }
+    .machine-dots i { width: 6px; height: 6px; border-radius: 50%; background: #3f3a34; }
+    .machine-label { margin-left: auto; color: var(--amber); font-family: var(--mono); font-size: 9px; letter-spacing: 0.13em; }
+    .machine-body { min-height: 474px; display: grid; place-items: center; padding: 42px; }
+    .machine-scene { width: 100%; animation: sceneIn 260ms ease both; }
+    .drop-zone { padding: 48px 28px; border: 1px dashed rgba(242, 187, 85, 0.42); border-radius: 14px; background: rgba(242, 187, 85, 0.035); text-align: center; }
+    .drop-icon { width: 47px; height: 47px; display: grid; place-items: center; margin: 0 auto; border-radius: 13px; background: var(--amber); color: #17120a; font-size: 20px; font-weight: 700; }
+    .drop-zone h3 { margin: 18px 0 0; font-size: 22px; letter-spacing: -0.025em; }
+    .drop-zone p { margin: 8px 0 0; color: var(--quiet); font-size: 13px; }
+    .file-row { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 12px; margin-top: 24px; padding: 11px; border: 1px solid var(--line); border-radius: 8px; background: #14120f; text-align: left; }
+    .file-icon { width: 36px; height: 30px; display: grid; place-items: center; border-radius: 5px; background: #22201c; color: var(--amber); font-family: var(--mono); font-size: 8px; }
+    .file-name { color: #d7d2cc; font-size: 11px; }
+    .file-size { margin-top: 3px; color: var(--quiet); font-family: var(--mono); font-size: 8px; }
+    .file-ready { color: var(--green); font-family: var(--mono); font-size: 8px; }
+    .analysis-view { position: relative; padding: 22px; border: 1px solid var(--line); border-radius: 12px; background: #12110f; }
+    .analysis-title { display: flex; align-items: center; justify-content: space-between; color: #d9d5cf; font-size: 13px; }
+    .analysis-title span { color: var(--green); font-family: var(--mono); font-size: 8px; }
+    .waveform { height: 138px; display: flex; align-items: center; gap: 3px; margin-top: 28px; overflow: hidden; }
+    .waveform i { width: 3px; border-radius: 2px; background: #4b453e; }
+    .waveform i:nth-child(5n + 1) { height: 34%; }
+    .waveform i:nth-child(5n + 2) { height: 72%; }
+    .waveform i:nth-child(5n + 3) { height: 48%; }
+    .waveform i:nth-child(5n + 4) { height: 86%; }
+    .waveform i:nth-child(5n) { height: 58%; }
+    .scan-line { position: absolute; left: 22px; top: 66px; bottom: 64px; width: 2px; background: var(--amber); box-shadow: 0 0 18px rgba(242, 187, 85, 0.5); animation: scan 3.8s ease-in-out infinite; }
+    .analysis-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px; }
+    .analysis-tags span { padding: 6px 8px; border: 1px solid var(--line); border-radius: 999px; color: #a9a39c; font-family: var(--mono); font-size: 8px; }
+    .cut-card { padding: 18px; border: 1px solid var(--line); border-radius: 12px; background: #11100e; }
+    .cut-preview { position: relative; overflow: hidden; aspect-ratio: 16 / 8.2; border-radius: 8px; background: #070b16; }
+    .cut-preview::before { position: absolute; inset: 14% 10%; content: ""; border: 1px solid #28344a; border-radius: 5px; background: linear-gradient(135deg, #151f34, #0a1020); }
+    .cut-preview::after { position: absolute; left: 50%; bottom: 17%; content: "Show the new workflow."; padding: 5px 8px; border-radius: 3px; background: rgba(0, 0, 0, 0.78); color: white; font-size: 8px; transform: translateX(-50%); }
+    .cut-meta { display: flex; justify-content: space-between; margin-top: 15px; color: var(--quiet); font-family: var(--mono); font-size: 8px; }
+    .segments { height: 42px; display: grid; grid-template-columns: 0.8fr 1.3fr 0.9fr 0.5fr; gap: 5px; margin-top: 12px; }
+    .segments i { position: relative; overflow: hidden; border: 1px solid #34302a; border-radius: 5px; background: #24211d; }
+    .segments i::after { position: absolute; inset: auto 0 0; height: 4px; content: ""; background: var(--amber); opacity: 0.45; }
+    .segments i:nth-child(2)::after { opacity: 0.9; }
+    .edit-layout { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 10px; }
+    .edit-preview { min-height: 290px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 11px; background: #070b15; }
+    .edit-frame { position: relative; width: 72%; aspect-ratio: 16 / 10; border: 1px solid #2a3548; border-radius: 6px; background: #111827; }
+    .edit-frame::before { position: absolute; left: 11%; right: 11%; top: 18%; height: 9px; content: ""; border-radius: 3px; background: #4b5b73; box-shadow: 0 22px #273449, 0 44px #273449, 0 66px #273449; }
+    .edit-frame::after { position: absolute; left: 42%; top: 34%; width: 34%; height: 35%; content: ""; border: 1px solid var(--amber); border-radius: 4px; }
+    .edit-rail { padding: 13px; border: 1px solid var(--line); border-radius: 11px; background: #14120f; }
+    .edit-rail-label { color: var(--amber); font-family: var(--mono); font-size: 8px; }
+    .edit-rail h3 { margin: 9px 0 0; font-size: 14px; }
+    .edit-rail p { margin: 7px 0 0; color: var(--quiet); font-size: 10px; line-height: 1.5; }
+    .edit-action { width: 100%; margin-top: 16px; padding: 9px; border: 1px solid rgba(242, 187, 85, 0.34); border-radius: 6px; background: rgba(242, 187, 85, 0.08); color: var(--amber-pale); font-size: 9px; }
+    .version-chip { display: inline-block; margin-top: 10px; color: var(--green); font-family: var(--mono); font-size: 7px; }
+    .ship-card { max-width: 470px; margin: 0 auto; padding: 30px; border: 1px solid rgba(242, 187, 85, 0.28); border-radius: 14px; background: #16130e; text-align: center; }
+    .ship-check { width: 54px; height: 54px; display: grid; place-items: center; margin: 0 auto; border-radius: 50%; background: rgba(85, 214, 158, 0.11); color: var(--green); font-size: 22px; }
+    .ship-card h3 { margin: 18px 0 0; font-size: 26px; letter-spacing: -0.03em; }
+    .ship-card p { margin: 9px auto 0; color: var(--quiet); font-size: 12px; line-height: 1.55; }
+    .ship-file { display: flex; align-items: center; gap: 10px; margin-top: 22px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: #0e0d0b; text-align: left; }
+    .ship-file strong { display: block; color: #ddd8d0; font-size: 10px; }
+    .ship-file span { display: block; margin-top: 3px; color: var(--quiet); font-family: var(--mono); font-size: 7px; }
+    .ship-file b { margin-left: auto; color: var(--green); font-family: var(--mono); font-size: 8px; font-weight: 500; }
+
+    .principle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 60px; }
+    .principle { min-height: 290px; padding: 25px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+    .principle-no { color: var(--amber); font-family: var(--mono); font-size: 10px; }
+    .principle-icon { width: 42px; height: 42px; display: grid; place-items: center; margin-top: 55px; border: 1px solid var(--line-strong); border-radius: 11px; color: var(--amber); font-size: 18px; }
+    .principle h3 { margin: 20px 0 0; font-size: 24px; letter-spacing: -0.03em; }
+    .principle p { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .honesty { margin-top: 18px; padding: 19px 22px; border: 1px solid rgba(37, 99, 235, 0.33); border-radius: 12px; background: rgba(37, 99, 235, 0.055); color: #aebcd3; font-size: 13px; line-height: 1.6; }
+    .honesty strong { color: #dbe7ff; }
+
+    .anti { overflow: hidden; }
+    .anti-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 7vw; align-items: center; }
+    .anti h2 { margin: 0; font-size: clamp(52px, 7.8vw, 104px); font-stretch: 116%; font-weight: 720; letter-spacing: -0.055em; line-height: 0.86; }
+    .anti h2 span { color: var(--amber); }
+    .anti-copy > p { margin: 0; color: var(--muted); font-size: 19px; line-height: 1.6; }
+    .anti-list { display: grid; gap: 0; margin-top: 30px; border-top: 1px solid var(--line); }
+    .anti-item { display: grid; grid-template-columns: 28px 1fr; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line); color: #d8d4ce; font-size: 14px; }
+    .anti-item i { color: var(--amber); font-family: var(--mono); font-size: 11px; font-style: normal; }
+
+    .final-cta { padding: 138px 0 120px; border-top: 1px solid var(--line); text-align: center; }
+    .final-cta .eyebrow { justify-content: center; }
+    .final-cta h2 { margin: 22px auto 0; max-width: 900px; font-size: clamp(48px, 8vw, 100px); font-stretch: 115%; font-weight: 720; letter-spacing: -0.052em; line-height: 0.91; text-wrap: balance; }
+    .final-cta h2 span { color: var(--amber); }
+    .final-cta > .wrap > p { max-width: 570px; margin: 26px auto 0; color: var(--muted); font-size: 18px; line-height: 1.6; }
+    .final-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+    footer { border-top: 1px solid var(--line); }
+    .footer-inner { min-height: 106px; display: flex; align-items: center; gap: 18px; color: var(--quiet); font-size: 12px; }
+    .footer-inner .brand { color: var(--muted); }
+    .footer-inner > span { margin-left: auto; font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .footer-links { display: flex; gap: 16px; }
+    .footer-links a:hover { color: var(--paper); }
+
+    .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity 620ms ease, transform 620ms ease; }
+    .js .reveal.visible { opacity: 1; transform: none; }
+    @keyframes focusPulse { 0%, 100% { border-color: rgba(242, 187, 85, 0.55); } 50% { border-color: rgba(242, 187, 85, 1); } }
+    @keyframes scrub { 0%, 100% { left: 16%; } 50% { left: 82%; } }
+    @keyframes scan { 0%, 100% { left: 5%; opacity: 0.2; } 50% { left: 94%; opacity: 1; } }
+    @keyframes sceneIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    @media (max-width: 980px) {
+      :root { --wrap: min(100% - 36px, 820px); }
+      .manifesto-grid, .anti-grid { grid-template-columns: 1fr; gap: 44px; }
+      .manifesto-copy { max-width: 680px; }
+      .workflow-grid { grid-template-columns: 1fr; gap: 34px; }
+      .workflow-visual { position: relative; top: auto; }
+      .principle-grid { grid-template-columns: 1fr 1fr; }
+      .principle:last-child { grid-column: 1 / -1; }
+      .app-shell { grid-template-columns: 68px 1fr; }
+    }
+    @media (max-width: 760px) {
+      .nav-links { display: none; }
+      .nav-cta { margin-left: auto; }
+      .hero { padding-top: 126px; }
+      .hero-copy h1 { font-size: clamp(54px, 17vw, 84px); line-height: 0.9; }
+      .hero-product { margin-top: 55px; }
+      .app-shell { aspect-ratio: 1.25; grid-template-columns: 45px 1fr; border-radius: 12px; }
+      .mock-sidebar { padding: 10px 7px; }
+      .mock-side-brand span:last-child, .mock-status { display: none; }
+      .mini-mark { width: 15px; height: 15px; }
+      .mock-main { padding: 10px; }
+      .mock-workspace { grid-template-columns: minmax(0, 1fr) 30%; gap: 6px; }
+      .mock-canvas, .mock-rail { border-radius: 6px; }
+      .mock-canvas { padding: 7px; }
+      .mock-rail { padding: 6px; }
+      .mock-export { padding: 5px 8px; }
+      .scene-row { padding: 5px; }
+      .scene-row:nth-child(n+3) { display: none; }
+      .decision-grid { grid-template-columns: 1fr; }
+      .decision-card { min-height: 340px; }
+      .machine { min-height: 460px; }
+      .machine-body { min-height: 404px; padding: 24px; }
+      .principle-grid { grid-template-columns: 1fr; }
+      .principle:last-child { grid-column: auto; }
+      .principle { min-height: 245px; }
+      .principle-icon { margin-top: 34px; }
+      .footer-inner { padding: 26px 0; flex-wrap: wrap; }
+      .footer-inner > span { width: 100%; margin: 0; }
+      .footer-links { margin-left: auto; }
+    }
+    @media (max-width: 520px) {
+      :root { --wrap: calc(100% - 28px); }
+      .nav { min-height: 60px; }
+      .nav-cta { padding: 8px 10px; font-size: 12px; }
+      .hero { padding: 116px 0 70px; }
+      .hero-copy h1 { font-size: 16.5vw; }
+      .hero-lede { font-size: 16px; }
+      .button { width: 100%; }
+      .hero-note { font-size: 9px; }
+      .app-shell { aspect-ratio: 1.02; grid-template-columns: 1fr; }
+      .mock-sidebar { display: none; }
+      .mock-workspace { grid-template-columns: 1fr; }
+      .mock-rail { display: none; }
+      .manifesto, .section { padding: 92px 0; }
+      .manifesto h2, .section-head h2 { font-size: 46px; }
+      .contract { grid-template-columns: 36px 1fr; }
+      .decision-card { padding: 22px; }
+      .decision-note { left: 22px; right: 22px; }
+      .input-item { grid-template-columns: 32px 1fr; }
+      .input-state { display: none; }
+      .workflow-step { padding-inline: 10px; }
+      .machine { min-height: 420px; }
+      .machine-body { min-height: 364px; padding: 18px; }
+      .drop-zone { padding: 34px 16px; }
+      .edit-layout { grid-template-columns: 1fr; }
+      .edit-preview { min-height: 180px; }
+      .anti h2 { font-size: 66px; }
+      .final-cta { padding: 105px 0 90px; }
+      .footer-links { width: 100%; margin: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .js .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <span>Brocket</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#workflow">Workflow</a>
+        <a href="#principles">Principles</a>
+        <a href="#why">Why Brocket</a>
+      </nav>
+      <a class="nav-cta" href="https://x.com/j1ngb0" target="_blank" rel="me noopener noreferrer">
+        <span>Follow the build</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div class="hero-copy">
+          <p class="eyebrow">Screen recording → launch video</p>
+          <h1>Product demos,<br><span>cut by AI.</span></h1>
+          <p class="hero-lede">Give Brocket a product recording, launch notes, and your brand. Get a first cut your team can inspect, correct, and ship.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#workflow">Watch the workflow <span aria-hidden="true">↓</span></a>
+            <a class="button button-secondary" href="https://github.com/pgup-ai" target="_blank" rel="noopener noreferrer">Built by PGUP AI <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-note"><i aria-hidden="true"></i> Private alpha · Built for product teams</div>
+        </div>
+
+        <div class="hero-product" role="group" aria-label="Brocket review workspace mockup">
+          <div class="app-shell">
+            <div class="mock-sidebar" aria-hidden="true">
+              <div class="mock-side-brand"><span class="mini-mark">B</span><span>Brocket</span></div>
+              <div class="mock-nav"><span></span><span></span><span></span><span></span></div>
+            </div>
+            <div class="mock-main">
+              <div class="mock-toolbar">
+                <span class="mock-breadcrumb">PROJECT /</span>
+                <span class="mock-title">Product launch walkthrough</span>
+                <span class="mock-status">FIRST CUT READY</span>
+                <button class="mock-export" type="button" tabindex="-1">Export</button>
+              </div>
+              <div class="mock-workspace">
+                <div class="mock-canvas">
+                  <div class="preview-window">
+                    <div class="preview-chrome"><i></i><i></i><i></i><span class="preview-url"></span></div>
+                    <div class="preview-body">
+                      <div class="preview-menu"><span></span><span></span><span></span></div>
+                      <div class="preview-content">
+                        <div class="preview-kicker"></div>
+                        <div class="preview-heading"></div>
+                        <div class="preview-copy"></div>
+                        <div class="preview-cards"><span></span><span></span><span></span></div>
+                        <div class="focus-box"></div>
+                        <div class="caption">Show the core workflow.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mock-transport">
+                    <button class="play" type="button" tabindex="-1" aria-label="Play preview">▶</button>
+                    <span class="time">0:18 / 0:31</span>
+                    <span class="track"></span>
+                  </div>
+                </div>
+                <div class="mock-rail">
+                  <div class="mock-tabs" role="tablist" aria-label="Workspace views">
+                    <button type="button" role="tab" aria-selected="true" aria-controls="hero-scenes" data-hero-tab="scenes">Scenes</button>
+                    <button type="button" role="tab" aria-selected="false" aria-controls="hero-privacy" data-hero-tab="privacy">Privacy</button>
+                    <button type="button" role="tab" aria-selected="false" aria-controls="hero-versions" data-hero-tab="versions">Versions</button>
+                  </div>
+                  <div class="rail-panel" id="hero-scenes" role="tabpanel" data-hero-panel="scenes">
+                    <div class="scene-row active"><div class="scene-meta"><span>SCENE 01</span><span>0:00–0:08</span></div><div class="scene-title">Open with the outcome</div><div class="scene-source">Source 0:42–0:50</div></div>
+                    <div class="scene-row"><div class="scene-meta"><span>SCENE 02</span><span>0:08–0:19</span></div><div class="scene-title">Show the workflow</div><div class="scene-source">Source 2:14–2:25</div></div>
+                    <div class="scene-row"><div class="scene-meta"><span>SCENE 03</span><span>0:19–0:31</span></div><div class="scene-title">Land the value</div><div class="scene-source">Source 4:09–4:21</div></div>
+                  </div>
+                  <div class="rail-panel" id="hero-privacy" role="tabpanel" data-hero-panel="privacy" hidden>
+                    <div class="privacy-count">2 items to review</div>
+                    <div class="privacy-item"><strong>Potential API key</strong>Scene 02 · opaque mask applied</div>
+                    <div class="privacy-item"><strong>Customer name</strong>Scene 03 · ready to confirm</div>
+                  </div>
+                  <div class="rail-panel" id="hero-versions" role="tabpanel" data-hero-panel="versions" hidden>
+                    <div class="version current"><i></i><span>v13 · current first cut</span></div>
+                    <div class="version"><i></i><span>v12 · shortened setup</span></div>
+                    <div class="version"><i></i><span>v11 · generated baseline</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifesto">
+      <div class="wrap manifesto-grid">
+        <h2 class="reveal">Keep the contracts.<br><span>Collapse the ceremony.</span></h2>
+        <div class="manifesto-copy reveal">
+          <p>The first cut—and the confidence to approve it—is the product. Brocket keeps the engineering discipline underneath while making the journey feel direct.</p>
+          <div class="contract-list">
+            <div class="contract"><b>01</b><span>Every selected moment maps back to source footage.</span></div>
+            <div class="contract"><b>02</b><span>Every correction creates a new, reviewable version.</span></div>
+            <div class="contract"><b>03</b><span>Privacy masks survive both preview and exported video.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="decisions">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Start with the work</p>
+          <h2>Three decisions before value. Not fourteen fields.</h2>
+          <p>Goal, context, recording. Brand and output controls stay available, but they no longer stand between a new user and the first cut.</p>
+        </div>
+        <div class="decision-grid">
+          <article class="decision-card old reveal">
+            <div class="decision-label">Ceremony first</div>
+            <h3>Configure everything</h3>
+            <div class="form-ghost" aria-hidden="true">
+              <span class="ghost-field wide"></span><span class="ghost-field"></span><span class="ghost-field"></span><span class="ghost-field"></span><span class="ghost-field"></span><span class="ghost-field wide"></span>
+            </div>
+            <span class="form-strike" aria-hidden="true"></span>
+            <p class="decision-note">Template · aspect ratio · font · captions · intro · outro · three colors · CTA · title · target length</p>
+          </article>
+          <article class="decision-card new reveal">
+            <div class="decision-label">Value first</div>
+            <h3>Create your first cut</h3>
+            <div class="input-list">
+              <div class="input-item"><span class="input-number">01</span><div class="input-copy"><strong>Choose a goal</strong><span>Launch · Update · Tutorial</span></div><span class="input-state">SELECTED</span></div>
+              <div class="input-item"><span class="input-number">02</span><div class="input-copy"><strong>Add notes</strong><span>Script, changelog, or rough context</span></div><span class="input-state">OPTIONAL</span></div>
+              <div class="input-item"><span class="input-number">03</span><div class="input-copy"><strong>Drop in a recording</strong><span>MP4 · WebM · MOV</span></div><span class="input-state">READY</span></div>
+            </div>
+            <p class="decision-note">The rest moves into Video details—available when it matters, invisible when it does not.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">One guided loop</p>
+          <h2>From raw walkthrough to a cut worth editing.</h2>
+          <p>The happy path runs forward on its own. You step in when judgment matters—not to operate a pipeline.</p>
+        </div>
+        <div class="workflow-grid">
+          <div class="workflow-steps reveal" role="group" aria-label="Brocket workflow stages">
+            <button class="workflow-step" type="button" data-stage="upload" aria-pressed="true"><span class="step-no">01</span><span class="step-copy"><strong>Upload</strong><span>Drop in the product walkthrough. Brocket creates the project around the recording.</span></span></button>
+            <button class="workflow-step" type="button" data-stage="understand" aria-pressed="false"><span class="step-no">02</span><span class="step-copy"><strong>Understand</strong><span>Transcript, silence, visible change, and source evidence are assembled in the background.</span></span></button>
+            <button class="workflow-step" type="button" data-stage="cut" aria-pressed="false"><span class="step-no">03</span><span class="step-copy"><strong>First cut</strong><span>A grounded sequence appears automatically—no blank timeline, no repeated footage.</span></span></button>
+            <button class="workflow-step" type="button" data-stage="correct" aria-pressed="false"><span class="step-no">04</span><span class="step-copy"><strong>Correct</strong><span>Shorten a scene, change the moment, or mask a secret. Every edit remains reversible.</span></span></button>
+            <button class="workflow-step" type="button" data-stage="ship" aria-pressed="false"><span class="step-no">05</span><span class="step-copy"><strong>Ship</strong><span>Review the result, export the approved MP4, and share it with the team.</span></span></button>
+          </div>
+          <div class="workflow-visual reveal">
+            <div class="machine" aria-live="polite">
+              <div class="machine-head"><span class="machine-dots"><i></i><i></i><i></i></span><span class="machine-label" id="machineLabel">01 · UPLOAD</span></div>
+              <div class="machine-body">
+                <div class="machine-scene" data-panel="upload">
+                  <div class="drop-zone"><span class="drop-icon" aria-hidden="true">↑</span><h3>Drop in a recording.</h3><p>Your product walkthrough becomes the project.</p><div class="file-row"><span class="file-icon">MOV</span><div><div class="file-name">launch-walkthrough.mov</div><div class="file-size">5:12 · 384 MB</div></div><span class="file-ready">READY</span></div></div>
+                </div>
+                <div class="machine-scene" data-panel="understand" hidden>
+                  <div class="analysis-view"><div class="analysis-title">Understanding the walkthrough <span>RUNNING</span></div><div class="waveform" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="scan-line" aria-hidden="true"></span><div class="analysis-tags"><span>12 scene changes</span><span>3 quiet ranges</span><span>Transcript linked</span><span>Source preserved</span></div></div>
+                </div>
+                <div class="machine-scene" data-panel="cut" hidden>
+                  <div class="cut-card"><div class="cut-preview"></div><div class="cut-meta"><span>FIRST CUT · V11</span><span>0:31 FROM 5:12</span></div><div class="segments" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
+                </div>
+                <div class="machine-scene" data-panel="correct" hidden>
+                  <div class="edit-layout"><div class="edit-preview"><div class="edit-frame"></div></div><div class="edit-rail"><div class="edit-rail-label">SCENE 02</div><h3>Show the workflow</h3><p>Selected from 2:14–2:25 because the interface changes match your launch note.</p><button class="edit-action" type="button">Shorten this scene</button><span class="version-chip">SAVES AS V13</span></div></div>
+                </div>
+                <div class="machine-scene" data-panel="ship" hidden>
+                  <div class="ship-card"><span class="ship-check" aria-hidden="true">✓</span><h3>Ready to ship.</h3><p>The approved timeline, brand inputs, and privacy masks are captured with the export.</p><div class="ship-file"><span class="file-icon">MP4</span><div><strong>product-launch-v13.mp4</strong><span>1920 × 1080 · approved</span></div><b>READY</b></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="principles">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">AI you can direct</p>
+          <h2>Inspectable by default. Reversible by design.</h2>
+          <p>Brocket does not ask your team to trust a magic render. It keeps the footage, reasoning, and timeline close enough to review.</p>
+        </div>
+        <div class="principle-grid">
+          <article class="principle reveal"><span class="principle-no">01 / GROUNDED</span><span class="principle-icon" aria-hidden="true">⌖</span><h3>See why it is there.</h3><p>Each scene retains its source range and selection context, so a generated cut stays connected to the recording.</p></article>
+          <article class="principle reveal"><span class="principle-no">02 / PRIVATE</span><span class="principle-icon" aria-hidden="true">▰</span><h3>Mask it for real.</h3><p>Confirmed redactions become opaque masks in both the browser preview and the exported video.</p></article>
+          <article class="principle reveal"><span class="principle-no">03 / VERSIONED</span><span class="principle-icon" aria-hidden="true">↺</span><h3>Never lose the cut.</h3><p>Corrections create immutable timeline versions. Compare what changed and keep the generated baseline intact.</p></article>
+        </div>
+        <div class="honesty reveal"><strong>Preview honesty:</strong> the browser prioritizes fast review; the render worker produces the final MP4 from the approved timeline. Brocket tells you where those surfaces differ.</div>
+      </div>
+    </section>
+
+    <section class="section anti" id="why">
+      <div class="wrap anti-grid">
+        <h2 class="reveal">Not another<br><span>blank timeline.</span></h2>
+        <div class="anti-copy reveal">
+          <p>Brocket is for founders, PMMs, and product teams who need product evidence turned into a clear story—not another editing program to operate.</p>
+          <div class="anti-list">
+            <div class="anti-item"><i>—</i><span>No generic AI b-roll when the product footage already has the answer.</span></div>
+            <div class="anti-item"><i>—</i><span>No manual track-building before the generated first cut works.</span></div>
+            <div class="anti-item"><i>—</i><span>No opaque overwrite when the team asks for a correction.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="wrap reveal">
+        <p class="eyebrow">Brocket private alpha</p>
+        <h2>The first cut should be <span>worth editing.</span></h2>
+        <p>We are building the guided product-video workspace for teams that want a credible cut before they ever touch a timeline.</p>
+        <div class="final-actions">
+          <a class="button button-primary" href="https://x.com/j1ngb0" target="_blank" rel="me noopener noreferrer">Follow the build <span aria-hidden="true">↗</span></a>
+          <a class="button button-secondary" href="https://github.com/pgup-ai" target="_blank" rel="noopener noreferrer">View PGUP AI <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">B</span><span>Brocket</span></a>
+      <div class="footer-links"><a href="#workflow">Workflow</a><a href="#principles">Principles</a><a href="https://github.com/pgup-ai" target="_blank" rel="noopener noreferrer">PGUP AI ↗</a></div>
+      <span>© <span id="year">2026</span> · Product demos, cut by AI</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      document.querySelectorAll('[data-hero-tab]').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var target = tab.getAttribute('data-hero-tab');
+          document.querySelectorAll('[data-hero-tab]').forEach(function (item) {
+            item.setAttribute('aria-selected', String(item === tab));
+          });
+          document.querySelectorAll('[data-hero-panel]').forEach(function (panel) {
+            panel.hidden = panel.getAttribute('data-hero-panel') !== target;
+          });
+        });
+      });
+
+      var labels = {
+        upload: '01 · UPLOAD',
+        understand: '02 · UNDERSTAND',
+        cut: '03 · FIRST CUT',
+        correct: '04 · CORRECT',
+        ship: '05 · SHIP'
+      };
+      var stageButtons = Array.from(document.querySelectorAll('[data-stage]'));
+      var stagePanels = Array.from(document.querySelectorAll('[data-panel]'));
+      var machineLabel = document.getElementById('machineLabel');
+
+      function setStage(stage) {
+        stageButtons.forEach(function (button) {
+          button.setAttribute('aria-pressed', String(button.getAttribute('data-stage') === stage));
+        });
+        stagePanels.forEach(function (panel) {
+          panel.hidden = panel.getAttribute('data-panel') !== stage;
+        });
+        machineLabel.textContent = labels[stage];
+      }
+
+      stageButtons.forEach(function (button, index) {
+        button.addEventListener('click', function () { setStage(button.getAttribute('data-stage')); });
+        button.addEventListener('keydown', function (event) {
+          if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+          event.preventDefault();
+          var delta = event.key === 'ArrowDown' ? 1 : -1;
+          var next = stageButtons[(index + delta + stageButtons.length) % stageButtons.length];
+          next.focus();
+          setStage(next.getAttribute('data-stage'));
+        });
+      });
+
+      var revealItems = document.querySelectorAll('.reveal');
+      if (reduced || !('IntersectionObserver' in window)) {
+        revealItems.forEach(function (item) { item.classList.add('visible'); });
+      } else {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.12 });
+        revealItems.forEach(function (item) { observer.observe(item); });
+      }
+
+      document.getElementById('year').textContent = String(new Date().getFullYear());
+    }());
+  </script>
+</body>
+</html>
