@@ -1,0 +1,22 @@
+# Brocket
+
+> Brocket is an AI video workspace that turns raw product screen recordings into launch-ready demo videos. A screen recording in, a launch-ready video out — AI-cut, grounded in the source footage, reversible by design. Built for founders, product marketing managers (PMMs), and product teams. Currently in private alpha.
+
+Key facts:
+
+- Input: any product walkthrough screen recording (mp4, webm, or mov)
+- Output: a launch-ready 1080p MP4 with captions, brand styling, and privacy masks — typically cut from ~5 minutes of raw footage to ~30 seconds
+- Grounded: every scene in the generated cut maps to a timestamp in the source recording; nothing is invented
+- Script-matched: launch notes are matched to real moments in the footage
+- Private: confirmed redactions become opaque masks enforced in both the browser preview and the exported video
+- Versioned: corrections create immutable timeline versions; every AI edit is reversible and the generated baseline stays intact
+- No timeline editing required: the first cut is assembled automatically, and you correct with one click
+- Use cases: product launch videos, feature announcements, release walkthroughs, product demo videos
+
+## Links
+
+- [Landing page](https://brocket.video/)
+
+## Company
+
+- Built by [PGUP AI](https://github.com/pgup-ai)

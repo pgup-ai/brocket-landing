@@ -2,3 +2,5 @@
 *.log
 .vercel/
 .env*
+.claude/
+.playwright-mcp/
