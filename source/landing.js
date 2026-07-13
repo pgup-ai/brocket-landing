@@ -1,3 +1,12 @@
+const STAGE_NAMES = [
+  '01 · UPLOAD',
+  '02 · UNDERSTAND',
+  '03 · SCRIPT',
+  '04 · FIRST CUT',
+  '05 · EDIT',
+  '06 · SHIP',
+];
+
 class BrocketLanding {
   constructor() {
     this.props = {
@@ -95,6 +104,11 @@ class BrocketLanding {
     const L = (a, b, t) => a + (b - a) * t;
     const V = (n, v) => el.style.setProperty(n, v);
     const fmt = (s) => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+    const cachedNode = (key, id) => {
+      const current = ST[key];
+      if (current?.isConnected) return current;
+      return (ST[key] = document.getElementById(id));
+    };
 
     // header hairline (must live on an ancestor of the fixed header)
     document.body.style.setProperty('--hdr', S(p, 0.01, 0.03).toFixed(3));
@@ -137,10 +151,10 @@ class BrocketLanding {
     V('--upb-w', (up * 100).toFixed(1) + '%');
     V('--upok-o', EO(S(p, 0.215, 0.235)).toFixed(3));
     const pctTxt = Math.round(up * 100) + '%';
-    if (pctTxt !== ST.lastPct) {
-      const upEl = (ST.upEl = ST.upEl || document.getElementById('bk-uppct'));
+    const upEl = cachedNode('upEl', 'bk-uppct');
+    const pupEl = cachedNode('pupEl', 'bk-puppct');
+    if (pctTxt !== ST.lastPct || upEl?.textContent !== pctTxt || pupEl?.textContent !== pctTxt) {
       if (upEl) upEl.textContent = pctTxt;
-      const pupEl = (ST.pupEl = ST.pupEl || document.getElementById('bk-puppct'));
       if (pupEl) pupEl.textContent = pctTxt;
       ST.lastPct = pctTxt;
     }
@@ -198,10 +212,10 @@ class BrocketLanding {
     if (p >= 0.615) dur = L(312, 31, EO(S(p, 0.615, 0.70)));
     if (p >= 0.805) dur = L(31, 28, EIO(S(p, 0.805, 0.835)));
     const durTxt = fmt(dur);
-    if (durTxt !== ST.lastDur) {
-      const durEl = (ST.durEl = ST.durEl || document.getElementById('bk-dur'));
+    const durEl = cachedNode('durEl', 'bk-dur');
+    const pdurEl = cachedNode('pdurEl', 'bk-pdur');
+    if (durTxt !== ST.lastDur || durEl?.textContent !== durTxt || pdurEl?.textContent !== durTxt) {
       if (durEl) durEl.textContent = durTxt;
-      const pdurEl = (ST.pdurEl = ST.pdurEl || document.getElementById('bk-pdur'));
       if (pdurEl) pdurEl.textContent = durTxt;
       ST.lastDur = durTxt;
     }
@@ -245,12 +259,11 @@ class BrocketLanding {
     W.forEach(([a, b], i) => V('--rf' + (i + 1), (S(p, a, b) * 100).toFixed(1) + '%'));
     let stage = -1;
     W.forEach(([a, b], i) => { if (p >= a) stage = i; });
-    if (stage !== ST.lastStage) {
-      const names = ['01 · UPLOAD', '02 · UNDERSTAND', '03 · SCRIPT', '04 · FIRST CUT', '05 · EDIT', '06 · SHIP'];
-      const txt = stage >= 0 ? names[stage] : '';
-      const lblEl = (ST.lblEl = ST.lblEl || document.getElementById('bk-stglbl'));
+    const txt = stage >= 0 ? STAGE_NAMES[stage] : '';
+    const lblEl = cachedNode('lblEl', 'bk-stglbl');
+    const plblEl = cachedNode('plblEl', 'bk-pstglbl');
+    if (stage !== ST.lastStage || lblEl?.textContent !== txt || plblEl?.textContent !== txt) {
       if (lblEl) lblEl.textContent = txt;
-      const plblEl = (ST.plblEl = ST.plblEl || document.getElementById('bk-pstglbl'));
       if (plblEl) plblEl.textContent = txt;
       ST.lastStage = stage;
     }
@@ -296,11 +309,15 @@ landing.bkEnsure();
 
 document.querySelectorAll("[data-bk-jump]").forEach((button) => {
   button.addEventListener("click", () => {
+    const jumpValue = button.dataset.bkJump?.trim();
+    const jump = Number(jumpValue);
+    if (!jumpValue || !Number.isFinite(jump)) return;
     const section = document.getElementById("how");
     if (!section) return;
     const scroller = document.scrollingElement || document.documentElement;
     const top = scroller.scrollTop + section.getBoundingClientRect().top;
-    const travel = section.offsetHeight - window.innerHeight;
-    scroller.scrollTop = top + Number(button.dataset.bkJump) * travel;
+    const travel = Math.max(0, section.offsetHeight - window.innerHeight);
+    const progress = Math.min(1, Math.max(0, jump));
+    scroller.scrollTop = top + progress * travel;
   });
 });
