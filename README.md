@@ -5,17 +5,17 @@ Landing page for **Brocket**, the guided product-video workspace from
 
 ## What's here
 
-A single, self-contained static page following the same low-dependency shape as
-`jbot-review-landing`:
+The original self-contained animated landing page is deployed without design
+changes:
 
 ```text
-index.html   # page, inline CSS, and minimal vanilla JavaScript
-vercel.json  # static deployment configuration; no build step
+index.html                              # original bundled animated landing page
+source/Brocket Landing.dc.html          # original editable landing source
+source/Brocket UX Audit Review.dc.html  # original UX audit source
+source/support.js                        # source runtime
+archive/codex-edited-index.html          # previous Codex edit; not deployed
+vercel.json                              # static deployment configuration
 ```
-
-The page is grounded in Brocket's current product contracts: inspectable source
-lineage, immutable timeline versions, preview/render honesty, redaction, and a
-guided first-cut workflow.
 
 ## Develop
 

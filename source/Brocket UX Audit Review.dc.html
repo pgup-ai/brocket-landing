@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+  <meta charset="utf-8"></meta>
+  <title>Brocket MVP UX Audit — Review &amp; Optimization</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"></link>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;600&amp;display=swap" rel="stylesheet"></link>
+  <style>
+    body { margin: 0; background: #020617; color: #CBD5E1; font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #60A5FA; text-decoration: none; }
+    a:hover { color: #93C5FD; text-decoration: underline; }
+    ::selection { background: rgba(37, 99, 235, 0.35); color: #FFFFFF; }
+    body[data-pf="p0"] [data-priority="P1"], body[data-pf="p0"] [data-priority="P2"], body[data-pf="p0p1"] [data-priority="P2"] { display: none; }
+    body[data-notes="off"] .wf-note { display: none !important; }
+  </style>
+</helmet>
+
+<div style="display:flex;flex-wrap:wrap;gap:40px;max-width:1440px;margin:0 auto;padding:40px 32px 96px">
+
+  <aside style="width:212px;flex:none;position:sticky;top:24px;align-self:flex-start;font-size:12.5px;line-height:1.5">
+    <div style="font-weight:600;color:#FFFFFF;font-size:13px;letter-spacing:-0.01em">Brocket UX audit review</div>
+    <div style="margin-top:2px;color:#64748B;font-size:11px">12 Jul 2026 · analysis only</div>
+    <nav aria-label="Report sections" style="display:flex;flex-direction:column;gap:2px;margin-top:16px;border-left:1px solid #1E293B">
+      <a href="#sec-a" style="padding:5px 12px;color:#94A3B8">A · Executive verdict</a>
+      <a href="#sec-b" style="padding:5px 12px;color:#94A3B8">B · Current-state evidence</a>
+      <a href="#sec-c" style="padding:5px 12px;color:#94A3B8">C · Persona task flows</a>
+      <a href="#sec-d" style="padding:5px 12px;color:#94A3B8">D · Benchmark matrix</a>
+      <a href="#sec-e" style="padding:5px 12px;color:#94A3B8">E · Chosen color system</a>
+      <a href="#sec-f" style="padding:5px 12px;color:#94A3B8">F · Target workspace layout</a>
+      <a href="#sec-g" style="padding:5px 12px;color:#94A3B8">G · Screen-by-screen findings</a>
+      <a href="#sec-h" style="padding:5px 12px;color:#94A3B8">H · Copy cleanup</a>
+      <a href="#sec-i" style="padding:5px 12px;color:#94A3B8">I · Implementation sequence</a>
+      <a href="#sec-final" style="padding:5px 12px;color:#94A3B8">Final recommendation</a>
+    </nav>
+  </aside>
+
+  <main style="flex:1;min-width:640px;max-width:1080px">
+
+    <header data-screen-label="Report header">
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#60A5FA">Brocket · MVP UX audit — review pass</div>
+      <h1 style="margin:10px 0 0;font-size:30px;line-height:1.15;font-weight:700;color:#FFFFFF;letter-spacing:-0.02em;text-wrap:balance">Keep the contracts. Collapse the ceremony.</h1>
+      <p style="margin:14px 0 0;max-width:760px;font-size:14.5px;line-height:1.65;color:#94A3B8;text-wrap:pretty">
+        The supplied audit is accurate as a component-status record of the working branch, but it documents surfaces — it does not judge the journey. Reconciled against
+        <span style="font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;color:#CBD5E1">pgup-ai/brocket @ codex/preview-timeline-playback (c0e8d7c)</span>,
+        the engineering contracts (immutable versions, source lineage, preview honesty, fail-closed redaction) are the product's strongest asset. The UX debt is structural:
+        a 14-field form before value, a pipeline exposed as buttons, and a review surface arranged as a document instead of a workspace.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:11.5px">
+        <span style="padding:4px 10px;border-radius:999px;background:#0F172A;border:1px solid #1E293B;color:#94A3B8">26 web-app files + 7 product docs inspected</span>
+        <span style="padding:4px 10px;border-radius:999px;background:#0F172A;border:1px solid #1E293B;color:#94A3B8">23 findings · 4 P0</span>
+        <span style="padding:4px 10px;border-radius:999px;background:rgba(37,99,235,0.14);border:1px solid rgba(37,99,235,0.35);color:#93C5FD">Palette: Graphite + Cobalt (retained slate)</span>
+        <span style="padding:4px 10px;border-radius:999px;background:rgba(37,99,235,0.14);border:1px solid rgba(37,99,235,0.35);color:#93C5FD">Layout: two-pane review workspace</span>
+      </div>
+    </header>
+
+    <!-- ============================ A ============================ -->
+    <section id="sec-a" data-screen-label="A Executive verdict" style="margin-top:56px">
+      <div style="display:flex;align-items:baseline;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#2563EB;color:#FFFFFF;font-size:13px;font-weight:700">A</span>
+        <h2 style="margin:0;font-size:19px;font-weight:600;color:#FFFFFF">Executive verdict</h2>
+      </div>
+      <ol style="margin:18px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13.5px;line-height:1.55">
+        <li style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px"><strong style="color:#34D399">Already working.</strong> The state machine is honest and rare for an MVP: staleness tracking (<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">firstCutIsCurrent</span>), immutable versions, per-scene source lineage, preview-vs-render honesty copy, fail-closed redaction, guarded async. Preserve all of it.</li>
+        <li style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px"><strong style="color:#34D399">Also working.</strong> The visual base already avoids AI-slop: flat slate surfaces, 1px borders, one blue, no gradients or glows. <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">DESIGN.md</span> is a real system document. This is a tuning job, not a redesign.</li>
+        <li style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px"><strong style="color:#F87171">Largest onboarding problem.</strong> <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">NewProject.tsx</span> renders the full 14-field <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">ProjectInputsForm</span> (template, aspect ratio, font, captions, intro, outro, 3 brand colors, CTA…) before the user has uploaded anything — front-loading Month-3 brand config and contradicting PRODUCT_VISION's "first screen after login" spec.</li>
+        <li style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px"><strong style="color:#F87171">Second onboarding problem.</strong> The pipeline is exposed as manual ceremony: upload, then an "Analyze recording" button state, then "Create first cut". The default journey should be upload → first cut with zero clicks between, with manual controls only on failure.</li>
+        <li style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px"><strong style="color:#F87171">Largest workspace problem.</strong> Review is a vertical document: five equal <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">rounded-xl</span> cards inside a 1024px column (<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">max-w-5xl</span>), preview capped at ~660×480px. On an editing display, most pixels are empty slate and the video — the product — is a minority element.</li>
+        <li style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px"><strong style="color:#FDE68A">Most important de-slop change.</strong> One status voice per event. Today an upload prints "Recording uploaded. Analysis queued." at page level <em>and</em> "Analysis queued" in the source card; render state appears in both the Preview rail and the Renders card. Consolidate, and rename vague verb targets ("Edit inputs", "Edit clicks").</li>
+        <li style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px"><strong style="color:#93C5FD">Color direction.</strong> Keep the slate workspace; do not introduce a new hue. Fix the real defects: slate-500 text fails AA on both backgrounds (4.2:1 / 3.7:1), blue is over-assigned (up to five blue primaries visible at once), and there is no explicit focus-ring or AI-attribution token. Chosen: <strong>Graphite + Cobalt</strong> (§E).</li>
+        <li style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px"><strong style="color:#93C5FD">Target layout.</strong> One two-pane review workspace (§F): dominant preview + transport left, one right rail with Scenes / Privacy / Versions tabs, Video details demoted to a collapsed drawer, exactly one primary action — <strong>Export</strong> — in the header. No multi-track timeline for the MVP.</li>
+        <li style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px"><strong style="color:#CBD5E1">AI interaction.</strong> The evidence is already in the data (<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">scene.source.reason</span>, transcript indices, ranges) but rendered as jargon chips. Surface it as "Why this moment?" and concrete corrections ("Shorten", "Remove scene"); defer chat-style revision commands to the Month-5→2 agent loop.</li>
+        <li style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px"><strong style="color:#CBD5E1">Sequence discipline.</strong> Everything in "Now" (§I) is client-side IA, copy, and layout — no schema or API changes, no discarded behavior. The plan's Month-4 editable timeline stays scoped as a correction escape hatch, per POSITIONING_DECISION.</li>
+      </ol>
+    </section>
+
+    <!-- ============================ B ============================ -->
+    <section id="sec-b" data-screen-label="B Current-state evidence" style="margin-top:56px">
+      <div style="display:flex;align-items:baseline;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#2563EB;color:#FFFFFF;font-size:13px;font-weight:700">B</span>
+        <h2 style="margin:0;font-size:19px;font-weight:600;color:#FFFFFF">Current-state evidence</h2>
+      </div>
+      <p style="margin:12px 0 0;font-size:13.5px;line-height:1.6;color:#94A3B8;max-width:760px">
+        The implemented product is five routes: login, projects list, new project, project detail, and a public share page. Project detail is the workspace: a 5-step strip
+        (<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">ProjectDetail.tsx · WORKFLOW_STEPS</span>) above stacked cards — Video details, Source recording, First cut,
+        Privacy review + Preview + Compare (<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">ReviewTools.tsx</span> wrapping <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">Preview.tsx</span>), and Renders.
+      </p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;font-size:13px;line-height:1.55">
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:16px 18px">
+          <div style="font-size:12px;font-weight:600;color:#34D399">Implemented now (merged on main)</div>
+          <ul style="margin:10px 0 0;padding-left:18px;color:#CBD5E1;display:flex;flex-direction:column;gap:6px">
+            <li>Full pre-creation form — <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">ProjectInputsForm.tsx</span> (14 fields incl. template-driven font/caption defaults)</li>
+            <li>Upload → probe → durable analysis with queued / running / failed / stale / ready states — <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">ProjectDetail.tsx</span></li>
+            <li>Deterministic first cut; staleness via <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">firstCutIsCurrent</span>; bounded scene text / duration / transition edits saved as immutable versions</li>
+            <li>Scene rail with lineage chips ("Transcript matched", "Visual change detected", "Script-timed selection" — <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">sourceSelectionLabel()</span>); transcript panel with provider honesty ("Script-based timing")</li>
+            <li>Privacy review: transcript credential suggestions (category + range only), drag + exact-field redaction, opaque mask in preview and render — <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">ReviewTools.tsx</span></li>
+            <li>Read-only version comparison; render queue with retry; 7-day revocable share links; public <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">SharedRender.tsx</span></li>
+          </ul>
+        </div>
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:16px 18px">
+          <div style="font-size:12px;font-weight:600;color:#93C5FD">Present only in branch-local work</div>
+          <p style="margin:8px 0 0;color:#94A3B8;font-size:12.5px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px">Preview.tsx</span> grows 30&#8239;KB → 66&#8239;KB vs main (<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">f47f24d</span>):</p>
+          <ul style="margin:8px 0 0;padding-left:18px;color:#CBD5E1;display:flex;flex-direction:column;gap:6px">
+            <li>Continuous timeline playback across cards + scenes (rAF clock, Play/Pause)</li>
+            <li>Click-highlight styles None / Pulse / Spotlight / Ripple with hover-preview + tooltips</li>
+            <li>Click-marker editing: Add / Move / Remove at the playhead, per-scene cap</li>
+            <li>Fade-through-black transition approximation in preview</li>
+          </ul>
+          <div style="margin-top:14px;font-size:12px;font-weight:600;color:#94A3B8">Planned, not implemented</div>
+          <ul style="margin:8px 0 0;padding-left:18px;color:#94A3B8;display:flex;flex-direction:column;gap:5px;font-size:12.5px">
+            <li>Editable timeline beyond bounded edits (Month 4) · revision commands / patch preview (Month 5)</li>
+            <li>Semantic click / cursor detection; OCR frame-secret detection; version restore; approvals, comments, channel variants</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;align-items:flex-start;margin-top:12px;background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:16px 18px">
+        <img src="assets/supplied-audit.png" alt="Supplied Figma audit board: five paired view/edit surfaces" style="width:220px;border-radius:8px;border:1px solid #1E293B;flex:none"></img>
+        <div style="font-size:13px;line-height:1.6;color:#CBD5E1">
+          <div style="font-size:12px;font-weight:600;color:#FDE68A">Where the supplied audit is unsupported by the repo</div>
+          <ul style="margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px">
+            <li><span style="font-family:'IBM Plex Mono',monospace;font-size:11px">design-qa.md</span> is referenced in the review brief but <strong>does not exist</strong> on this branch or main. Only <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">DESIGN.md</span> exists.</li>
+            <li>The audit's five surfaces and its "known boundary" note (no semantic click detection) reconcile 1:1 with the <em>branch</em>, not with main — treat its claims as branch-scoped until the playback PR merges.</li>
+            <li>"0 console errors · verified at 1280×720" is a build-health check, not UX evidence — no task-flow, first-run, or narrow-viewport findings exist anywhere in it. It is a status ledger; the sections below are the audit judgment it omits.</li>
+            <li><span style="font-family:'IBM Plex Mono',monospace;font-size:11px">IMPLEMENTATION_STATUS.md</span> reconciles to main @ <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">d9eab9c</span> (2026-07-11) and does not cover this branch — consistent with its own warning that it may lag branch-local work.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ C ============================ -->
+    <section id="sec-c" data-screen-label="C Persona task flows" style="margin-top:56px">
+      <div style="display:flex;align-items:baseline;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#2563EB;color:#FFFFFF;font-size:13px;font-weight:700">C</span>
+        <h2 style="margin:0;font-size:19px;font-weight:600;color:#FFFFFF">Persona task flows — shortest path to export</h2>
+      </div>
+      <p style="margin:12px 0 0;font-size:13.5px;line-height:1.6;color:#94A3B8;max-width:760px">One shared workflow, two depths. The spine is identical for both personas; the difference is what stays folded. Steps marked <span style="color:#F87171;font-weight:600">✕</span> exist today and should be removed from the default path.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;font-size:13px">
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:16px 18px">
+          <div style="font-weight:600;color:#FFFFFF;font-size:13.5px">PMM / product marketer — "get me a usable video"</div>
+          <ol style="margin:12px 0 0;padding-left:20px;line-height:1.7;color:#CBD5E1;display:flex;flex-direction:column;gap:4px">
+            <li>New project → pick a goal (template), paste notes. <em style="color:#64748B">Two decisions.</em></li>
+            <li style="color:#64748B"><span style="color:#F87171;font-weight:600">✕</span> Configure aspect, font, captions, intro, outro, 3 colors, CTA <em>(becomes defaults, editable later)</em></li>
+            <li>Upload the recording — analysis and the first cut run automatically.</li>
+            <li>Watch the preview; fix wording on a scene; accept the rest.</li>
+            <li>Export → copy the share link.</li>
+          </ol>
+          <p style="margin:12px 0 0;font-size:12px;color:#94A3B8;line-height:1.6">Never needs to see: source ranges in ms, normalized coordinates, transcript provider, timeline version IDs, render presets. Sees instead: "Why this moment?", "Cut was made before your latest changes", "Video ready".</p>
+        </div>
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:16px 18px">
+          <div style="font-weight:600;color:#FFFFFF;font-size:13.5px">DevRel / technical founder — "fast, but show your work"</div>
+          <ol style="margin:12px 0 0;padding-left:20px;line-height:1.7;color:#CBD5E1;display:flex;flex-direction:column;gap:4px">
+            <li>Same steps 1–3 (same shell, same defaults).</li>
+            <li>Expands evidence: source in/out ranges per scene, selection reason, transcript provider — via the same "Why this moment?" disclosure.</li>
+            <li>Uses exact controls: ms redaction fields, click-marker placement, transition per boundary.</li>
+            <li>Compares v12 → v13 before export; then Export.</li>
+          </ol>
+          <p style="margin:12px 0 0;font-size:12px;color:#94A3B8;line-height:1.6">Progressive-disclosure points (fold, don't fork): evidence popover on scene cards · "Advanced" block inside Privacy (exact ms/% fields, kept — the drag + field parity in <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">RedactionCanvas</span> is a model pattern) · Versions tab · click-style picker behind the transport's overflow.</p>
+        </div>
+      </div>
+      <p style="margin:12px 0 0;font-size:13px;line-height:1.6;color:#CBD5E1;background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 18px"><strong style="color:#FFFFFF">Where paths must stay shared:</strong> project creation, upload, preview, scene review, privacy confirmation, export, sharing — one surface, one vocabulary. <strong style="color:#FFFFFF">Where disclosure is appropriate:</strong> anything expressed in units the renderer needs but a human doesn't (ms, %, version IDs, presets, providers). Disclosure means "collapsed in the same place", never a separate mode or product.</p>
+    </section>
+
+    <!-- ============================ D ============================ -->
+    <section id="sec-d" data-screen-label="D Benchmark matrix" style="margin-top:56px">
+      <div style="display:flex;align-items:baseline;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#2563EB;color:#FFFFFF;font-size:13px;font-weight:700">D</span>
+        <h2 style="margin:0;font-size:19px;font-weight:600;color:#FFFFFF">Benchmark matrix</h2>
+      </div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:#94A3B8;max-width:760px;line-height:1.6">Patterns, not pixels — competitors per <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">docs/COMPETITOR_RESEARCH.md</span>. Verdicts are scoped to the MVP boundary in <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">AGENTS.md</span>.</p>
+      <table style="width:100%;border-collapse:collapse;margin-top:16px;font-size:12.5px;line-height:1.5">
+        <thead>
+          <tr style="text-align:left;color:#64748B;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em">
+            <th style="padding:8px 10px 8px 0;font-weight:600">Tool · pattern</th>
+            <th style="padding:8px 10px;font-weight:600">Why it works</th>
+            <th style="padding:8px 10px;font-weight:600;white-space:nowrap">Verdict</th>
+            <th style="padding:8px 0 8px 10px;font-weight:600">Mapping to Brocket</th>
+          </tr>
+        </thead>
+        <tbody style="color:#CBD5E1;vertical-align:top">
+          <tr style="border-top:1px solid #1E293B"><td style="padding:10px 10px 10px 0"><strong style="color:#F1F5F9">Descript</strong> — transcript as primary navigation</td><td style="padding:10px">Scanning text beats scrubbing video for finding a moment</td><td style="padding:10px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:11px">Adapt</span></td><td style="padding:10px 0 10px 10px">Transcript-segment seek already exists (<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">selectTranscriptSegment</span>). Promote it to a rail view peer of Scenes. Reject delete-text-to-cut editing — that is Month-4+ correction scope.</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:10px 10px 10px 0"><strong style="color:#F1F5F9">Descript "Underlord"</strong> — AI proposes discrete, reviewable edits</td><td style="padding:10px">Keeps the human as approver; edits are legible units</td><td style="padding:10px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:11px">Adapt</span></td><td style="padding:10px 0 10px 10px">Matches the POSITIONING patch contract exactly — every suggestion is a validated timeline-IR patch producing a new immutable version. This is the <em>Next</em>-phase suggestion queue, not MVP.</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:10px 10px 10px 0"><strong style="color:#F1F5F9">RecordOnce</strong> — "record once → auto-edit → done" posture</td><td style="padding:10px">Zero ceremony between input and first result; the tool feels like it did the work</td><td style="padding:10px"><span style="padding:2px 8px;border-radius:999px;background:rgba(52,211,153,0.14);color:#34D399;font-weight:600;font-size:11px">Adopt</span></td><td style="padding:10px 0 10px 10px">Auto-chain upload → analysis → first cut (§I Now-2). Manual "Analyze recording" / "Create first cut" buttons survive only as failure-recovery actions.</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:10px 10px 10px 0"><strong style="color:#F1F5F9">CapCut / VEED</strong> — upload-first, one-prompt creation</td><td style="padding:10px">Value before configuration; settings arrive after evidence of a result</td><td style="padding:10px"><span style="padding:2px 8px;border-radius:999px;background:rgba(52,211,153,0.14);color:#34D399;font-weight:600;font-size:11px">Adopt</span></td><td style="padding:10px 0 10px 10px">Create = goal + notes + upload. Everything else defaults (defaults already exist in <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">DEFAULT_PROJECT_INPUTS</span>). Reject VEED's stock-media generation — violates the grounded-footage principle.</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:10px 10px 10px 0"><strong style="color:#F1F5F9">Loom</strong> — viewer-light share page</td><td style="padding:10px">Recipients need play + download, nothing else</td><td style="padding:10px"><span style="padding:2px 8px;border-radius:999px;background:rgba(52,211,153,0.14);color:#34D399;font-weight:600;font-size:11px">Adopt</span></td><td style="padding:10px 0 10px 10px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px">SharedRender.tsx</span> already matches. Keep output-only; resist adding comments/branding until Month 7–8.</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:10px 10px 10px 0"><strong style="color:#F1F5F9">ScreenStudio</strong> — cinematic auto-zoom quality</td><td style="padding:10px">Perceived polish comes from motion quality, not editor UI</td><td style="padding:10px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:11px">Adapt</span></td><td style="padding:10px 0 10px 10px">Invest in render-side zoom/easing quality on the existing timeline zoom objects. Reject the capture-app scope; treat ScreenStudio as an upstream source.</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:10px 10px 10px 0"><strong style="color:#F1F5F9">Tella</strong> — one-click filler/silence removal</td><td style="padding:10px">A single labeled action that fixes the most common defect</td><td style="padding:10px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:11px">Adapt</span></td><td style="padding:10px 0 10px 10px">Silence/idle evidence is already persisted by analysis. Surface as a review chip ("Tighten quiet moments — saves 6s") emitting a bounded patch. Next phase; depends on the patch-suggestion API.</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:10px 10px 10px 0"><strong style="color:#F1F5F9">Canva</strong> — brand kit as persistent object</td><td style="padding:10px">Brand becomes reusable data, not per-project retyping</td><td style="padding:10px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:11px">Adapt</span></td><td style="padding:10px 0 10px 10px">Keep the render-snapshot contract and chrome/brand separation; make the kit org-reusable in Month 9. Never let it recolor the editor (already guarded — keep the guard).</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:10px 10px 10px 0"><strong style="color:#F1F5F9">Opus Clip</strong> — per-clip "virality score"</td><td style="padding:10px">Gives creators a decision heuristic</td><td style="padding:10px"><span style="padding:2px 8px;border-radius:999px;background:rgba(248,113,113,0.12);color:#F87171;font-weight:600;font-size:11px">Reject</span></td><td style="padding:10px 0 10px 10px">Opaque scoring contradicts grounded-evidence positioning. If a summary metric is wanted, show verifiable coverage ("uses 0:41 of your 5:20 recording") instead.</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:10px 10px 10px 0"><strong style="color:#F1F5F9">CapCut / Kapwing / Descript</strong> — persistent multi-track timeline</td><td style="padding:10px">Right for open-ended composition — which Brocket is not</td><td style="padding:10px"><span style="padding:2px 8px;border-radius:999px;background:rgba(248,113,113,0.12);color:#F87171;font-weight:600;font-size:11px">Reject</span></td><td style="padding:10px 0 10px 10px">A dense always-on timeline signals "operate me" and buries the AI-first promise. The segmented cut scrubber + scene rail is the correct MVP density (AGENTS.md anti-goal; PRODUCT_VISION timeline philosophy).</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================ E ============================ -->
+    <section id="sec-e" data-screen-label="E Chosen color system" style="margin-top:56px">
+      <div style="display:flex;align-items:baseline;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#2563EB;color:#FFFFFF;font-size:13px;font-weight:700">E</span>
+        <h2 style="margin:0;font-size:19px;font-weight:600;color:#FFFFFF">Chosen color system — Graphite + Cobalt</h2>
+      </div>
+      <p style="margin:12px 0 0;font-size:13.5px;line-height:1.6;color:#94A3B8;max-width:780px">The current palette is Tailwind slate + blue-600 used ad hoc (<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">DESIGN.md §2</span>). The audit question is not "which new palette" but "which defects to fix while keeping it". Three candidates were compared; one is chosen. This report's own chrome is rendered in the chosen system.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:18px;font-size:12.5px;line-height:1.55">
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px">
+          <div style="display:flex;gap:4px;margin-bottom:10px"><span style="width:22px;height:22px;border-radius:5px;background:#020617;border:1px solid #334155"></span><span style="width:22px;height:22px;border-radius:5px;background:#0F172A;border:1px solid #334155"></span><span style="width:22px;height:22px;border-radius:5px;background:#2563EB"></span><span style="width:22px;height:22px;border-radius:5px;background:#64748B"></span></div>
+          <div style="font-weight:600;color:#CBD5E1">1 · Status quo</div>
+          <p style="margin:6px 0 0;color:#94A3B8">Keep everything as-is. <strong style="color:#F87171">Rejected:</strong> ships two real defects — slate-500 body-size text below AA, and blue meaning "primary action", "current step", "active segment", "queued status" and "selection" simultaneously.</p>
+        </div>
+        <div style="background:#0F172A;border:1px solid #3B82F6;border-radius:12px;padding:14px 16px;position:relative">
+          <span style="position:absolute;top:-9px;right:12px;padding:2px 8px;border-radius:999px;background:#2563EB;color:#FFFFFF;font-size:10px;font-weight:700;letter-spacing:0.06em">CHOSEN</span>
+          <div style="display:flex;gap:4px;margin-bottom:10px"><span style="width:22px;height:22px;border-radius:5px;background:#020617;border:1px solid #334155"></span><span style="width:22px;height:22px;border-radius:5px;background:#0F172A;border:1px solid #334155"></span><span style="width:22px;height:22px;border-radius:5px;background:#2563EB"></span><span style="width:22px;height:22px;border-radius:5px;background:#60A5FA"></span><span style="width:22px;height:22px;border-radius:5px;background:#94A3B8"></span></div>
+          <div style="font-weight:600;color:#FFFFFF">2 · Graphite + Cobalt</div>
+          <p style="margin:6px 0 0;color:#CBD5E1">Same slate scale and hue economy; roles made explicit. Text floor raised to slate-400; blue split into <em>action</em> (600) / <em>hover</em> (500) / <em>selected + focus</em> (400); AI attribution reuses the blue family. Zero new hues, zero re-theming cost.</p>
+        </div>
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px">
+          <div style="display:flex;gap:4px;margin-bottom:10px"><span style="width:22px;height:22px;border-radius:5px;background:#0C0A09;border:1px solid #44403C"></span><span style="width:22px;height:22px;border-radius:5px;background:#1C1917;border:1px solid #44403C"></span><span style="width:22px;height:22px;border-radius:5px;background:#F59E0B"></span><span style="width:22px;height:22px;border-radius:5px;background:#A8A29E"></span></div>
+          <div style="font-weight:600;color:#CBD5E1">3 · Warm graphite + signal amber</div>
+          <p style="margin:6px 0 0;color:#94A3B8">Stone neutrals with an amber action color. <strong style="color:#F87171">Rejected:</strong> amber already means "recoverable warning" across the product; repurposing it as the action color breaks a working semantic, and re-tokenizing every border/text tier buys no user value. (The violet-gradient "AI product" treatment was excluded outright.)</p>
+        </div>
+      </div>
+
+      <h3 style="margin:26px 0 0;font-size:14px;font-weight:600;color:#F1F5F9">Final palette — semantic roles, exact values, contrast</h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px">
+        <thead><tr style="text-align:left;color:#64748B;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em"><th style="padding:8px 10px 8px 0;font-weight:600">Role</th><th style="padding:8px 10px;font-weight:600">Value</th><th style="padding:8px 10px;font-weight:600">Use</th><th style="padding:8px 0 8px 10px;font-weight:600">Contrast (computed)</th></tr></thead>
+        <tbody style="color:#CBD5E1;vertical-align:top">
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#020617;border:1px solid #334155;vertical-align:-2px;margin-right:8px"></span>Canvas</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#020617</td><td style="padding:9px 10px">Page background, form wells, nested evidence panels</td><td style="padding:9px 0 9px 10px;color:#94A3B8">—</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#0F172A;border:1px solid #334155;vertical-align:-2px;margin-right:8px"></span>Raised surface</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#0F172A</td><td style="padding:9px 10px">Cards, rail, drawer, dialogs</td><td style="padding:9px 0 9px 10px;color:#94A3B8">—</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#1E293B;vertical-align:-2px;margin-right:8px"></span>Interactive surface</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#1E293B</td><td style="padding:9px 10px">Hover fills, pressed secondary buttons, chips</td><td style="padding:9px 0 9px 10px;color:#94A3B8">—</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#1E293B;vertical-align:-2px;margin-right:8px"></span>Structural border</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#1E293B</td><td style="padding:9px 10px">Card and section boundaries (1px)</td><td style="padding:9px 0 9px 10px;color:#94A3B8">decorative — exempt</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#334155;vertical-align:-2px;margin-right:8px"></span>Interactive border</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#334155</td><td style="padding:9px 10px">Inputs, secondary buttons, controls</td><td style="padding:9px 0 9px 10px;color:#94A3B8">vs #0F172A ≈ 2.0:1 — pair with focus ring for state</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#F1F5F9;vertical-align:-2px;margin-right:8px"></span>Primary text</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#F1F5F9</td><td style="padding:9px 10px">Headings, values, button labels (white for top emphasis)</td><td style="padding:9px 0 9px 10px;color:#34D399">17.5:1 on canvas ✓</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#94A3B8;vertical-align:-2px;margin-right:8px"></span>Secondary text <strong style="color:#93C5FD">(new floor)</strong></td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#94A3B8</td><td style="padding:9px 10px">All metadata, timestamps, helper copy. <strong>#64748B is demoted to disabled/decorative only</strong> — today it is body text at 12px and fails AA (4.2:1 on canvas, 3.7:1 on cards)</td><td style="padding:9px 0 9px 10px;color:#34D399">7.9:1 / 6.6:1 ✓</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#2563EB;vertical-align:-2px;margin-right:8px"></span>Primary action</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#2563EB</td><td style="padding:9px 10px"><strong>One per view.</strong> Hover #3B82F6. White label</td><td style="padding:9px 0 9px 10px;color:#34D399">label 5.1:1 ✓ · vs canvas 3.9:1 ✓ (UI ≥3)</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#60A5FA;vertical-align:-2px;margin-right:8px"></span>Selected / active / focus</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#60A5FA<span style="color:#64748B"> + fill </span>rgba(37,99,235,.10)</td><td style="padding:9px 10px">Active scene card, active scrubber segment, current step, and the global 2px focus ring (offset 2px)</td><td style="padding:9px 0 9px 10px;color:#34D399">7.9:1 as text ✓ · ring vs canvas 7.0:1 ✓</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#34D399;vertical-align:-2px;margin-right:8px"></span>Success</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#34D399<span style="color:#64748B"> · action </span>#059669</td><td style="padding:9px 10px">"Video ready" text; Download button only after an artifact exists</td><td style="padding:9px 0 9px 10px;color:#34D399">10.5:1 ✓</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#FDE68A;vertical-align:-2px;margin-right:8px"></span>Warning</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#FDE68A<span style="color:#64748B"> on </span>rgba(69,26,3,.30)<span style="color:#64748B"> border </span>rgba(180,83,9,.60)</td><td style="padding:9px 10px">Staleness, shorter-than-target, truncation notices — always with a label and a next action</td><td style="padding:9px 0 9px 10px;color:#34D399">≈15:1 ✓</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#F87171;vertical-align:-2px;margin-right:8px"></span>Error</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#F87171</td><td style="padding:9px 10px">Failures, destructive copy — always paired with Retry or recovery</td><td style="padding:9px 0 9px 10px;color:#34D399">7.3:1 ✓</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;white-space:nowrap"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:#93C5FD;vertical-align:-2px;margin-right:8px"></span>AI-suggested</td><td style="padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">#93C5FD<span style="color:#64748B"> on </span>rgba(37,99,235,.12)</td><td style="padding:9px 10px">Chip for AI-selected/AI-proposed items, always with a text label ("AI · matched your script"). A separate treatment <em>is</em> justified — attribution is core to the positioning — but it stays inside the blue family. No purple, no gradient, no glow</td><td style="padding:9px 0 9px 10px;color:#34D399">11.4:1 ✓</td></tr>
+        </tbody>
+      </table>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;font-size:12.5px;line-height:1.6">
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px">
+          <div style="font-weight:600;color:#34D399;font-size:12px">Correct use</div>
+          <ul style="margin:8px 0 0;padding-left:18px;color:#CBD5E1;display:flex;flex-direction:column;gap:5px">
+            <li>Exactly one #2563EB element per view; everything else is bordered secondary</li>
+            <li>Selection shown as #60A5FA border + 10% blue fill — never a solid blue fill behind text</li>
+            <li>Status always label + color (never color alone) — the codebase already does this; keep it</li>
+            <li>Customer brand colors appear only inside the media frame and generated cards (the <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">BrandMark</span>/title/outro path) — the existing chrome/brand boundary is a differentiator, enforce it in review</li>
+          </ul>
+        </div>
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px">
+          <div style="font-weight:600;color:#F87171;font-size:12px">Incorrect use</div>
+          <ul style="margin:8px 0 0;padding-left:18px;color:#CBD5E1;display:flex;flex-direction:column;gap:5px">
+            <li>Play, Analyze, Create first cut, Confirm redaction and Render MP4 all blue at once (today's worst case)</li>
+            <li>#64748B for any copy a user must read (12px timestamps, counters, helper text)</li>
+            <li>Purple/gradient "AI" styling, glassmorphism, glow shadows — excluded by direction</li>
+            <li>Amber as decoration: it is reserved for recoverable limitations with a next step</li>
+            <li>Blue queued-status text (<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">text-blue-300</span> "Analysis queued") — progress is neutral; blue implies actionability. Use #94A3B8 + spinner</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin:12px 0 0;font-size:12.5px;color:#94A3B8;line-height:1.6"><strong style="color:#CBD5E1">Color-blind + long-session checks:</strong> success/error separate by lightness (10.5:1 vs 7.3:1) as well as hue and are always labelled; the workspace stays low-luminance with no pure-white fields (prolonged-editing comfort); the only saturated area is the single primary action and the media itself, which keeps eye-pull on the video.</p>
+    </section>
+
+    <!-- ============================ F ============================ -->
+    <section id="sec-f" data-screen-label="F Target workspace layout" style="margin-top:56px">
+      <div style="display:flex;align-items:baseline;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#2563EB;color:#FFFFFF;font-size:13px;font-weight:700">F</span>
+        <h2 style="margin:0;font-size:19px;font-weight:600;color:#FFFFFF">Target workspace layout — one choice, no hedging</h2>
+      </div>
+      <p style="margin:12px 0 0;font-size:13.5px;line-height:1.6;color:#94A3B8;max-width:780px">
+        Chosen model: a <strong style="color:#F1F5F9">guided review workspace</strong> — not a traditional editor. Two panes, one primary action, evidence on demand.
+        The starting hypothesis in the brief survives contact with the repo with one amendment: the scene rail and transcript should be <em>one</em> right rail with tabs, because both already navigate the same playhead
+        (<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">selectScene</span> / <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">selectTranscriptSegment</span>), and two parallel navigators would compete.
+      </p>
+
+      <div style="display:grid;grid-template-columns:200px 1fr;gap:12px;margin-top:18px">
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px">
+          <div style="font-size:11px;font-weight:600;color:#94A3B8;text-transform:uppercase;letter-spacing:0.08em">Today — a document</div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-top:10px;font-size:10.5px;color:#64748B">
+            <div style="border:1px dashed #334155;border-radius:6px;padding:5px 8px">5-step workflow strip</div>
+            <div style="border:1px dashed #334155;border-radius:6px;padding:5px 8px;height:44px">Video details (full form + logo)</div>
+            <div style="border:1px dashed #334155;border-radius:6px;padding:5px 8px">Source recording + status</div>
+            <div style="border:1px dashed #334155;border-radius:6px;padding:5px 8px">First cut + guidance</div>
+            <div style="border:1px dashed #334155;border-radius:6px;padding:5px 8px">Privacy review (collapsed)</div>
+            <div style="border:1px dashed #334155;border-radius:6px;padding:5px 8px;height:58px">Preview ⅔ + Scenes ⅓ + transcript</div>
+            <div style="border:1px dashed #334155;border-radius:6px;padding:5px 8px">Compare versions (collapsed)</div>
+            <div style="border:1px dashed #334155;border-radius:6px;padding:5px 8px">Renders list + shares</div>
+            <div style="text-align:center;color:#475569">⌄ one long scroll, 1024px wide</div>
+          </div>
+        </div>
+
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px;min-width:0">
+          <div style="font-size:11px;font-weight:600;color:#93C5FD;text-transform:uppercase;letter-spacing:0.08em">Target — a workspace (structural wireframe)</div>
+          <div style="margin-top:10px;border:1px solid #334155;border-radius:8px;overflow:hidden;font-size:10.5px;color:#94A3B8;background:#020617">
+            <div style="display:flex;align-items:center;gap:8px;border-bottom:1px dashed #334155;padding:7px 10px">
+              <span>← Projects</span><span style="color:#F1F5F9;font-weight:600">Project title</span>
+              <span style="border:1px dashed #334155;border-radius:999px;padding:1px 8px">v13 · Current ✓</span>
+              <span style="flex:1"></span>
+              <span style="border:1px dashed #334155;border-radius:6px;padding:2px 8px">Video details ▾</span>
+              <span style="border:1px dashed #334155;border-radius:6px;padding:2px 8px">Share</span>
+              <span style="border:1px solid #2563EB;color:#93C5FD;border-radius:6px;padding:2px 10px;font-weight:600">Export</span>
+            </div>
+            <div style="display:flex;min-height:210px">
+              <div style="flex:1;border-right:1px dashed #334155;display:flex;flex-direction:column">
+                <div style="flex:1;display:flex;align-items:center;justify-content:center;border-bottom:1px dashed #334155;color:#64748B">PREVIEW — fills available height, ≥60% width<br></br>captions · zooms · masks · focus rendered in place</div>
+                <div style="display:flex;gap:8px;align-items:center;padding:6px 10px;border-bottom:1px dashed #334155"><span style="border:1px dashed #334155;border-radius:999px;padding:1px 7px">▶</span><span>0:07 / 0:28</span><span style="flex:1"></span><span style="border:1px dashed #334155;border-radius:6px;padding:1px 7px">⋯ advanced</span></div>
+                <div style="display:flex;gap:3px;padding:7px 10px">
+                  <span style="flex:1;height:6px;border-radius:3px;background:#334155"></span><span style="flex:2;height:6px;border-radius:3px;background:#60A5FA"></span><span style="flex:2;height:6px;border-radius:3px;background:#334155"></span><span style="flex:3;height:6px;border-radius:3px;background:#334155"></span><span style="flex:1;height:6px;border-radius:3px;background:#334155"></span>
+                </div>
+              </div>
+              <div style="width:31%;min-width:170px;display:flex;flex-direction:column">
+                <div style="display:flex;flex-wrap:wrap;gap:4px 8px;padding:7px 10px;border-bottom:1px dashed #334155;font-size:10px"><span style="color:#F1F5F9;font-weight:600">Scenes</span><span>Transcript</span><span>Privacy·1</span><span>Versions</span></div>
+                <div style="flex:1;padding:8px 10px;display:flex;flex-direction:column;gap:5px">
+                  <div style="border:1px dashed #334155;border-radius:6px;padding:4px 7px">Title card · 0:00–0:02</div>
+                  <div style="border:1px solid #3B82F6;border-radius:6px;padding:4px 7px;color:#CBD5E1">Scene 2 (active) · "Why this moment?"</div>
+                  <div style="border:1px dashed #334155;border-radius:6px;padding:4px 7px">Scene 3 · AI chip · edit</div>
+                  <div style="border:1px dashed #334155;border-radius:6px;padding:4px 7px">Outro · 0:24–0:28</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p style="margin:10px 0 0;font-size:11.5px;color:#64748B;line-height:1.55"><strong style="color:#94A3B8">Before the first cut exists,</strong> the same shell shows a placeholder preview and the rail becomes a 3-item checklist (Add recording → Preparing… → Create first cut), each state with one explanation and one action. No second layout to learn.</p>
+        </div>
+      </div>
+
+      <h3 style="margin:28px 0 0;font-size:14px;font-weight:600;color:#F1F5F9">Key screen at hi-fi — review state, final palette</h3>
+      <div style="margin-top:12px;border:1px solid #1E293B;border-radius:12px;background:#020617;padding:18px;position:relative">
+        <!-- top bar -->
+        <div style="display:flex;align-items:center;gap:12px;padding:0 2px 12px;border-bottom:1px solid #1E293B;position:relative">
+          <span style="font-size:12px;color:#94A3B8">← Projects</span>
+          <span style="width:1px;height:16px;background:#1E293B"></span>
+          <span style="font-size:13px;font-weight:600;color:#F1F5F9">Product launch walkthrough</span>
+          <span style="display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:999px;background:rgba(52,211,153,0.10);border:1px solid rgba(52,211,153,0.30);font-size:11px;color:#34D399"><span style="width:5px;height:5px;border-radius:999px;background:#34D399"></span>v13 · Current</span>
+          <span style="flex:1"></span>
+          <span style="font-size:12px;color:#94A3B8;padding:6px 10px;border:1px solid #334155;border-radius:6px">Video details ▾</span>
+          <span style="font-size:12px;color:#E2E8F0;padding:6px 12px;border:1px solid #334155;border-radius:6px">Share</span>
+          <span style="font-size:12px;font-weight:600;color:#FFFFFF;padding:6px 14px;border-radius:6px;background:#2563EB;position:relative">Export video<span class="wf-note" style="position:absolute;top:-9px;right:-9px;width:17px;height:17px;border-radius:999px;background:#60A5FA;color:#020617;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center">1</span></span>
+        </div>
+        <!-- body -->
+        <div style="display:flex;gap:14px;margin-top:14px;align-items:stretch">
+          <!-- left: preview -->
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;position:relative">
+            <div style="position:relative;aspect-ratio:16/9;background:#000000;border-radius:8px;overflow:hidden">
+              <!-- fake product screen -->
+              <div style="position:absolute;inset:7% 9%;background:#0F172A;border:1px solid #1E293B;border-radius:6px">
+                <div style="display:flex;gap:4px;padding:6px 8px;border-bottom:1px solid #1E293B"><span style="width:6px;height:6px;border-radius:999px;background:#334155"></span><span style="width:6px;height:6px;border-radius:999px;background:#334155"></span><span style="width:6px;height:6px;border-radius:999px;background:#334155"></span></div>
+                <div style="display:flex;height:calc(100% - 20px)">
+                  <div style="width:22%;border-right:1px solid #1E293B;padding:8px;display:flex;flex-direction:column;gap:5px"><span style="height:5px;border-radius:3px;background:#1E293B;width:80%"></span><span style="height:5px;border-radius:3px;background:#1E293B;width:60%"></span><span style="height:5px;border-radius:3px;background:#334155;width:70%"></span><span style="height:5px;border-radius:3px;background:#1E293B;width:50%"></span></div>
+                  <div style="flex:1;padding:10px;display:flex;flex-direction:column;gap:6px">
+                    <span style="height:7px;border-radius:3px;background:#334155;width:38%"></span>
+                    <span style="height:5px;border-radius:3px;background:#1E293B;width:85%"></span>
+                    <span style="height:5px;border-radius:3px;background:#1E293B;width:74%"></span>
+                    <div style="margin-top:4px;display:flex;gap:6px"><span style="height:22px;flex:1;border-radius:4px;background:#1E293B"></span><span style="height:22px;flex:1;border-radius:4px;background:#1E293B"></span><span style="height:22px;flex:1;border-radius:4px;background:#0B1220;border:1px solid #1E293B"></span></div>
+                    <span style="height:5px;border-radius:3px;background:#1E293B;width:64%"></span>
+                  </div>
+                </div>
+              </div>
+              <!-- redaction mask -->
+              <div style="position:absolute;left:16%;top:16%;width:15%;height:9%;background:#020617;border:2px solid rgba(248,250,252,0.40);border-radius:2px"><span style="position:absolute;left:4px;top:2px;font-size:8.5px;font-weight:600;color:#F1F5F9">Redacted</span></div>
+              <!-- focus emphasis -->
+              <div style="position:absolute;left:58%;top:52%;width:44px;height:44px;transform:translate(-50%,-50%);border-radius:999px;border:3px solid #2563EB;box-shadow:0 0 0 7px rgba(37,99,235,0.22)"></div>
+              <!-- caption -->
+              <div style="position:absolute;left:50%;bottom:7%;transform:translateX(-50%);display:flex;align-items:stretch;border-radius:6px;overflow:hidden;background:rgba(15,23,42,0.85)"><span style="width:4px;background:#2563EB"></span><span style="padding:5px 12px;font-size:11.5px;font-weight:600;color:#F8FAFC">Show the core workflow.</span></div>
+              <span class="wf-note" style="position:absolute;left:12px;top:12px;width:17px;height:17px;border-radius:999px;background:#60A5FA;color:#020617;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center">3</span>
+            </div>
+            <!-- transport -->
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;background:#2563EB;color:#FFFFFF;font-size:11px">▶</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#94A3B8">0:07 <span style="color:#64748B">/ 0:28</span></span>
+              <span style="flex:1"></span>
+              <span style="font-size:11.5px;color:#94A3B8">Clicks: <span style="color:#E2E8F0">Pulse</span> ▾</span>
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;border:1px solid #334155;color:#94A3B8;font-size:13px;position:relative">⋯<span class="wf-note" style="position:absolute;top:-9px;right:-9px;width:17px;height:17px;border-radius:999px;background:#60A5FA;color:#020617;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center">4</span></span>
+            </div>
+            <!-- scrubber -->
+            <div style="display:flex;gap:3px">
+              <span style="flex:2;height:6px;border-radius:3px;background:#334155"></span>
+              <span style="flex:4;height:6px;border-radius:3px;background:#60A5FA;position:relative"><span style="position:absolute;right:30%;top:-3px;width:2px;height:12px;background:#F8FAFC;border-radius:1px"></span></span>
+              <span style="flex:4;height:6px;border-radius:3px;background:#334155"></span>
+              <span style="flex:5;height:6px;border-radius:3px;background:#334155"></span>
+              <span style="flex:2;height:6px;border-radius:3px;background:#334155"></span>
+            </div>
+          </div>
+          <!-- right rail -->
+          <div style="width:302px;flex:none;background:#0F172A;border:1px solid #1E293B;border-radius:10px;display:flex;flex-direction:column;position:relative">
+            <div style="display:flex;gap:2px;padding:8px 10px 0;border-bottom:1px solid #1E293B;font-size:12px">
+              <span style="padding:6px 10px;color:#FFFFFF;font-weight:600;border-bottom:2px solid #60A5FA">Scenes</span>
+              <span style="padding:6px 10px;color:#94A3B8">Transcript</span>
+              <span style="padding:6px 10px;color:#94A3B8;display:inline-flex;align-items:center;gap:5px">Privacy<span style="min-width:15px;height:15px;padding:0 4px;border-radius:999px;background:rgba(253,230,138,0.14);color:#FDE68A;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center">1</span></span>
+              <span style="padding:6px 10px;color:#94A3B8">Versions</span>
+              <span class="wf-note" style="position:absolute;top:-9px;left:118px;width:17px;height:17px;border-radius:999px;background:#60A5FA;color:#020617;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center">5</span>
+            </div>
+            <div style="flex:1;padding:10px;display:flex;flex-direction:column;gap:7px;font-size:12px">
+              <div style="border:1px solid #1E293B;border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;color:#CBD5E1"><span>Title card</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#64748B">0:00–0:02</span></div>
+              <div style="border:1px solid #3B82F6;background:rgba(37,99,235,0.08);border-radius:8px;padding:9px 10px;position:relative">
+                <div style="display:flex;justify-content:space-between;color:#F1F5F9;font-weight:600"><span>Scene 2</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#94A3B8;font-weight:400">0:02–0:07</span></div>
+                <div style="margin-top:3px;color:#CBD5E1">Show the core workflow.</div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:7px">
+                  <span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.12);color:#93C5FD;font-size:10.5px;font-weight:600">AI · matched your script</span>
+                  <span style="color:#60A5FA;font-size:11px">Why this moment?</span>
+                </div>
+                <div style="display:flex;gap:6px;margin-top:8px">
+                  <span style="padding:3px 9px;border-radius:6px;border:1px solid #334155;color:#E2E8F0;font-size:11px">Shorten</span>
+                  <span style="padding:3px 9px;border-radius:6px;border:1px solid #334155;color:#E2E8F0;font-size:11px">Edit text</span>
+                  <span style="padding:3px 9px;border-radius:6px;border:1px solid #334155;color:#E2E8F0;font-size:11px">Remove</span>
+                </div>
+                <span class="wf-note" style="position:absolute;top:-9px;right:-9px;width:17px;height:17px;border-radius:999px;background:#60A5FA;color:#020617;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center">6</span>
+              </div>
+              <div style="border:1px solid #1E293B;border-radius:8px;padding:8px 10px;color:#CBD5E1">
+                <div style="display:flex;justify-content:space-between"><span>Scene 3</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#64748B">0:07–0:14</span></div>
+                <div style="margin-top:4px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.12);color:#93C5FD;font-size:10.5px;font-weight:600">AI · visual change</span></div>
+              </div>
+              <div style="border:1px solid #1E293B;border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;color:#CBD5E1"><span>Scene 4</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#64748B">0:14–0:24</span></div>
+              <div style="border:1px solid #1E293B;border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;color:#CBD5E1"><span>Outro card</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#64748B">0:24–0:28</span></div>
+            </div>
+            <div style="border-top:1px solid #1E293B;padding:9px 12px;font-size:11px;color:#64748B">Uses 0:22 of your 5:12 recording · no footage repeated</div>
+          </div>
+        </div>
+        <!-- annotations legend -->
+        <div class="wf-note" style="margin-top:16px;border-top:1px solid #1E293B;padding-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px 18px;font-size:11.5px;color:#94A3B8;line-height:1.5">
+          <div><strong style="color:#60A5FA">1</strong> One primary action per state — Export owns blue; render history and share live inside its panel.</div>
+          <div><strong style="color:#60A5FA">2</strong> Version + staleness always visible in the header ("v13 · Current" → amber "Made before your latest changes · Update cut").</div>
+          <div><strong style="color:#60A5FA">3</strong> Preview dominates (~66% width, fills height); captions, masks, zooms, focus render in place — same contract as the renderer.</div>
+          <div><strong style="color:#60A5FA">4</strong> Technical controls (click styles, marker editing, transition per boundary) fold behind the transport's ⋯ — present, not ambient.</div>
+          <div><strong style="color:#60A5FA">5</strong> One rail, four views of the same playhead: Scenes / Transcript / Privacy (with count) / Versions. Replaces three stacked cards + two <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px">&lt;details&gt;</span>.</div>
+          <div><strong style="color:#60A5FA">6</strong> Corrections are concrete verbs on the selected scene (Shorten / Edit text / Remove) with AI attribution + "Why this moment?" evidence popover.</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;font-size:12.5px;line-height:1.6">
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px">
+          <div style="font-weight:600;color:#F1F5F9;font-size:12.5px">Collapsed, moved, removed, deferred</div>
+          <ul style="margin:8px 0 0;padding-left:18px;color:#CBD5E1;display:flex;flex-direction:column;gap:5px">
+            <li><strong>Collapsed:</strong> Video details + logo → header drawer; advanced playback controls → ⋯</li>
+            <li><strong>Moved:</strong> Render MP4 + render history + share links → one Export panel; privacy + versions → rail tabs</li>
+            <li><strong>Removed:</strong> 5-step strip after first cut exists (checklist remains pre-cut); "How it works" card; duplicate page-level status line</li>
+            <li><strong>Deferred:</strong> multi-track timeline, drag-trim handles, suggestion queue, comments — per Months 4/5/7 scope</li>
+          </ul>
+        </div>
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:14px 16px">
+          <div style="font-weight:600;color:#F1F5F9;font-size:12.5px">Why this serves both audiences without becoming an NLE</div>
+          <p style="margin:8px 0 0;color:#CBD5E1">The novice's whole task — watch, tweak wording, export — is the default surface; every technical affordance (ms fields, ranges, versions, click markers) stays one disclosure deep in the same spot, so the technical user gets precision without a mode switch and the novice never pays for it. There is no track model, no clip dragging, no keyframes: corrections stay bounded verbs against an AI-owned cut, which is exactly the "directing an editor, not operating a program" principle in the README.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ G ============================ -->
+    <section id="sec-g" data-screen-label="G Screen-by-screen findings" style="margin-top:56px">
+      <div style="display:flex;align-items:baseline;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#2563EB;color:#FFFFFF;font-size:13px;font-weight:700">G</span>
+        <h2 style="margin:0;font-size:19px;font-weight:600;color:#FFFFFF">Screen-by-screen findings</h2>
+      </div>
+      <p style="margin:12px 0 0;font-size:13px;color:#94A3B8;max-width:760px;line-height:1.6">23 findings. Every row: evidence → problem → exact change → rationale. Chips: priority, stage (<span style="color:#93C5FD">MVP</span> = ship with first-cut validation; <span style="color:#94A3B8">Later</span> = post-validation). Use the Tweaks panel to filter by priority.</p>
+
+      <h3 style="margin:24px 0 0;font-size:13.5px;font-weight:600;color:#F1F5F9">Onboarding · <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#94A3B8">NewProject.tsx · ProjectInputsForm.tsx · Projects.tsx · Login.tsx</span></h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px;line-height:1.55">
+        <tbody style="vertical-align:top;color:#CBD5E1">
+          <tr data-priority="P0" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap;width:86px"><span style="padding:2px 8px;border-radius:999px;background:rgba(248,113,113,0.12);color:#F87171;font-weight:700;font-size:10.5px">P0</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G1 · Form diet before creation.</strong> Evidence: 14 visible fields incl. a "Generated video style" fieldset (font, captions, intro, outro) and 3 color pickers, all required before any upload. Affects: PMM most; deters both. <strong style="color:#93C5FD">Change:</strong> creation asks for goal (template as 3 labeled cards), optional notes/script, optional title (default from filename later); everything else silently submits <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">DEFAULT_PROJECT_INPUTS</span> and becomes editable in the Video details drawer. Client-only — the API contract is untouched. <em style="color:#94A3B8">Rationale: PRODUCT_VISION's first-screen spec; CapCut/VEED benchmark; nothing in the deferred fields affects the first cut except script and template.</em></td></tr>
+          <tr data-priority="P0" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(248,113,113,0.12);color:#F87171;font-weight:700;font-size:10.5px">P0</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G2 · Upload belongs in creation.</strong> Evidence: NewProject ends at "Create project"; upload lives on the next screen behind a secondary-styled label-button. Affects: both personas' time-to-value. <strong style="color:#93C5FD">Change:</strong> a drop zone on the creation screen (or immediately, full-width, as step 1 of the project page); project auto-creates on drop. <em style="color:#94A3B8">Rationale: the recording is the one input Brocket cannot default; every benchmarked tool leads with it.</em></td></tr>
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G3 · "How it works" card is filler.</strong> Evidence: a 5-item ordered list restating the workflow strip that appears again on the next page. <strong style="color:#93C5FD">Change:</strong> delete it once G1 ships; the 3-field form explains itself. <em style="color:#94A3B8">Rationale: empty-state copy should guide the next action, not describe the system.</em></td></tr>
+          <tr data-priority="P2" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:#1E293B;color:#94A3B8;font-weight:700;font-size:10.5px">P2</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G4 · Raw enums in the project list.</strong> Evidence: rows print "60s · draft" / "60s · rendering" from <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">project.status</span>. <strong style="color:#93C5FD">Change:</strong> humanize per state ("Ready to review", "Rendering…", "Exported") and add relative time. <em style="color:#94A3B8">Rationale: status is the only decision input on this screen.</em></td></tr>
+          <tr data-priority="P2" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:#1E293B;color:#94A3B8;font-weight:700;font-size:10.5px">P2</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:#1E293B;color:#94A3B8;font-weight:600;font-size:10.5px">Later</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G5 · Demo credentials pre-filled in Login.</strong> Evidence: <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">useState('demo@brocket.local')</span> / <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">'password123'</span>. <strong style="color:#93C5FD">Change:</strong> gate behind a dev env flag before any external user sees it. <em style="color:#94A3B8">Rationale: reads as vibe-coded scaffolding; Month-12 onboarding hardening item pulled forward as a one-liner.</em></td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin:26px 0 0;font-size:13.5px;font-weight:600;color:#F1F5F9">Pipeline &amp; states · <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#94A3B8">ProjectDetail.tsx</span></h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px;line-height:1.55">
+        <tbody style="vertical-align:top;color:#CBD5E1">
+          <tr data-priority="P0" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap;width:86px"><span style="padding:2px 8px;border-radius:999px;background:rgba(248,113,113,0.12);color:#F87171;font-weight:700;font-size:10.5px">P0</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G6 · Auto-chain the happy path.</strong> Evidence: upload auto-queues analysis (message "Recording uploaded. Analysis queued.") but the cut requires a manual "Create first cut" click, and stale/failed states surface an "Analyze recording"/"Analyze again" decision. <strong style="color:#93C5FD">Change:</strong> when analysis lands ready + current and no cut exists, create the first cut automatically (visible as "Creating your first cut…"); keep manual buttons only in failed/stale states. <em style="color:#94A3B8">Rationale: RecordOnce posture; removes the two concepts (analysis, cut creation) a novice must otherwise learn; failure paths keep their existing recovery UX.</em></td></tr>
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G7 · One status voice.</strong> Evidence: page-level <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">message</span>/<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">error</span> paragraphs + per-section <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">aria-live</span> regions announce the same event twice ("Analysis queued" ×2); two live regions double-fire screen readers. <strong style="color:#93C5FD">Change:</strong> status renders only where the object lives; the page-level line becomes a transient toast for cross-section confirmations only; one polite live region. <em style="color:#94A3B8">Rationale: duplicated status is the report's definition of slop; SR double-announcement is an a11y defect.</em></td></tr>
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G8 · Step strip → setup checklist, then chips.</strong> Evidence: the 5-step <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">ProjectWorkflow</span> strip persists forever, scroll-jumping to cards that also have their own headers; after the first cut it is pure navigation chrome. <strong style="color:#93C5FD">Change:</strong> pre-cut, a 3-item checklist in the rail (recording → preparation → first cut); post-cut, replace with the header's version/staleness chips. <em style="color:#94A3B8">Rationale: a wizard strip communicates "setup", which fights the workspace mental model after value exists.</em></td></tr>
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G9 · Full-state coverage is good — keep it, place it.</strong> Evidence: every analysis/cut/render state has copy and a recovery action (queued, running, failed + message + retry, stale + "Analyze again", shorter-than-target warning, unsupported-codec preview fallback with "You can still render the MP4"). <strong style="color:#93C5FD">Change:</strong> none to the state machine; relocate each message onto the object it describes (rail checklist or preview overlay) so each state has exactly one explanation and one action. <em style="color:#94A3B8">Rationale: the honesty is a differentiator; the placement is the defect.</em></td></tr>
+          <tr data-priority="P2" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:#1E293B;color:#94A3B8;font-weight:700;font-size:10.5px">P2</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G10 · Technical vocabulary leaks.</strong> Evidence: "media ready" (probe enum), "Timeline v3", "Timeline version unavailable", "immutable" in user copy, "source-normalized" concepts in Privacy labels. <strong style="color:#93C5FD">Change:</strong> apply §H replacements; keep exact terms inside the evidence popover where technical users expect them. <em style="color:#94A3B8">Rationale: brief's explicit requirement — novices reach preview without learning IR vocabulary.</em></td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin:26px 0 0;font-size:13.5px;font-weight:600;color:#F1F5F9">Review workspace · <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#94A3B8">Preview.tsx (branch) · ReviewTools.tsx</span></h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px;line-height:1.55">
+        <tbody style="vertical-align:top;color:#CBD5E1">
+          <tr data-priority="P0" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap;width:86px"><span style="padding:2px 8px;border-radius:999px;background:rgba(248,113,113,0.12);color:#F87171;font-weight:700;font-size:10.5px">P0</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G11 · Give the video the screen.</strong> Evidence: preview constrained to <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">max-h-[480px]</span> inside a ⅔ column of a 1024px page; the workspace never widens regardless of viewport. <strong style="color:#93C5FD">Change:</strong> the two-pane layout in §F — full-viewport-width workspace on the project page, preview fills available height, rail fixed ~320px. <em style="color:#94A3B8">Rationale: review quality is bounded by what you can see; this is the single highest-leverage layout change and it discards no behavior.</em></td></tr>
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G12 · Two video control surfaces.</strong> Evidence: the <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">&lt;video controls&gt;</span> native bar (with its own seek across the whole raw source) sits above the custom Play/scrubber transport — two seek models, and native seeking can escape the cut's source ranges until <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">handleTimeUpdate</span> snaps back. <strong style="color:#93C5FD">Change:</strong> drop <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">controls</span>; the custom transport is the only surface (click-to-pause on the video, space bar toggles). <em style="color:#94A3B8">Rationale: one timeline model = the generated cut; the raw-source scrub contradicts it.</em></td></tr>
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G13 · One export entry point.</strong> Evidence: "Render MP4" lives in the Preview scene rail while render status, retry, download and shares live three cards lower in "Renders"; the same in-flight state is drawn in both. <strong style="color:#93C5FD">Change:</strong> a single Export button (header) opening a panel that owns render trigger, progress, history, download, share create/replace/revoke and expiry. <em style="color:#94A3B8">Rationale: split cause/effect forces scroll-hunting for "did it work?"; export is one job.</em></td></tr>
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G14 · Per-scene editing instead of a global edit mode.</strong> Evidence: "Edit scenes" flips every scene card into a form (text + duration + transition each) with one Save at the bottom; single-field fixes carry whole-list ceremony, and it collides with the separate "Edit clicks" mode (mutually disabled). <strong style="color:#93C5FD">Change:</strong> edit affordance on the selected scene card only (Shorten / Edit text / Remove now; transition under ⋯); saving stays one immutable version per apply. <em style="color:#94A3B8">Rationale: correction is per-moment; matches the concrete-verbs requirement and reduces mode logic.</em></td></tr>
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G15 · Surface the AI's why — the data already exists.</strong> Evidence: <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">sourceSelectionLabel()</span> compresses <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">scene.source.reason</span> into chips; ranges and transcript indices are rendered raw ("Source 0:03–0:13"). <strong style="color:#93C5FD">Change:</strong> chip becomes "AI · matched your script" etc.; "Why this moment?" popover shows the sentence matched, the source range on a mini-strip, and what else was considered (when available). Keep exact ms inside the popover. <em style="color:#94A3B8">Rationale: the lineage moat (POSITIONING kill-criterion 2 measures clicks on exactly this) deserves a legible surface, not enum chips.</em></td></tr>
+          <tr data-priority="P2" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:#1E293B;color:#94A3B8;font-weight:700;font-size:10.5px">P2</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G16 · Click-style picker is over-promoted.</strong> Evidence (branch): a permanent 4-button icon group with hover-tooltips + live preview sits in the main transport for a setting used ~once per project; icon-only glyphs are ambiguous without the tooltip. <strong style="color:#93C5FD">Change:</strong> "Clicks: Pulse ▾" labeled select under ⋯ (or rail footer); keep the live hover-preview inside its menu. <em style="color:#94A3B8">Rationale: frequency-of-use should set prominence; the transport is prime space.</em></td></tr>
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G17 · Privacy signal must be visible while collapsed.</strong> Evidence: <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">&lt;details&gt;</span> "Privacy review · Optional" hides the transcript credential warnings until expanded — a user with 2 detected secrets sees only "Optional". <strong style="color:#93C5FD">Change:</strong> rail tab shows a count badge ("Privacy · 2"); with detections, an amber line "2 possible secrets found — review before export" near Export. Keep export non-blocking (suggestions are heuristic) but make ignoring it a decision. <em style="color:#94A3B8">Rationale: privacy is the GTM wedge (R1); a collapsed "Optional" undersells the product's own differentiator.</em></td></tr>
+          <tr data-priority="P2" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:#1E293B;color:#94A3B8;font-weight:700;font-size:10.5px">P2</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G18 · Version comparison copy, not capability.</strong> Evidence: comparison is read-only with plain-language deltas ("Duration 0:31 → 0:28") — correct scope; but it opens with "Review immutable cuts…" and timestamps like "v13 · 7/12/2026, 6:31:43 PM". <strong style="color:#93C5FD">Change:</strong> "Versions" tab; label rows "v13 · 2 min ago · click markers"; keep restore absent (Month 8). <em style="color:#94A3B8">Rationale: the model is right; the vocabulary isn't.</em></td></tr>
+          <tr data-priority="P2" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:#1E293B;color:#94A3B8;font-weight:700;font-size:10.5px">P2</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G19 · Radius + control drift.</strong> Evidence: legacy Retry uses <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">rounded px-3 py-1</span> (4px, shorter) vs <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">rounded-md px-3 py-2</span> everywhere else; underline-styled buttons ("Edit clicks", "Remove") sit beside bordered buttons doing the same class of action. <strong style="color:#93C5FD">Change:</strong> one secondary button spec (6px, 40px min-height); underline style reserved for inline links; already documented in DESIGN.md §5 — enforce it. <em style="color:#94A3B8">Rationale: cheap consistency win the system doc already prescribes.</em></td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin:26px 0 0;font-size:13.5px;font-weight:600;color:#F1F5F9">Accessibility &amp; responsive · <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#94A3B8">all surfaces</span></h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:12.5px;line-height:1.55">
+        <tbody style="vertical-align:top;color:#CBD5E1">
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap;width:86px"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G20 · Contrast floor + focus token.</strong> Evidence: <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">text-slate-500</span> used for 12px counters, timestamps, helpers (≈4.2:1 / 3.7:1 — below AA 4.5:1); focus relies on browser defaults, which vary and can vanish on dark surfaces. <strong style="color:#93C5FD">Change:</strong> slate-400 floor for all copy; global <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">focus-visible</span> ring — 2px #60A5FA, 2px offset. <em style="color:#94A3B8">Rationale: WCAG 2.2 AA target already claimed by DESIGN.md §8; make it true.</em></td></tr>
+          <tr data-priority="P1" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:rgba(253,230,138,0.12);color:#FDE68A;font-weight:700;font-size:10.5px">P1</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G21 · Motion without a reduced-motion guard.</strong> Evidence (branch): pulse/ripple use <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">animate-pulse</span>/<span style="font-family:'IBM Plex Mono',monospace;font-size:11px">animate-ping</span> unconditionally in chrome. <strong style="color:#93C5FD">Change:</strong> <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">motion-reduce:animate-none</span> + static ring fallback in chrome; note that <em>rendered output</em> motion is content and follows the template, per DESIGN.md §7. <em style="color:#94A3B8">Rationale: DESIGN.md §7 requires respecting reduced motion in application chrome.</em></td></tr>
+          <tr data-priority="P2" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:#1E293B;color:#94A3B8;font-weight:700;font-size:10.5px">P2</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G22 · Keyboard parity for review.</strong> Evidence: scenes/transcript are real buttons with <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">aria-current</span> ✓ and redaction has full field parity with drag ✓ (keep both as reference patterns); but there are no playback shortcuts and the segmented scrubber isn't seekable by keyboard, only scene-jumpable. <strong style="color:#93C5FD">Change:</strong> Space play/pause, ←/→ ±5s, ↑/↓ scene, with a shortcut hint in ⋯. <em style="color:#94A3B8">Rationale: review is a keyboard-cadence task for the technical persona.</em></td></tr>
+          <tr data-priority="P2" style="border-top:1px solid #1E293B"><td style="padding:11px 12px 11px 0;white-space:nowrap"><span style="padding:2px 8px;border-radius:999px;background:#1E293B;color:#94A3B8;font-weight:700;font-size:10.5px">P2</span><div style="margin-top:5px"><span style="padding:2px 8px;border-radius:999px;background:rgba(37,99,235,0.14);color:#93C5FD;font-weight:600;font-size:10.5px">MVP</span></div></td><td style="padding:11px 0"><strong style="color:#F1F5F9">G23 · Narrow screens = review mode, not a shrunken editor.</strong> Evidence: the lg grid stacks preview above the rail (workable), but the full form, click editing and redaction drag remain in the flow on small widths. <strong style="color:#93C5FD">Change:</strong> below ~900px show watch → scene list → approve-style actions → Export/Share; keep precise editing desktop-first (it degrades gracefully today — don't invest in cramming it). <em style="color:#94A3B8">Rationale: brief's instruction — desktop is the editing environment; mobile is review/approve/share.</em></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================ H ============================ -->
+    <section id="sec-h" data-screen-label="H Copy cleanup" style="margin-top:56px">
+      <div style="display:flex;align-items:baseline;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#2563EB;color:#FFFFFF;font-size:13px;font-weight:700">H</span>
+        <h2 style="margin:0;font-size:19px;font-weight:600;color:#FFFFFF">Copy cleanup — exact replacements</h2>
+      </div>
+      <p style="margin:12px 0 0;font-size:13px;color:#94A3B8;line-height:1.6;max-width:760px">Plain product language, active verbs, objects named. Honesty copy that is already right ("Target length is a maximum…", "The browser preview approximates the precise final render", the mock-transcript disclosure) is kept, only tightened.</p>
+      <table style="width:100%;border-collapse:collapse;margin-top:14px;font-size:12.5px;line-height:1.5">
+        <thead><tr style="text-align:left;color:#64748B;font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em"><th style="padding:8px 10px 8px 0;font-weight:600;width:170px">Where</th><th style="padding:8px 10px;font-weight:600">Current</th><th style="padding:8px 0 8px 10px;font-weight:600">Replace with</th></tr></thead>
+        <tbody style="vertical-align:top;color:#CBD5E1">
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Projects · empty state</td><td style="padding:9px 10px">"No projects yet. Create one to build your first cut."</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"Turn a screen recording into a launch-ready video. <strong>Start your first project.</strong>"</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">New project · subtitle</td><td style="padding:9px 10px">"Set the intent first. You will upload and review the recording on the next screen."</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"Pick a goal and add your recording. Brocket makes the first cut."</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Video details · heading + action</td><td style="padding:9px 10px">"Video details … Update the intent, target length, and brand…" / "Edit inputs" / "Save inputs"</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"Video details" / "Edit details" / "Save details" — subtitle: "Changes here apply the next time you update the cut."</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Analysis status ladder</td><td style="padding:9px 10px">"Analysis not queued" / "Analysis queued" / "Analyzing recording" / "Analysis ready" / "Analysis needs an update"</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"Preparing your recording…" (queued + running collapse) / "Recording ready" / "Recording needs another pass — <strong>Prepare again</strong>" · failure: "We couldn't read this recording. <strong>Try again</strong> or replace the file."</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Source card · probe line</td><td style="padding:9px 10px">"1920×1080 · 23s · media ready"</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"1920×1080 · 23s" — readiness lives in the status line only, not as a raw enum</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Stale-cut warning</td><td style="padding:9px 10px">"First cut v3 uses earlier inputs. Create an updated version before rendering; existing cuts and renders stay in history."</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"This cut was made before your latest changes. <strong>Update cut</strong> to include them — earlier versions are kept."</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Primary export action</td><td style="padding:9px 10px">"Render MP4" (Preview rail) + separate "Renders" card</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"<strong>Export video</strong>" — panel detail: "MP4 · 1080p · 16:9". "Render" survives only in progress copy ("Rendering… about a minute").</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Renders · empty state</td><td style="padding:9px 10px">"No renders yet."</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"When you're happy with the cut, export it as an MP4 to download or share."</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Render failure</td><td style="padding:9px 10px">"Render failed" + raw <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">errorMessage</span></td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"Export failed — nothing was published. <strong>Try again.</strong>" + reason in a "Details" disclosure</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Privacy · summary + suggestion state</td><td style="padding:9px 10px">"Privacy review <em>Optional</em>" / "No common credential patterns were found in the current transcript. Frame-only secrets still require manual review."</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"Privacy · 2 warnings" or "Privacy · nothing flagged" / "Nothing flagged in the transcript. Brocket can't yet spot secrets that are only visible on screen — drag a box over anything sensitive."</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Privacy · confirm action</td><td style="padding:9px 10px">"Confirm redaction"</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"<strong>Cover this area</strong>" — helper: "It's hidden with a solid mask in the preview and the exported video."</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Version comparison</td><td style="padding:9px 10px">"Compare timeline versions" / "Review immutable cuts without changing the current version." / "v13 · 7/12/2026, 6:31:43 PM"</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"Versions" / "Every change makes a new version. Earlier ones are kept and can't be edited." / "v13 · 2 min ago · click markers added"</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Scene lineage chips</td><td style="padding:9px 10px">"Transcript matched" / "Visual change detected" / "Script-timed selection" / "AI-selected source"</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"AI · matched your script" / "AI · visual change" / "AI · timed to your script" / "AI · selected" — plus "Why this moment?" link</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Click controls (branch)</td><td style="padding:9px 10px">"Edit clicks" / "Click" group label / "Editing clicks"</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"Click markers" / "Click highlight: Pulse ▾" / "Placing markers — select a spot on the video"</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Logo helper</td><td style="padding:9px 10px">"Optional PNG, JPEG, or WebP up to 5 MB. This changes generated video branding, never Brocket's interface."</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">"Shown in your video's title and outro — not in this app. PNG, JPEG, or WebP, up to 5 MB."</td></tr>
+          <tr style="border-top:1px solid #1E293B"><td style="padding:9px 10px 9px 0;color:#94A3B8">Share page title</td><td style="padding:9px 10px">"Shared video"</td><td style="padding:9px 0 9px 10px;color:#F1F5F9">The video's title, with "Shared with Brocket · link expires {date}" as the byline</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================ I ============================ -->
+    <section id="sec-i" data-screen-label="I Implementation sequence" style="margin-top:56px">
+      <div style="display:flex;align-items:baseline;gap:12px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#2563EB;color:#FFFFFF;font-size:13px;font-weight:700">I</span>
+        <h2 style="margin:0;font-size:19px;font-weight:600;color:#FFFFFF">Prioritized implementation sequence</h2>
+      </div>
+      <p style="margin:12px 0 0;font-size:13px;color:#94A3B8;max-width:780px;line-height:1.6">Aligned to the 12-month plan as amended by POSITIONING_DECISION (revision loop pulled from Month 5 toward Month 2; Month-4 timeline stays an escape hatch; lineage UI is a named Month-6 milestone). Nothing below discards working behavior or touches the timeline/render contracts.</p>
+
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;font-size:13px;line-height:1.6">
+        <div style="background:#0F172A;border:1px solid #3B82F6;border-radius:12px;padding:16px 18px">
+          <div style="font-weight:700;color:#FFFFFF">Now — client-only, before wider alpha exposure <span style="margin-left:8px;font-weight:500;font-size:11.5px;color:#93C5FD">no API/schema changes · G1, G2, G6, G7, G8, G11–G13, G20, G21 + §H</span></div>
+          <ul style="margin:10px 0 0;padding-left:18px;color:#CBD5E1;display:flex;flex-direction:column;gap:7px">
+            <li><strong>1. Creation diet + upload-first</strong> (G1, G2). <em>Acceptance:</em> a new user reaches a playing first cut with ≤3 decisions (goal, notes, file) and no brand/aspect/typography fields on the path; server receives defaults unchanged.</li>
+            <li><strong>2. Auto-chain</strong> (G6). <em>Acceptance:</em> zero clicks between upload-complete and first-cut-visible on the happy path; failed/stale states keep one retry action each; no orphaned "Analyze" buttons on the happy path.</li>
+            <li><strong>3. Two-pane review workspace</strong> (G11–G14, G8): full-width project page, preview + transport left, tabbed rail right, Video details drawer, single Export panel. <em>Acceptance:</em> preview ≥60% of viewport width at 1440px; exactly one #2563EB element per state; render trigger/status/download/share in one panel; existing scene/text/duration/transition edits and click markers all reachable.</li>
+            <li><strong>4. Status + copy pass</strong> (G7, G9, G10, §H). <em>Acceptance:</em> no event announced in two places; one polite live region; every state shows one explanation + one action; §H strings shipped verbatim or better.</li>
+            <li><strong>5. A11y floor</strong> (G20, G21). <em>Acceptance:</em> automated contrast scan reports no text below AA; visible 2px focus ring on every interactive element; chrome animations disabled under reduced motion.</li>
+          </ul>
+          <p style="margin:10px 0 0;font-size:12px;color:#64748B">Dependencies: none between items except 3→4 (copy lands in the new layout). Measure: time-to-first-preview (target &lt; 3 min from login on a 3-min recording, excluding upload bandwidth) and the plan's own moat metric — % of first cuts edited rather than discarded.</p>
+        </div>
+
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:16px 18px">
+          <div style="font-weight:700;color:#FFFFFF">Next — once the first-cut loop is validated <span style="margin-left:8px;font-weight:500;font-size:11.5px;color:#94A3B8">small API additions · G15, G17, G22, Tella-pattern</span></div>
+          <ul style="margin:10px 0 0;padding-left:18px;color:#CBD5E1;display:flex;flex-direction:column;gap:7px">
+            <li><strong>1. Evidence popover</strong> ("Why this moment?") from existing <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">reason</span>/range/transcript data (G15). <em>Acceptance:</em> ≥50% of alpha users open it unprompted — the POSITIONING kill-criterion-2 instrument.</li>
+            <li><strong>2. Concrete correction chips</strong>: Shorten this section (exists: duration edit), Remove this scene (needs a scene-removal patch op), Use a different moment (needs a source-range patch op). <em>Dependency:</em> extends <span style="font-family:'IBM Plex Mono',monospace;font-size:11px">updateTimelineScenes</span>; each apply = one immutable version with lineage.</li>
+            <li><strong>3. Privacy prominence</strong> (G17): rail count badge + pre-export nudge when detections exist. <em>Acceptance:</em> a project with detections cannot reach Export without the count being on screen.</li>
+            <li><strong>4. "Tighten quiet moments" suggestion</strong> from stored silence/idle evidence (Tella adapt). <em>Dependency:</em> patch-suggestion endpoint; preview-before-apply; refusal keeps baseline (mirrors the Month-2 patch-provider contract).</li>
+            <li><strong>5. Keyboard transport</strong> (G22) + relative-time version labels (G18).</li>
+          </ul>
+        </div>
+
+        <div style="background:#0F172A;border:1px solid #1E293B;border-radius:12px;padding:16px 18px">
+          <div style="font-weight:700;color:#FFFFFF">Later — plan months 5–9, unchanged order <span style="margin-left:8px;font-weight:500;font-size:11.5px;color:#94A3B8">agent + team capabilities</span></div>
+          <ul style="margin:10px 0 0;padding-left:18px;color:#CBD5E1;display:flex;flex-direction:column;gap:7px">
+            <li><strong>Revision commands with patch preview</strong> ("make this faster", "zoom when the table updates") rendered as a reviewable suggestion queue — the Underlord-pattern seat is the rail's future 5th tab. <em>Dependency:</em> Month-5→2 agent loop; every command emits a validated timeline-IR patch (POSITIONING §4d contract).</li>
+            <li><strong>Named/restorable versions, approvals, comments</strong> (Months 7–8) — the Versions tab grows restore + approval gates; export gating moves from convention to policy.</li>
+            <li><strong>Channel variants + brand components</strong> (Month 6) inside the Export panel (30s LinkedIn / 60s launch / 90s walkthrough as sibling versions with shared lineage — White Space 5).</li>
+            <li><strong>Escape-hatch timeline</strong> (Month 4 scope, kept minimal): drag-trim on the segmented scrubber only — still no tracks, no keyframes.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ FINAL ============================ -->
+    <section id="sec-final" data-screen-label="Final recommendation" style="margin-top:56px">
+      <div style="background:linear-gradient(180deg,#0F172A,#0B1220);border:1px solid #334155;border-radius:14px;padding:24px 26px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#60A5FA">The one recommendation</div>
+        <p style="margin:10px 0 0;font-size:16px;line-height:1.6;color:#F1F5F9;max-width:820px;text-wrap:pretty">
+          Keep the <strong>Graphite + Cobalt</strong> slate system exactly as it is — with the slate-400 text floor, a real focus ring, one blue action per view, and blue-family AI attribution — and rebuild the project page as a <strong>single two-pane guided review workspace</strong>: preview + transport left, one tabbed rail (Scenes · Transcript · Privacy · Versions) right, Video details in a drawer, Export as the only primary action; creation shrinks to goal + notes + recording with the pipeline auto-chained. It is the layout the code's own contracts are already shaped for — the audit's five surfaces slot into it without losing a feature — and it is deliberately <em>not</em> a manual editor, because the first cut and the confidence to approve it are the product.
+        </p>
+      </div>
+      <p style="margin:18px 0 0;font-size:11.5px;color:#64748B;line-height:1.6">Analysis-only pass · no code, docs, or design files were modified · evidence base: <span style="font-family:'IBM Plex Mono',monospace">pgup-ai/brocket @ codex/preview-timeline-playback (c0e8d7c)</span>, main <span style="font-family:'IBM Plex Mono',monospace">(f47f24d)</span>, AGENTS.md, DESIGN.md, README.md, docs/PRODUCT_VISION.md, docs/POSITIONING_DECISION.md, docs/COMPETITOR_RESEARCH.md, docs/IMPLEMENTATION_STATUS.md, docs/IMPLEMENTATION_PLAN.md, and the supplied Figma audit board (12 Jul 2026). Contrast ratios computed from WCAG relative luminance.</p>
+    </section>
+
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;priorityFilter&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;All findings&quot;, &quot;P0 only&quot;, &quot;P0 + P1&quot;], &quot;default&quot;: &quot;All findings&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Report view&quot;}, &quot;showLayoutAnnotations&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Report view&quot;}}">
+class Component extends DCLogic {
+  applyView() {
+    const pfMap = { 'All findings': 'all', 'P0 only': 'p0', 'P0 + P1': 'p0p1' };
+    document.body.dataset.pf = pfMap[this.props.priorityFilter] ?? 'all';
+    document.body.dataset.notes = (this.props.showLayoutAnnotations ?? true) ? 'on' : 'off';
+  }
+  componentDidMount() { this.applyView(); }
+  componentDidUpdate() { this.applyView(); }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
