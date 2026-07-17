@@ -780,8 +780,7 @@ class Component extends DCLogic {
     V('--v2-o', (EO(S(p, 0.788, 0.808)) * (1 - S(p, 0.862, 0.879)) * erOut).toFixed(3));
     V('--v3-o', (EO(S(p, 0.868, 0.888)) * erOut).toFixed(3));
 
-    // cursor — legs resolved against live card geometry so targets track
-    // the card as it scales through the stage (x/y/s from the anchor block)
+    // cursor — leg targets track the card, which keeps scaling through the stage
     const cardX = (fx) => 550 + x - 350 * s + fx * 700 * s;
     const cardY = (fy) => 395 + y - 197 * s + fy * 394 * s;
     const T1 = EIO(S(p, 0.742, 0.762));
