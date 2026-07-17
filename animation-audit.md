@@ -18,7 +18,7 @@
    > (commits `d41f920`/`c51d4d2`/`1e48ef9` remain recoverable via reflog). The
    > self-extracting bundle on `main` is canonical again: every change is a plain edit to
    > `source/Brocket Landing.dc.html` plus the same string escaped into `index.html`
-   > (`"`→`\"`, `</`→`</`, newline→`\n`).
+   > (`"`→`\"`, `</`→`<\u002F`, newline→`\n`).
 2. **One thing on the page is wrong *today*, independent of any new feature.** The Scene 2
    card in the edit rail shows a **"Remove"** button (`source/Brocket Landing.dc.html:283`).
    Brocket explicitly does **not** support scene remove/reorder/split
@@ -166,7 +166,7 @@ should stay single-file simple — the current copy ("a recording") isn't *wrong
 ## 5. Implementation guardrails (for the follow-up session)
 
 - **Files:** copy, markup, AND driver changes → `source/Brocket Landing.dc.html`, then the
-  identical strings escaped into `index.html`'s bundle (`"`→`\"`, `</`→`</`, newline→`\n`);
+  identical strings escaped into `index.html`'s bundle (`"`→`\"`, `</`→`<\u002F`, newline→`\n`);
   count-verify every replacement in both files before writing. (Written for the deleted
   plain-file branch originally — superseded per §0.)
 - **Architecture:** no new animation system or library; new beats = new CSS vars + anchor
@@ -188,7 +188,7 @@ should stay single-file simple — the current copy ("a recording") isn't *wrong
 - No new JS dependency; single rAF loop preserved; no measurable frame-time regression.
 - `source/Brocket Landing.dc.html` and `index.html` stay in sync (the escaped bundle
   mirrors the source).
-- Every animated capability maps to a real brocket feature — shipped, planned, or
+- Every animated capability maps to a real brocket feature — shipped, planned, or on the
   roadmap, per the §0 parity decision.
 
 ---
