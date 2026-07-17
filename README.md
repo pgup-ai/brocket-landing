@@ -18,16 +18,21 @@ source/support.js                        # source runtime
 archive/codex-edited-index.html          # previous Codex edit; not deployed
 vercel.json                              # static deployment configuration
 robots.txt / sitemap.xml / llms.txt      # crawler + AI-engine (GEO) files
-og-image.png                             # 1200x630 social preview (og:image), design export
+og-image.png                             # 1200x630 social preview (og:image), rendered from brand/og-image-source.html
 favicon.svg / favicon-16/32/48.png / apple-touch-icon.png  # favicons (brand mark)
 icon-192.png / icon-512.png / site.webmanifest  # PWA manifest icons
 brand/                                   # brand asset sources (mark + icon SVGs, org avatar,
-                                         #   github-social-preview.png for repo Settings)
+                                         #   og-image-source.html, github-social-preview.png
+                                         #   for repo Settings)
 ```
 
 Brand: gold `#F2BB55` (gradient `#F9D274 → #F1BC57 → #E3A231`), canvas `#0A0908`,
 ink-on-gold `#141009`, lowercase `brocket` wordmark next to the 45°-grid mark.
-Regenerate icons from `brand/` SVGs. `og-image.png` is a design export;
+Display text is Archivo 700/600 at 125% stretch (the landing hero's "Wide"
+typeface); Geist is the body face, Geist Mono the data face.
+Regenerate icons from `brand/` SVGs. `og-image.png` renders from
+`brand/og-image-source.html` (self-contained, fonts inlined — serve it and
+screenshot the `.card` element at CSS scale);
 `brand/github-social-preview.png` derives from it (edge-extended to 1280x640).
 
 `index.html` embeds the page as an escaped JS string inside
