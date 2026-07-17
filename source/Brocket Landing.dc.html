@@ -753,7 +753,7 @@ class Component extends DCLogic {
     let dur = 312;
     if (p >= 0.615) dur = L(312, 31, EO(S(p, 0.615, 0.70)));
     if (p >= 0.772) dur = L(31, 29, EIO(S(p, 0.772, 0.802)));
-    if (p >= 0.865) dur = L(29, 28, EIO(S(p, 0.865, 0.885)));
+    if (p >= 0.878) dur = L(29, 28, EIO(S(p, 0.878, 0.895)));
     const durTxt = fmt(dur);
     if (durTxt !== ST.lastDur) {
       const durEl = (ST.durEl = ST.durEl || document.getElementById('bk-dur'));
@@ -767,7 +767,7 @@ class Component extends DCLogic {
     V('--face-t', (EO(S(p, 0.585, 0.612)) * (1 - S(p, 0.652, 0.682))).toFixed(3));
     V('--face-o', EO(S(p, 0.918, 0.948)).toFixed(3));
     V('--cap-o', (EO(S(p, 0.66, 0.685)) * (1 - S(p, 0.885, 0.902))).toFixed(3));
-    V('--foc-o', (EO(S(p, 0.675, 0.70)) * (1 - S(p, 0.815, 0.832))).toFixed(3));
+    V('--foc-o', (EO(S(p, 0.675, 0.70)) * (1 - S(p, 0.830, 0.845))).toFixed(3));
     V('--red-o', (EO(S(p, 0.806, 0.824)) * (1 - S(p, 0.895, 0.915))).toFixed(3));
     V('--play-w', (S(p, 0.945, 1.0) * 100).toFixed(1) + '%');
 
@@ -777,27 +777,30 @@ class Component extends DCLogic {
     V('--er-x', ((1 - EO(S(p, 0.712, 0.742))) * 32).toFixed(1) + 'px');
     V('--tp-o', (EO(S(p, 0.72, 0.75)) * erOut).toFixed(3));
     V('--v1-o', (EO(S(p, 0.722, 0.747)) * (1 - S(p, 0.782, 0.799)) * erOut).toFixed(3));
-    V('--v2-o', (EO(S(p, 0.788, 0.808)) * (1 - S(p, 0.862, 0.879)) * erOut).toFixed(3));
-    V('--v3-o', (EO(S(p, 0.868, 0.888)) * erOut).toFixed(3));
+    V('--v2-o', (EO(S(p, 0.788, 0.808)) * (1 - S(p, 0.872, 0.888)) * erOut).toFixed(3));
+    V('--v3-o', (EO(S(p, 0.874, 0.889)) * erOut).toFixed(3));
 
     // cursor — leg targets track the card, which keeps scaling through the stage
     const cardX = (fx) => 550 + x - 350 * s + fx * 700 * s;
     const cardY = (fy) => 395 + y - 197 * s + fy * 394 * s;
     const T1 = EIO(S(p, 0.742, 0.762));
-    const T2 = EIO(S(p, 0.795, 0.818));
-    const T3 = EIO(S(p, 0.818, 0.842));
-    const T4 = EIO(S(p, 0.845, 0.865));
+    const T2 = EIO(S(p, 0.795, 0.808));
+    const T3 = EIO(S(p, 0.820, 0.833));
+    const T4 = EIO(S(p, 0.833, 0.856));
+    const T5 = EIO(S(p, 0.856, 0.869));
     let cx = 640, cy = 430;
-    if (T1 > 0) { cx = L(640, 890, T1); cy = L(430, 356, T1); }
-    if (T2 > 0) { cx = L(890, cardX(0.56), T2); cy = L(356, cardY(0.41), T2); }
-    if (T3 > 0) { cx = L(cardX(0.56), cardX(0.695), T3); cy = L(cardY(0.41), cardY(0.61), T3); }
-    if (T4 > 0) { cx = L(cardX(0.695), cardX(0.674), T4); cy = L(cardY(0.61), cardY(1.057), T4); }
+    if (T1 > 0) { cx = L(640, 890, T1); cy = L(430, 373, T1); }
+    if (T2 > 0) { cx = L(890, 943, T2); cy = 373; }
+    if (T3 > 0) { cx = L(943, cardX(0.56), T3); cy = L(373, cardY(0.41), T3); }
+    if (T4 > 0) { cx = L(cardX(0.56), cardX(0.695), T4); cy = L(cardY(0.41), cardY(0.61), T4); }
+    if (T5 > 0) { cx = L(cardX(0.695), 990, T5); cy = L(cardY(0.61), 373, T5); }
     V('--cur-x', cx.toFixed(1) + 'px');
     V('--cur-y', cy.toFixed(1) + 'px');
-    V('--cur-o', (EO(S(p, 0.732, 0.745)) * (1 - S(p, 0.884, 0.896))).toFixed(3));
+    V('--cur-o', (EO(S(p, 0.732, 0.745)) * (1 - S(p, 0.888, 0.899))).toFixed(3));
     const click = S(p, 0.762, 0.778);
-    const click2 = S(p, 0.865, 0.881);
-    const ripple = click > 0 && click < 1 ? click : click2 > 0 && click2 < 1 ? click2 : 1;
+    const clickZ = S(p, 0.808, 0.820);
+    const clickS = S(p, 0.869, 0.882);
+    const ripple = click > 0 && click < 1 ? click : clickZ > 0 && clickZ < 1 ? clickZ : clickS > 0 && clickS < 1 ? clickS : 1;
     V('--cur-ro', (ripple < 1 ? 1 - ripple : 0).toFixed(3));
     V('--cur-rs', (0.4 + ripple * 1.5).toFixed(3));
     const shPress = (click > 0 && click < 1) || (shrink > 0 && shrink < 1) ? 1 : 0;
@@ -805,18 +808,18 @@ class Component extends DCLogic {
     V('--sh-bg', shPress ? 'color-mix(in srgb, var(--acc,#F2BB55) 14%, transparent)' : 'transparent');
 
     // S5 zoom + speed beats
-    const zbPress = p >= 0.815 && p < 0.845 ? 1 : 0;
+    const zbPress = p >= 0.808 && p < 0.856 ? 1 : 0;
     V('--zb-bd', zbPress ? 'var(--acc,#F2BB55)' : 'rgba(255,255,255,0.14)');
     V('--zb-bg', zbPress ? 'color-mix(in srgb, var(--acc,#F2BB55) 14%, transparent)' : 'transparent');
-    const pbPress = p >= 0.865 && p < 0.888 ? 1 : 0;
+    const pbPress = p >= 0.869 && p < 0.895 ? 1 : 0;
     V('--pb-bd', pbPress ? 'var(--acc,#F2BB55)' : 'rgba(255,255,255,0.14)');
     V('--pb-bg', pbPress ? 'color-mix(in srgb, var(--acc,#F2BB55) 14%, transparent)' : 'transparent');
-    V('--zr-t', EIO(S(p, 0.818, 0.842)).toFixed(4));
-    V('--zr-o', (EO(S(p, 0.815, 0.828)) * erOut).toFixed(3));
-    V('--zrc-o', (EO(S(p, 0.838, 0.855)) * erOut).toFixed(3));
-    V('--ui-z', (EIO(S(p, 0.83, 0.852)) * (1 - S(p, 0.885, 0.905))).toFixed(4));
-    V('--spd-o', (EO(S(p, 0.868, 0.885)) * erOut).toFixed(3));
-    V('--spd-s', (0.6 + EO(S(p, 0.868, 0.885)) * 0.4).toFixed(3));
+    V('--zr-t', EIO(S(p, 0.833, 0.856)).toFixed(4));
+    V('--zr-o', (EO(S(p, 0.830, 0.841)) * erOut).toFixed(3));
+    V('--zrc-o', (EO(S(p, 0.850, 0.864)) * erOut).toFixed(3));
+    V('--ui-z', (EIO(S(p, 0.845, 0.862)) * (1 - S(p, 0.885, 0.905))).toFixed(4));
+    V('--spd-o', (EO(S(p, 0.876, 0.890)) * erOut).toFixed(3));
+    V('--spd-s', (0.6 + EO(S(p, 0.876, 0.890)) * 0.4).toFixed(3));
 
     // S6 ship: render feedback -> ready -> format variants
     V('--rnd-o', (EO(S(p, 0.895, 0.915)) * (1 - S(p, 0.942, 0.958))).toFixed(3));
@@ -875,10 +878,11 @@ class Component extends DCLogic {
     const pCardX = (fx) => 210 + (fx - 0.5) * 384 * pcs;
     const pCardY = (fy) => py + (fy - 0.5) * 216 * pcs;
     let pcx = 300, pcy = 430;
-    if (T1 > 0) { pcx = L(300, 95, T1); pcy = L(430, 588, T1); }
-    if (T2 > 0) { pcx = L(95, pCardX(0.56), T2); pcy = L(588, pCardY(0.41), T2); }
-    if (T3 > 0) { pcx = L(pCardX(0.56), pCardX(0.695), T3); pcy = L(pCardY(0.41), pCardY(0.61), T3); }
-    if (T4 > 0) { pcx = L(pCardX(0.695), pCardX(0.748), T4); pcy = L(pCardY(0.61), pCardY(1.065), T4); }
+    if (T1 > 0) { pcx = L(300, 83, T1); pcy = L(430, 586, T1); }
+    if (T2 > 0) { pcx = L(83, 134, T2); pcy = 586; }
+    if (T3 > 0) { pcx = L(134, pCardX(0.56), T3); pcy = L(586, pCardY(0.41), T3); }
+    if (T4 > 0) { pcx = L(pCardX(0.56), pCardX(0.695), T4); pcy = L(pCardY(0.41), pCardY(0.61), T4); }
+    if (T5 > 0) { pcx = L(pCardX(0.695), 182, T5); pcy = L(pCardY(0.61), 586, T5); }
     V('--pcur-x', pcx.toFixed(1) + 'px');
     V('--pcur-y', pcy.toFixed(1) + 'px');
   }

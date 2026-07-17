@@ -165,9 +165,10 @@ should stay single-file simple — the current copy ("a recording") isn't *wrong
 
 ## 5. Implementation guardrails (for the follow-up session)
 
-- **Files:** copy/markup → BOTH `source/Brocket Landing.dc.html` and `index.html` (plain
-  text now, on this branch). Driver → `source/landing.js`, then
-  `npx --yes terser@5.49.0 source/landing.js --compress passes=2 --mangle --comments false --output landing.min.js`.
+- **Files:** copy, markup, AND driver changes → `source/Brocket Landing.dc.html`, then the
+  identical strings escaped into `index.html`'s bundle (`"`→`\"`, `</`→`</`, newline→`\n`);
+  count-verify every replacement in both files before writing. (Written for the deleted
+  plain-file branch originally — superseded per §0.)
 - **Architecture:** no new animation system or library; new beats = new CSS vars + anchor
   constants inside `apply()`; gate any text swaps like `lastDur`; zero per-frame layout reads.
 - **Parity:** every new node gets a portrait twin (`#bk-pcv`, dc.html:312+) and must read
@@ -176,18 +177,19 @@ should stay single-file simple — the current copy ("a recording") isn't *wrong
 - **Truths to preserve:** shrink-never-pad (target length is a max; source moments used at
   most once), edits-as-versions, masks enforced in export, final duration 0:28 everywhere.
 - **Verify:** `python3 -m http.server 8000`; the embedded browser pane suspends this page's
-  rAF and can't scroll the stage — use the rail's jump buttons / `data-bk-jump` to land on
-  each stage, and do real scroll passes (forward AND backward) in a normal browser.
-  **Do not commit or push** — `main` auto-deploys to brocket.video.
+  rAF and can't scroll the stage — use the progress rail's jump buttons to land on each
+  stage, and do real scroll passes (forward AND backward) in a normal browser.
+  **Do not commit or push without asking** — `main` auto-deploys to brocket.video.
 
-## 6. Acceptance criteria (unchanged from the brief)
+## 6. Acceptance criteria
 
 - New beats read correctly scrubbing forward and backward, portrait and landscape, and
   collapse gracefully under reduced motion.
 - No new JS dependency; single rAF loop preserved; no measurable frame-time regression.
-- `source/Brocket Landing.dc.html` and `index.html` stay in sync; `landing.min.js`
-  regenerated from `source/landing.js`.
-- Every animated capability maps to a real, shipped, bounded brocket feature.
+- `source/Brocket Landing.dc.html` and `index.html` stay in sync (the escaped bundle
+  mirrors the source).
+- Every animated capability maps to a real brocket feature — shipped, planned, or
+  roadmap, per the §0 parity decision.
 
 ---
 
