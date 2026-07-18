@@ -12,8 +12,8 @@ remains the round-1 record. Product state re-verified against `../brocket` HEAD 
    are not.** There is no `source/landing.js`. The driver (one rAF loop, `apply(p, ST)` at
    line 642, `A`/`SEG`/`PA`/`PSEG` anchors, `H`/`W` band arrays) is the inline
    `<script type="text/x-dc">` inside `source/Brocket Landing.dc.html` (lines 553–913).
-   `index.html` remains the self-extracting bundle (one ~112 KB escaped string at line 319;
-   712 KB total with the gzipped fonts blob). So the rule stands: **every change = plain edit
+   `index.html` remains the self-extracting bundle (one ~135 KB escaped string at line 319;
+   ~717 KB total with the gzipped fonts blob). So the rule stands: **every change = plain edit
    to `source/Brocket Landing.dc.html` + the same string escaped into `index.html`**
    (`"`→`\"`, `</`→`<\u002F`, newline→`\n`), count-verified once per file. `source/support.js`
    is the generated dc-runtime — never edit.
@@ -101,7 +101,7 @@ Implemented: all of P1 including the three optional items, minus the `Remove`→
 swap (superseded by the tier ruling). Applied via a count-verified dual-file patch
 (19 pairs, each asserted exactly once in `source/Brocket Landing.dc.html` AND in
 `index.html`'s escaped string; all-or-nothing). No new JS dependency; single rAF loop;
-+6 vars/frame; +3.7 KB source / +3.8 KB bundle.
++5 vars/frame; +3.7 KB source / +3.8 KB bundle.
 
 **Shipped-feature beats**
 - **Caption appearance (05):** the caption pill restyles Dark→Minimal — background thins
@@ -125,6 +125,12 @@ swap (superseded by the tier ruling). Applied via a count-verified dual-file pat
 **Fixes**
 - **Transport total** now follows the duration counter: `/ 0:31` → `/ 0:29` → `/ 0:28`
   (`bk-tptot` / `bk-ptptot`, piggybacked on the `lastDur` gate).
+- **Text gates hardened against remounts (PR #7 review):** every gated text write
+  (`lastPct` / `lastDur` / transport total / `lastStage` / `lastRnd`) now goes through
+  a `setTxt` helper that re-fetches the node each frame and writes when the text
+  changed OR the node was swapped — refs cached on the page-lifetime singleton could
+  otherwise point at detached nodes, and unchanged gate strings could suppress
+  re-application after a remount.
 
 **Bundle-format note (procedural):** the escaped document in `index.html` is NOT
 byte-identical to `source/Brocket Landing.dc.html` — the bundler rewrote parts of it
@@ -134,7 +140,7 @@ per-string exact-count verification in both files is, and was used here.
 **Verified in-repo (node harness, 4001 `apply()` calls, forward 0→1 and backward 1→0):**
 script parses; no NaN/undefined var values; every new var is exactly 0 at p=0; sampled
 states read as designed (rule entering 0.936 @0.61; auto→manual marker crossfade
-0.852–0.86; caption Light + chip @0.875; total `/ 0:29` post-shorten, `/ 0:28` post-speed;
+0.852–0.86; caption Minimal + chip @0.875; total `/ 0:29` post-shorten, `/ 0:28` post-speed;
 render label flips between 0.905 and 0.93). Calm mode: all beats are pure functions of p,
 so `k=1` snaps to the same end states with every chip/rect visible at rest.
 
@@ -142,9 +148,15 @@ so `k=1` snaps to the same end states with every chip/rect visible at rest.
 rule entrance, forward/backward trackpad scrubs, portrait/landscape spot checks, and the
 prefers-reduced-motion pass. Serve with `python3 -m http.server 8000` and scrub 04–06.
 
-Commit and push left to Jingbo (working tree on `feat/animation-round2`, uncommitted).
+Committed (`df63d3e`, `90bc339`) and pushed to PR #7; real-browser verification
+remains open before merge.
 
 **Post-PR follow-ups (committed to the same branch, PR #7):**
 - Caption restyle flipped Dark→Light → **Dark→Minimal** (gold hairline) per Jingbo.
 - Script panel lines (03) switched to **Geist Mono** — landscape 14px sans → 12.5px mono,
   portrait 12.5px sans → 11.5px mono — so `launch-notes.md` reads as a raw markdown file.
+- **Review round (PR #7 threads):** remount-hardened text gates (`setTxt`; harness now
+  simulates a remount mid-scrub and verifies re-application), corrected bundle figures
+  (~135 KB / ~717 KB), `+5` var count, Minimal wording in the verification summary,
+  committed-state closing note. Not applied: snapping the transport total to discrete
+  values — it mirrors the interpolating duration counter frame-for-frame by design.

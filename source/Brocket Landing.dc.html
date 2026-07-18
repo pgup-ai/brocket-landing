@@ -557,7 +557,7 @@ class Component extends DCLogic {
     // they can collide with runtime-managed properties.
     const S = (window.__bkLand = window.__bkLand || {
       cur: 0, target: 0, on: false, warned: false,
-      lastStage: -1, lastDur: '', lastPct: '', lastRnd: '', calm: false,
+      lastStage: -1, lastTxt: '', lastDur: '', lastPct: '', lastRnd: '', calm: false,
     });
     S.calm = (this.props.calmMotion ?? false) ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -650,6 +650,14 @@ class Component extends DCLogic {
     const L = (a, b, t) => a + (b - a) * t;
     const V = (n, v) => el.style.setProperty(n, v);
     const fmt = (s) => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+    // Text gates: re-fetch the node each frame (cheap id lookup) and write only
+    // when the text changed OR the node was swapped by a remount — refs cached
+    // on the page-lifetime singleton would otherwise go stale.
+    const setTxt = (key, id, txt, changed) => {
+      const e = document.getElementById(id);
+      if (e && (changed || e !== ST[key])) e.textContent = txt;
+      ST[key] = e;
+    };
 
     // header hairline (must live on an ancestor of the fixed header)
     document.body.style.setProperty('--hdr', S(p, 0.01, 0.03).toFixed(3));
@@ -693,13 +701,10 @@ class Component extends DCLogic {
     V('--upb-w', (up * 100).toFixed(1) + '%');
     V('--upok-o', EO(S(p, 0.215, 0.235)).toFixed(3));
     const pctTxt = Math.round(up * 100) + '%';
-    if (pctTxt !== ST.lastPct) {
-      const upEl = (ST.upEl = ST.upEl || document.getElementById('bk-uppct'));
-      if (upEl) upEl.textContent = pctTxt;
-      const pupEl = (ST.pupEl = ST.pupEl || document.getElementById('bk-puppct'));
-      if (pupEl) pupEl.textContent = pctTxt;
-      ST.lastPct = pctTxt;
-    }
+    const pctCh = pctTxt !== ST.lastPct;
+    setTxt('upEl', 'bk-uppct', pctTxt, pctCh);
+    setTxt('pupEl', 'bk-puppct', pctTxt, pctCh);
+    ST.lastPct = pctTxt;
 
     // S2 understand
     const scano = EO(S(p, 0.262, 0.276)) * (1 - S(p, 0.385, 0.40));
@@ -755,18 +760,13 @@ class Component extends DCLogic {
     if (p >= 0.772) dur = L(31, 29, EIO(S(p, 0.772, 0.802)));
     if (p >= 0.878) dur = L(29, 28, EIO(S(p, 0.878, 0.895)));
     const durTxt = fmt(dur);
-    if (durTxt !== ST.lastDur) {
-      const durEl = (ST.durEl = ST.durEl || document.getElementById('bk-dur'));
-      if (durEl) durEl.textContent = durTxt;
-      const pdurEl = (ST.pdurEl = ST.pdurEl || document.getElementById('bk-pdur'));
-      if (pdurEl) pdurEl.textContent = durTxt;
-      const tot = dur < 31 ? durTxt : '0:31';
-      const tpEl = (ST.tpEl = ST.tpEl || document.getElementById('bk-tptot'));
-      if (tpEl) tpEl.textContent = '/ ' + tot;
-      const ptpEl = (ST.ptpEl = ST.ptpEl || document.getElementById('bk-ptptot'));
-      if (ptpEl) ptpEl.textContent = '/ ' + tot;
-      ST.lastDur = durTxt;
-    }
+    const tot = dur < 31 ? durTxt : '0:31';
+    const durCh = durTxt !== ST.lastDur;
+    setTxt('durEl', 'bk-dur', durTxt, durCh);
+    setTxt('pdurEl', 'bk-pdur', durTxt, durCh);
+    setTxt('tpEl', 'bk-tptot', '/ ' + tot, durCh);
+    setTxt('ptpEl', 'bk-ptptot', '/ ' + tot, durCh);
+    ST.lastDur = durTxt;
 
     // card faces + overlays
     V('--face-t', (EO(S(p, 0.585, 0.612)) * (1 - S(p, 0.652, 0.682))).toFixed(3));
@@ -837,13 +837,10 @@ class Component extends DCLogic {
     V('--rnd-o', (EO(S(p, 0.895, 0.915)) * (1 - S(p, 0.942, 0.958))).toFixed(3));
     V('--rnd-w', (S(p, 0.90, 0.938) * 100).toFixed(1) + '%');
     const rndTxt = p < 0.912 ? 'Queued…' : 'Rendering…';
-    if (rndTxt !== ST.lastRnd) {
-      const rlEl = (ST.rlEl = ST.rlEl || document.getElementById('bk-rndlbl'));
-      if (rlEl) rlEl.textContent = rndTxt;
-      const prlEl = (ST.prlEl = ST.prlEl || document.getElementById('bk-prndlbl'));
-      if (prlEl) prlEl.textContent = rndTxt;
-      ST.lastRnd = rndTxt;
-    }
+    const rndCh = rndTxt !== ST.lastRnd;
+    setTxt('rlEl', 'bk-rndlbl', rndTxt, rndCh);
+    setTxt('prlEl', 'bk-prndlbl', rndTxt, rndCh);
+    ST.lastRnd = rndTxt;
     V('--var-t', EO(S(p, 0.955, 0.99)).toFixed(4));
     V('--glow-o', EO(S(p, 0.90, 0.95)).toFixed(3));
     V('--shl-o', EO(S(p, 0.94, 0.965)).toFixed(3));
@@ -855,15 +852,14 @@ class Component extends DCLogic {
     W.forEach(([a, b], i) => V('--rf' + (i + 1), (S(p, a, b) * 100).toFixed(1) + '%'));
     let stage = -1;
     W.forEach(([a, b], i) => { if (p >= a) stage = i; });
-    if (stage !== ST.lastStage) {
+    const stCh = stage !== ST.lastStage;
+    if (stCh) {
       const names = ['01 · UPLOAD', '02 · UNDERSTAND', '03 · SCRIPT', '04 · FIRST CUT', '05 · EDIT', '06 · SHIP'];
-      const txt = stage >= 0 ? names[stage] : '';
-      const lblEl = (ST.lblEl = ST.lblEl || document.getElementById('bk-stglbl'));
-      if (lblEl) lblEl.textContent = txt;
-      const plblEl = (ST.plblEl = ST.plblEl || document.getElementById('bk-pstglbl'));
-      if (plblEl) plblEl.textContent = txt;
-      ST.lastStage = stage;
+      ST.lastTxt = stage >= 0 ? names[stage] : '';
     }
+    setTxt('lblEl', 'bk-stglbl', ST.lastTxt || '', stCh);
+    setTxt('plblEl', 'bk-pstglbl', ST.lastTxt || '', stCh);
+    ST.lastStage = stage;
 
     // ---- portrait stage geometry (shares every opacity/timing var above) ----
     const PA = [[0, 430, 0.92], [0.13, 385, 0.96], [0.29, 355, 0.90], [0.45, 340, 0.86], [0.61, 335, 0.88], [0.74, 330, 0.86], [0.86, 330, 0.86], [0.93, 350, 1.0]];
