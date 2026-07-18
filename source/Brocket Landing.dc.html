@@ -193,12 +193,12 @@
           <div style="position:absolute;left:56%;top:41%;width:calc(var(--zr-t,0) * 13.5%);height:calc(var(--zr-t,0) * 20%);border:1.5px solid var(--acc,#F2BB55);border-radius:6px;box-shadow:0 0 0 1px rgba(20,16,9,0.4);opacity:var(--zr-o,0)"><span style="position:absolute;left:-2px;top:-2px;width:7px;height:7px;border-radius:2px;background:var(--acc,#F2BB55)"></span><span style="position:absolute;right:-2px;bottom:-2px;width:7px;height:7px;border-radius:2px;background:var(--acc,#F2BB55)"></span></div>
           <div style="position:absolute;left:70.5%;top:35%;display:inline-flex;align-items:center;background:rgba(16,14,12,0.92);border:1px solid color-mix(in srgb, var(--acc,#F2BB55) 45%, transparent);border-radius:6px;padding:4px 8px;font-family:'Geist Mono',monospace;font-size:10px;color:var(--acc,#F2BB55);white-space:nowrap;opacity:var(--zrc-o,0)">Zoom · 1.5× · slow</div>
           <!-- caption -->
-          <div style="position:absolute;left:50%;bottom:7%;transform:translateX(-50%);display:flex;align-items:stretch;border-radius:8px;overflow:hidden;background:rgba(16,14,12,0.88);opacity:var(--cap-o,0)"><span style="width:4px;background:var(--acc,#F2BB55)"></span><span style="padding:8px 16px;font-size:19px;font-weight:600;color:#F7F5F2;white-space:nowrap">Show the core workflow.</span></div>
+          <div style="position:absolute;left:50%;bottom:7%;transform:translateX(-50%) translateY(calc(var(--cap-l,0) * -4px));display:flex;align-items:stretch;border-radius:8px;overflow:hidden;background:rgba(16,14,12,calc(0.88 - var(--cap-l,0) * 0.62));border:1px solid color-mix(in srgb, var(--acc,#F2BB55) calc(var(--cap-l,0) * 50%), transparent);opacity:var(--cap-o,0)"><span style="width:4px;background:var(--acc,#F2BB55)"></span><span style="padding:8px 16px;font-size:calc(19px * (1 + var(--cap-l,0) * 0.12));font-weight:600;color:#F7F5F2;white-space:nowrap">Show the core workflow.</span></div><div style="position:absolute;right:5%;bottom:7%;display:inline-flex;align-items:center;background:rgba(16,14,12,0.92);border:1px solid color-mix(in srgb, var(--acc,#F2BB55) 45%, transparent);border-radius:6px;padding:4px 8px;font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--acc,#F2BB55);white-space:nowrap;opacity:var(--capc-o,0)">Captions · Minimal · L</div>
           <!-- title face -->
           <div style="position:absolute;inset:0;background:#12100D;display:flex;flex-direction:column;justify-content:space-between;padding:44px 48px;opacity:var(--face-t,0)">
             <div style="display:flex;align-items:center;gap:12px"><span style="width:28px;height:28px;border-radius:7px;background:var(--acc,#F2BB55)"></span><span style="font-size:16px;font-weight:600;color:#F7F5F2">Yourproduct</span></div>
             <div style="font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-size:44px;font-weight:var(--hero-weight,600);font-stretch:var(--hero-stretch,100%);letter-spacing:-0.03em;line-height:1.08;color:#F7F5F2;max-width:84%">Meet the new workflow.</div>
-            <span style="width:110px;height:5px;border-radius:999px;background:var(--acc,#F2BB55)"></span>
+            <span style="width:120px;height:6px;border-radius:999px;background:var(--acc,#F2BB55);transform:scaleX(var(--trule,0));transform-origin:left center"></span>
           </div>
           <!-- outro face -->
           <div style="position:absolute;inset:0;background:#12100D;display:flex;flex-direction:column;justify-content:space-between;padding:32px 38px;opacity:var(--face-o,0)">
@@ -247,13 +247,13 @@
             <span style="width:20px;height:20px;border-radius:999px;background:rgba(62,207,142,0.10);border:1px solid rgba(62,207,142,0.35);color:#3ECF8E;font-size:11px;display:inline-flex;align-items:center;justify-content:center;opacity:var(--upok-o,0);transform:scale(calc(0.5 + var(--upok-o,0) * 0.5))">✓</span>
           </div>
           <div style="margin-top:8px;text-align:center;font-family:'Geist Mono',monospace;font-size:10.5px;color:#6B6560">5:12 · 1920×1080</div>
-          <div style="margin-top:6px;text-align:center;font-family:'Geist Mono',monospace;font-size:10.5px;color:#8A847E;opacity:var(--up2-o,0)"><span style="color:var(--acc,#F2BB55)">+</span> demo-2.mov · retake.mov — one combined cut</div>
+          <div style="margin-top:6px;text-align:center;font-family:'Geist Mono',monospace;font-size:10.5px;color:#8A847E;opacity:var(--up2-o,0)"><span style="color:var(--acc,#F2BB55)">+</span> <span style="color:var(--acc,#F2BB55)">2</span> demo-2.mov · <span style="color:var(--acc,#F2BB55)">3</span> retake.mov — one combined cut</div>
         </div>
         <!-- transport (edit stage, below card) -->
         <div style="position:absolute;left:50%;top:414px;transform:translateX(-50%);width:640px;display:flex;align-items:center;gap:14px;opacity:var(--tp-o,0)">
           <span style="width:32px;height:32px;border-radius:8px;background:var(--acc,#F2BB55);color:#141009;display:inline-flex;align-items:center;justify-content:center"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true"><path d="M0 0 L10 6 L0 12 Z"></path></svg></span>
-          <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#A8A29E">0:07 <span style="color:#6B6560">/ 0:31</span></span>
-          <span style="flex:1;display:flex;gap:4px;position:relative"><span style="flex:2;height:5px;border-radius:3px;background:rgba(255,255,255,0.12)"></span><span style="flex:4;height:5px;border-radius:3px;background:var(--acc,#F2BB55)"></span><span style="flex:3;height:5px;border-radius:3px;background:rgba(255,255,255,0.12)"></span><span style="flex:2;height:5px;border-radius:3px;background:rgba(255,255,255,0.12)"></span><span style="position:absolute;left:56%;top:50%;transform:translateY(-50%);width:22%;height:5px;border-radius:3px;background:repeating-linear-gradient(90deg,color-mix(in srgb, var(--acc,#F2BB55) 60%, transparent) 0 4px,transparent 4px 8px);opacity:var(--spd-o,0)"></span><span style="position:absolute;left:67%;top:50%;transform:translate(-50%,-50%) scale(var(--spd-s,0.6));display:inline-flex;align-items:center;background:var(--acc,#F2BB55);color:#141009;border-radius:5px;padding:2px 6px;font-family:'Geist Mono',monospace;font-size:9px;font-weight:700;opacity:var(--spd-o,0)">2×</span></span>
+          <span style="font-family:'Geist Mono',monospace;font-size:12px;color:#A8A29E">0:07 <span id="bk-tptot" style="color:#6B6560">/ 0:31</span></span>
+          <span style="flex:1;display:flex;gap:4px;position:relative"><span style="flex:2;height:5px;border-radius:3px;background:rgba(255,255,255,0.12)"></span><span style="flex:4;height:5px;border-radius:3px;background:var(--acc,#F2BB55)"></span><span style="flex:3;height:5px;border-radius:3px;background:rgba(255,255,255,0.12)"></span><span style="flex:2;height:5px;border-radius:3px;background:rgba(255,255,255,0.12)"></span><span style="position:absolute;left:56%;top:50%;transform:translateY(-50%);width:22%;height:5px;border-radius:3px;background:repeating-linear-gradient(90deg,color-mix(in srgb, var(--acc,#F2BB55) 60%, transparent) 0 4px,transparent 4px 8px);opacity:var(--spd-o,0)"></span><span style="position:absolute;left:67%;top:50%;transform:translate(-50%,-50%) scale(var(--spd-s,0.6));display:inline-flex;align-items:center;background:var(--acc,#F2BB55);color:#141009;border-radius:5px;padding:2px 6px;font-family:'Geist Mono',monospace;font-size:9px;font-weight:700;opacity:var(--spd-o,0)">2×</span><span style="position:absolute;left:0;right:0;top:13px;height:3px;border-radius:2px;background:rgba(255,255,255,0.05)"></span><span style="position:absolute;left:30%;top:12px;width:13%;height:5px;border-radius:3px;background:repeating-linear-gradient(90deg,rgba(138,132,126,0.6) 0 3px,transparent 3px 6px);opacity:var(--zl-a,0)"></span><span style="position:absolute;left:30%;top:12px;width:13%;height:5px;border-radius:3px;background:var(--acc,#F2BB55);opacity:var(--zl-m,0)"></span></span>
           <span style="font-size:12px;color:#A8A29E;border:1px solid rgba(255,255,255,0.14);border-radius:7px;padding:5px 10px">⋯</span>
         </div>
       </div>
@@ -302,9 +302,9 @@
       </div>
 
       <!-- ship: render feedback, then share row + CTA -->
-      <div style="position:absolute;left:0;right:0;top:568px;display:flex;justify-content:center;opacity:var(--rnd-o,0)"><span style="display:inline-flex;align-items:center;gap:12px;background:#141210;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:9px 14px;font-family:'Geist Mono',monospace;font-size:12px;color:#A8A29E">Rendering<span style="width:180px;height:4px;border-radius:2px;background:rgba(255,255,255,0.10);overflow:hidden;display:inline-block"><span style="display:block;height:100%;width:var(--rnd-w,0%);background:var(--acc,#F2BB55)"></span></span><span style="color:#8A847E">MP4 · 1080p</span></span></div>
+      <div style="position:absolute;left:0;right:0;top:568px;display:flex;justify-content:center;opacity:var(--rnd-o,0)"><span style="display:inline-flex;align-items:center;gap:12px;background:#141210;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:9px 14px;font-family:'Geist Mono',monospace;font-size:12px;color:#A8A29E"><span id="bk-rndlbl">Rendering</span><span style="width:180px;height:4px;border-radius:2px;background:rgba(255,255,255,0.10);overflow:hidden;display:inline-block"><span style="display:block;height:100%;width:var(--rnd-w,0%);background:var(--acc,#F2BB55)"></span></span><span style="color:#8A847E">MP4 · 1080p</span></span></div>
       <div id="start" style="position:absolute;left:0;right:0;top:568px;display:flex;justify-content:center;gap:10px;opacity:var(--shl-o,0);transform:translateY(calc((1 - var(--shl-o,0)) * 14px))">
-        <span style="display:inline-flex;align-items:center;gap:12px;background:#141210;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:9px 14px;font-family:'Geist Mono',monospace;font-size:12px;color:#A8A29E">brocket.video/s/x7Kq2<span style="color:var(--acc,#F2BB55);font-weight:600">Copy</span></span>
+        <span style="display:inline-flex;align-items:center;gap:12px;background:#141210;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:9px 14px;font-family:'Geist Mono',monospace;font-size:12px;color:#A8A29E">brocket.video/s/x7Kq2<span style="color:#6B6560"> · 7d</span><span style="color:var(--acc,#F2BB55);font-weight:600">Copy</span></span>
         <span style="display:inline-flex;align-items:center;gap:8px;background:rgba(62,207,142,0.08);border:1px solid rgba(62,207,142,0.28);border-radius:8px;padding:9px 14px;font-family:'Geist Mono',monospace;font-size:12px;color:#3ECF8E">MP4 · 1080p · 0:28</span><span style="display:inline-flex;align-items:center;gap:8px;background:#141210;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:9px 14px;font-family:'Geist Mono',monospace;font-size:12px;color:#A8A29E">Send for review <span style="color:var(--acc,#F2BB55)">→</span></span>
       </div>
       <div style="position:absolute;left:0;right:0;top:622px;text-align:center;opacity:var(--cta-o,0);transform:translateY(calc((1 - var(--cta-o,0)) * 14px))">
@@ -374,12 +374,12 @@
           <div style="position:absolute;left:63%;top:52%;width:38px;height:38px;transform:translate(-50%,-50%);opacity:var(--hro,1)"><span style="position:absolute;inset:0;border-radius:999px;border:1.5px solid var(--acc,#F2BB55)"></span></div>
           <div style="position:absolute;left:56%;top:41%;width:calc(var(--zr-t,0) * 13.5%);height:calc(var(--zr-t,0) * 20%);border:1px solid var(--acc,#F2BB55);border-radius:4px;opacity:var(--zr-o,0)"><span style="position:absolute;left:-1.5px;top:-1.5px;width:5px;height:5px;border-radius:1.5px;background:var(--acc,#F2BB55)"></span><span style="position:absolute;right:-1.5px;bottom:-1.5px;width:5px;height:5px;border-radius:1.5px;background:var(--acc,#F2BB55)"></span></div>
           <div style="position:absolute;left:70%;top:32%;display:inline-flex;align-items:center;background:rgba(16,14,12,0.92);border:1px solid color-mix(in srgb, var(--acc,#F2BB55) 45%, transparent);border-radius:4px;padding:2px 5px;font-family:'Geist Mono',monospace;font-size:7.5px;color:var(--acc,#F2BB55);white-space:nowrap;opacity:var(--zrc-o,0)">Zoom · 1.5×</div>
-          <div style="position:absolute;left:50%;bottom:8%;transform:translateX(-50%);display:flex;align-items:stretch;border-radius:5px;overflow:hidden;background:rgba(16,14,12,0.88);opacity:var(--cap-o,0)"><span style="width:3px;background:var(--acc,#F2BB55)"></span><span style="padding:4px 9px;font-size:11px;font-weight:600;color:#F7F5F2;white-space:nowrap">Show the core workflow.</span></div>
+          <div style="position:absolute;left:50%;bottom:8%;transform:translateX(-50%) translateY(calc(var(--cap-l,0) * -3px));display:flex;align-items:stretch;border-radius:5px;overflow:hidden;background:rgba(16,14,12,calc(0.88 - var(--cap-l,0) * 0.62));border:1px solid color-mix(in srgb, var(--acc,#F2BB55) calc(var(--cap-l,0) * 50%), transparent);opacity:var(--cap-o,0)"><span style="width:3px;background:var(--acc,#F2BB55)"></span><span style="padding:4px 9px;font-size:calc(11px * (1 + var(--cap-l,0) * 0.12));font-weight:600;color:#F7F5F2;white-space:nowrap">Show the core workflow.</span></div><div style="position:absolute;left:50%;bottom:23%;transform:translateX(-50%);display:inline-flex;align-items:center;background:rgba(16,14,12,0.92);border:1px solid color-mix(in srgb, var(--acc,#F2BB55) 45%, transparent);border-radius:4px;padding:2px 5px;font-family:'Geist Mono',monospace;font-size:7.5px;color:var(--acc,#F2BB55);white-space:nowrap;opacity:var(--capc-o,0)">Captions · Minimal</div>
           <div style="position:absolute;left:50%;bottom:8%;transform:translateX(-50%);display:flex;align-items:stretch;border-radius:5px;overflow:hidden;background:rgba(16,14,12,0.88);opacity:var(--hro,1)"><span style="width:3px;background:var(--acc,#F2BB55)"></span><span style="padding:4px 9px;font-size:11px;font-weight:600;color:#F7F5F2;white-space:nowrap">Highlight the new feature.</span></div>
           <div style="position:absolute;inset:0;background:#12100D;display:flex;flex-direction:column;justify-content:space-between;padding:22px 24px;opacity:var(--face-t,0)">
             <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:16px;border-radius:4px;background:var(--acc,#F2BB55)"></span><span style="font-size:10px;font-weight:600;color:#F7F5F2">Yourproduct</span></div>
             <div style="font-family:var(--hero-font,Geist,Inter,system-ui,sans-serif);font-size:24px;font-weight:var(--hero-weight,600);font-stretch:var(--hero-stretch,100%);letter-spacing:-0.02em;line-height:1.1;color:#F7F5F2;max-width:88%">Meet the new workflow.</div>
-            <span style="width:60px;height:3px;border-radius:999px;background:var(--acc,#F2BB55)"></span>
+            <span style="width:66px;height:3px;border-radius:999px;background:var(--acc,#F2BB55);transform:scaleX(var(--trule,0));transform-origin:left center"></span>
           </div>
           <div style="position:absolute;inset:0;background:#12100D;display:flex;flex-direction:column;justify-content:space-between;padding:16px 18px;opacity:var(--face-o,0)">
             <div style="display:flex;align-items:center;gap:8px">
@@ -414,12 +414,12 @@
             <span style="width:15px;height:15px;border-radius:999px;background:rgba(62,207,142,0.10);border:1px solid rgba(62,207,142,0.35);color:#3ECF8E;font-size:8px;display:inline-flex;align-items:center;justify-content:center;opacity:var(--upok-o,0)">✓</span>
           </div>
           <div style="margin-top:5px;text-align:center;font-family:'Geist Mono',monospace;font-size:8.5px;color:#6B6560">5:12 · 1920×1080</div>
-          <div style="margin-top:4px;text-align:center;font-family:'Geist Mono',monospace;font-size:8.5px;color:#8A847E;opacity:var(--up2-o,0)"><span style="color:var(--acc,#F2BB55)">+</span> demo-2.mov · retake.mov — one combined cut</div>
+          <div style="margin-top:4px;text-align:center;font-family:'Geist Mono',monospace;font-size:8.5px;color:#8A847E;opacity:var(--up2-o,0)"><span style="color:var(--acc,#F2BB55)">+</span> <span style="color:var(--acc,#F2BB55)">2</span> demo-2.mov · <span style="color:var(--acc,#F2BB55)">3</span> retake.mov — one combined cut</div>
         </div>
         <div style="position:absolute;left:50%;top:228px;transform:translateX(-50%);width:360px;display:flex;align-items:center;gap:9px;opacity:var(--tp-o,0)">
           <span style="width:22px;height:22px;border-radius:6px;background:var(--acc,#F2BB55);color:#141009;display:inline-flex;align-items:center;justify-content:center"><svg width="7" height="9" viewBox="0 0 10 12" fill="currentColor" aria-hidden="true"><path d="M0 0 L10 6 L0 12 Z"></path></svg></span>
-          <span style="font-family:'Geist Mono',monospace;font-size:9.5px;color:#A8A29E">0:07 <span style="color:#6B6560">/ 0:31</span></span>
-          <span style="flex:1;display:flex;gap:3px;position:relative"><span style="flex:2;height:4px;border-radius:2px;background:rgba(255,255,255,0.12)"></span><span style="flex:4;height:4px;border-radius:2px;background:var(--acc,#F2BB55)"></span><span style="flex:3;height:4px;border-radius:2px;background:rgba(255,255,255,0.12)"></span><span style="flex:2;height:4px;border-radius:2px;background:rgba(255,255,255,0.12)"></span><span style="position:absolute;left:56%;top:50%;transform:translateY(-50%);width:22%;height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,color-mix(in srgb, var(--acc,#F2BB55) 60%, transparent) 0 3px,transparent 3px 6px);opacity:var(--spd-o,0)"></span><span style="position:absolute;left:67%;top:50%;transform:translate(-50%,-50%) scale(var(--spd-s,0.6));display:inline-flex;align-items:center;background:var(--acc,#F2BB55);color:#141009;border-radius:4px;padding:1px 4px;font-family:'Geist Mono',monospace;font-size:7.5px;font-weight:700;opacity:var(--spd-o,0)">2×</span></span>
+          <span style="font-family:'Geist Mono',monospace;font-size:9.5px;color:#A8A29E">0:07 <span id="bk-ptptot" style="color:#6B6560">/ 0:31</span></span>
+          <span style="flex:1;display:flex;gap:3px;position:relative"><span style="flex:2;height:4px;border-radius:2px;background:rgba(255,255,255,0.12)"></span><span style="flex:4;height:4px;border-radius:2px;background:var(--acc,#F2BB55)"></span><span style="flex:3;height:4px;border-radius:2px;background:rgba(255,255,255,0.12)"></span><span style="flex:2;height:4px;border-radius:2px;background:rgba(255,255,255,0.12)"></span><span style="position:absolute;left:56%;top:50%;transform:translateY(-50%);width:22%;height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,color-mix(in srgb, var(--acc,#F2BB55) 60%, transparent) 0 3px,transparent 3px 6px);opacity:var(--spd-o,0)"></span><span style="position:absolute;left:67%;top:50%;transform:translate(-50%,-50%) scale(var(--spd-s,0.6));display:inline-flex;align-items:center;background:var(--acc,#F2BB55);color:#141009;border-radius:4px;padding:1px 4px;font-family:'Geist Mono',monospace;font-size:7.5px;font-weight:700;opacity:var(--spd-o,0)">2×</span><span style="position:absolute;left:0;right:0;top:11px;height:3px;border-radius:2px;background:rgba(255,255,255,0.05)"></span><span style="position:absolute;left:30%;top:10px;width:13%;height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,rgba(138,132,126,0.6) 0 3px,transparent 3px 6px);opacity:var(--zl-a,0)"></span><span style="position:absolute;left:30%;top:10px;width:13%;height:4px;border-radius:2px;background:var(--acc,#F2BB55);opacity:var(--zl-m,0)"></span></span>
         </div>
       </div>
 
@@ -488,9 +488,9 @@
       </div>
 
       <!-- ship: share + CTA -->
-      <div style="position:absolute;left:0;right:0;top:500px;display:flex;justify-content:center;opacity:var(--rnd-o,0)"><span style="display:inline-flex;align-items:center;gap:9px;background:#141210;border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:8px 13px;font-family:'Geist Mono',monospace;font-size:10.5px;color:#A8A29E">Rendering<span style="width:110px;height:4px;border-radius:2px;background:rgba(255,255,255,0.10);overflow:hidden;display:inline-block"><span style="display:block;height:100%;width:var(--rnd-w,0%);background:var(--acc,#F2BB55)"></span></span></span></div>
+      <div style="position:absolute;left:0;right:0;top:500px;display:flex;justify-content:center;opacity:var(--rnd-o,0)"><span style="display:inline-flex;align-items:center;gap:9px;background:#141210;border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:8px 13px;font-family:'Geist Mono',monospace;font-size:10.5px;color:#A8A29E"><span id="bk-prndlbl">Rendering</span><span style="width:110px;height:4px;border-radius:2px;background:rgba(255,255,255,0.10);overflow:hidden;display:inline-block"><span style="display:block;height:100%;width:var(--rnd-w,0%);background:var(--acc,#F2BB55)"></span></span></span></div>
       <div style="position:absolute;left:0;right:0;top:500px;display:flex;flex-direction:column;align-items:center;gap:9px;opacity:var(--shl-o,0);transform:translateY(calc((1 - var(--shl-o,0)) * 12px))">
-        <span style="display:inline-flex;align-items:center;gap:9px;background:#141210;border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:8px 13px;font-family:'Geist Mono',monospace;font-size:10.5px;color:#A8A29E">brocket.video/s/x7Kq2<span style="color:var(--acc,#F2BB55);font-weight:600">Copy</span></span>
+        <span style="display:inline-flex;align-items:center;gap:9px;background:#141210;border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:8px 13px;font-family:'Geist Mono',monospace;font-size:10.5px;color:#A8A29E">brocket.video/s/x7Kq2<span style="color:#6B6560"> · 7d</span><span style="color:var(--acc,#F2BB55);font-weight:600">Copy</span></span>
         <span style="display:inline-flex;align-items:center;background:rgba(62,207,142,0.08);border:1px solid rgba(62,207,142,0.28);border-radius:7px;padding:8px 13px;font-family:'Geist Mono',monospace;font-size:10.5px;color:#3ECF8E">MP4 · 1080p · 0:28</span><span style="display:inline-flex;align-items:center;gap:7px;background:#141210;border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:8px 13px;font-family:'Geist Mono',monospace;font-size:10.5px;color:#A8A29E">Send for review <span style="color:var(--acc,#F2BB55)">→</span></span>
       </div>
       <div style="position:absolute;left:0;right:0;top:606px;text-align:center;opacity:var(--cta-o,0);transform:translateY(calc((1 - var(--cta-o,0)) * 12px))">
@@ -557,7 +557,7 @@ class Component extends DCLogic {
     // they can collide with runtime-managed properties.
     const S = (window.__bkLand = window.__bkLand || {
       cur: 0, target: 0, on: false, warned: false,
-      lastStage: -1, lastDur: '', lastPct: '', calm: false,
+      lastStage: -1, lastDur: '', lastPct: '', lastRnd: '', calm: false,
     });
     S.calm = (this.props.calmMotion ?? false) ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -760,11 +760,17 @@ class Component extends DCLogic {
       if (durEl) durEl.textContent = durTxt;
       const pdurEl = (ST.pdurEl = ST.pdurEl || document.getElementById('bk-pdur'));
       if (pdurEl) pdurEl.textContent = durTxt;
+      const tot = dur < 31 ? durTxt : '0:31';
+      const tpEl = (ST.tpEl = ST.tpEl || document.getElementById('bk-tptot'));
+      if (tpEl) tpEl.textContent = '/ ' + tot;
+      const ptpEl = (ST.ptpEl = ST.ptpEl || document.getElementById('bk-ptptot'));
+      if (ptpEl) ptpEl.textContent = '/ ' + tot;
       ST.lastDur = durTxt;
     }
 
     // card faces + overlays
     V('--face-t', (EO(S(p, 0.585, 0.612)) * (1 - S(p, 0.652, 0.682))).toFixed(3));
+    V('--trule', EO(S(p, 0.598, 0.618)).toFixed(4));
     V('--face-o', EO(S(p, 0.918, 0.948)).toFixed(3));
     V('--cap-o', (EO(S(p, 0.66, 0.685)) * (1 - S(p, 0.885, 0.902))).toFixed(3));
     V('--foc-o', (EO(S(p, 0.675, 0.70)) * (1 - S(p, 0.830, 0.845))).toFixed(3));
@@ -821,9 +827,23 @@ class Component extends DCLogic {
     V('--spd-o', (EO(S(p, 0.876, 0.890)) * erOut).toFixed(3));
     V('--spd-s', (0.6 + EO(S(p, 0.876, 0.890)) * 0.4).toFixed(3));
 
+    // S5 caption appearance beat + zooms lane (manual replaces auto)
+    V('--cap-l', EO(S(p, 0.858, 0.874)).toFixed(4));
+    V('--capc-o', (EO(S(p, 0.864, 0.878)) * (1 - S(p, 0.885, 0.902))).toFixed(3));
+    V('--zl-a', (EO(S(p, 0.725, 0.745)) * (1 - S(p, 0.848, 0.860)) * erOut).toFixed(3));
+    V('--zl-m', (EO(S(p, 0.848, 0.860)) * erOut).toFixed(3));
+
     // S6 ship: render feedback -> ready -> format variants
     V('--rnd-o', (EO(S(p, 0.895, 0.915)) * (1 - S(p, 0.942, 0.958))).toFixed(3));
     V('--rnd-w', (S(p, 0.90, 0.938) * 100).toFixed(1) + '%');
+    const rndTxt = p < 0.912 ? 'Queued…' : 'Rendering…';
+    if (rndTxt !== ST.lastRnd) {
+      const rlEl = (ST.rlEl = ST.rlEl || document.getElementById('bk-rndlbl'));
+      if (rlEl) rlEl.textContent = rndTxt;
+      const prlEl = (ST.prlEl = ST.prlEl || document.getElementById('bk-prndlbl'));
+      if (prlEl) prlEl.textContent = rndTxt;
+      ST.lastRnd = rndTxt;
+    }
     V('--var-t', EO(S(p, 0.955, 0.99)).toFixed(4));
     V('--glow-o', EO(S(p, 0.90, 0.95)).toFixed(3));
     V('--shl-o', EO(S(p, 0.94, 0.965)).toFixed(3));
