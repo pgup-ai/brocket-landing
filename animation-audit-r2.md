@@ -143,3 +143,8 @@ rule entrance, forward/backward trackpad scrubs, portrait/landscape spot checks,
 prefers-reduced-motion pass. Serve with `python3 -m http.server 8000` and scrub 04–06.
 
 Commit and push left to Jingbo (working tree on `feat/animation-round2`, uncommitted).
+
+**Post-PR follow-ups (committed to the same branch, PR #7):**
+- Caption restyle flipped Dark→Light → **Dark→Minimal** (gold hairline) per Jingbo.
+- Script panel lines (03) switched to **Geist Mono** — landscape 14px sans → 12.5px mono,
+  portrait 12.5px sans → 11.5px mono — so `launch-notes.md` reads as a raw markdown file.
